@@ -1,112 +1,109 @@
 package core;
 
-import java.util.ArrayList;
+import javafx.scene.input.KeyCode;
 
-import javafx.scene.input.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventControl {
     private static EventControl instance;
-    private ArrayList<String> input;
-    // private ArrayList<String> delete;
-    
+
+    private List<KeyCode> input = new ArrayList<>();
+    // private ArrayList<String> delete = new ArrayList<String>();
+
     private EventControl() {
-        input = new ArrayList<String>();
-        // delete = new ArrayList<String>();
     }
-    
+
     /**
-     * get event instance
-     * 
-     * @return
+     * Returns the EventControl instance.
+     *
+     * @return the EventControl instance
      */
-    public static EventControl getEvents() {
+    public static EventControl getInstance() {
         if (instance == null) {
             instance = new EventControl();
         }
-        
+
         return instance;
     }
-    
+
     /**
-     * add the pressed down key code
-     * 
-     * @param e
+     * Adds a KeyCode as a current active input.
+     *
+     * @param keyCode the KeyCode
      */
-    public void addCode(KeyEvent e) {
-        String code = e.getCode().toString();
-        if (!input.contains(code))
-            input.add(code);
+    public void addKeyCode(KeyCode keyCode) {
+        if (!input.contains(keyCode))
+            input.add(keyCode);
     }
-    
+
     /**
-     * remove the pressed down key code
-     * 
-     * @param e
+     * Removes a KeyCode from the current active inputs.
+     *
+     * @param keyCode the KeyCode
      */
-    public void removeCode(KeyEvent e) {
-        String code = e.getCode().toString();
-        // delete.add(code); // remove later
-        input.remove(code);
+    public void removeKeyCode(KeyCode keyCode) {
+        input.remove(keyCode);
     }
-    
+
     /**
      * clears the queue
-     * 
+     * <p>
      * use this if you want to get rid off the activly pressed buttons
      */
     public void clear() {
         input.clear();
     }
-    
+
     public boolean isLeft() {
-        return input.contains("LEFT") || input.contains("A");
+        return input.contains(KeyCode.LEFT) || input.contains(KeyCode.A);
     }
-    
+
     public boolean isRight() {
-        return input.contains("RIGHT") || input.contains("D");
+        return input.contains(KeyCode.RIGHT) || input.contains(KeyCode.D);
     }
-    
+
     public boolean isUp() {
-        return input.contains("UP") || input.contains("W");
+        return input.contains(KeyCode.UP) || input.contains(KeyCode.W);
     }
-    
+
     public boolean isDown() {
-        return input.contains("DOWN") || input.contains("S");
+        return input.contains(KeyCode.DOWN) || input.contains(KeyCode.S);
     }
-    
+
     public boolean isC() {
-        return input.contains("C");
+        return input.contains(KeyCode.C);
     }
-    
+
     public boolean isQ() {
-        return input.contains("Q");
+        return input.contains(KeyCode.Q);
     }
-    
+
     public boolean isEnter() {
-        return input.contains("ENTER");
+        return input.contains(KeyCode.ENTER);
     }
-    
+
     public boolean isESC() {
-        return input.contains("ESCAPE");
+        return input.contains(KeyCode.ESCAPE);
     }
-    
+
     public boolean isOne() {
-        return input.contains("DIGIT1") || input.contains("NUMPAD1");
+        return input.contains(KeyCode.DIGIT1) || input.contains(KeyCode.NUMPAD1);
     }
-    
+
     public boolean isTwo() {
-        return input.contains("DIGIT2") || input.contains("NUMPAD2");
+        return input.contains(KeyCode.DIGIT2) || input.contains(KeyCode.NUMPAD2);
     }
-    
+
     public boolean isThree() {
-        return input.contains("DIGIT3") || input.contains("NUMPAD3");
+        return input.contains(KeyCode.DIGIT3) || input.contains(KeyCode.NUMPAD3);
     }
-    
+
     public boolean isFour() {
-        return input.contains("DIGIT4") || input.contains("NUMPAD4");
+        return input.contains(KeyCode.DIGIT4) || input.contains(KeyCode.NUMPAD4);
     }
-    
+
     public boolean isFive() {
-        return input.contains("DIGIT5") || input.contains("NUMPAD5");
+        return input.contains(KeyCode.DIGIT5) || input.contains(KeyCode.NUMPAD5);
     }
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package screens;
 
@@ -7,10 +7,9 @@ import core.Screen;
 
 /**
  * @author danny
- *        
  */
 public class EmptyScreen extends Screen {
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -19,9 +18,9 @@ public class EmptyScreen extends Screen {
     @Override
     public void tick(int ticks) {
         // TODO Auto-generated method stub
-        
+
     }
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -30,7 +29,7 @@ public class EmptyScreen extends Screen {
     @Override
     public void render() {
         // TODO Auto-generated method stub
-        
+
     }
-    
+
 }

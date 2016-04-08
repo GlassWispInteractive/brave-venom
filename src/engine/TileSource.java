@@ -4,9 +4,9 @@ import javafx.scene.image.Image;
 
 public enum TileSource {
     MAP_TILES(new Image("/resources/graphics/roguelikeMap_transparent.png"), 16, 1), INDOOR_TILES(
-            new Image("/resources/graphics/roguelikeIndoor_transparent.png"), 16,
-            1), CHAR_TILES(new Image("/resources/graphics/roguelikeChar_transparent.png"), 16,
-                    1), MONSTER_TILES(new Image("/resources/graphics/roguelikecreatures_noPadding.png"), 16, 0);
+            new Image("/resources/graphics/roguelikeIndoor_transparent.png"), 16, 1), CHAR_TILES(
+            new Image("/resources/graphics/roguelikeChar_transparent.png"), 16, 1), MONSTER_TILES(
+            new Image("/resources/graphics/roguelikecreatures_noPadding.png"), 16, 0);
     // MONSTER_TILES(new Image("/resources/graphics/roguelikecreatures.png"),
     // 16, 1);
     

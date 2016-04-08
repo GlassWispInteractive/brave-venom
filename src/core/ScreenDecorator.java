@@ -2,7 +2,7 @@ package core;
 
 public abstract class ScreenDecorator extends Screen {
     protected Screen decoratedScreen;
-    
+
     public ScreenDecorator(Screen decoratedScreen) {
         this.decoratedScreen = decoratedScreen;
         group = decoratedScreen.group;
@@ -10,12 +10,12 @@ public abstract class ScreenDecorator extends Screen {
         layers = decoratedScreen.layers;
         gcs = decoratedScreen.gcs;
     }
-    
+
     @Override
     public void tick(int ticks) {
         decoratedScreen.tick(ticks);
     }
-    
+
     @Override
     public void render() {
         decoratedScreen.render();
