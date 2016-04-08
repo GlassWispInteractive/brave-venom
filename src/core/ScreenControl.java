@@ -7,17 +7,17 @@ import javafx.util.Duration;
 
 public class ScreenControl implements Visible {
     // singleton object
-    private static ScreenControl    singleton;
-
+    private static ScreenControl singleton;
+    
     // game state
     private HashMap<String, Screen> screens;
-    private Screen                  screen;
-    private boolean                 ticking = true;
-
+    private Screen screen;
+    private boolean ticking = true;
+    
     private ScreenControl() {
         screens = new HashMap<>();
     }
-
+    
     /**
      * function returns the control
      * 
@@ -27,17 +27,17 @@ public class ScreenControl implements Visible {
         if (singleton == null) {
             singleton = new ScreenControl();
         }
-
+        
         return singleton;
     }
-
+    
     /**
      * @return the state
      */
     public Screen getScreen() {
         return screen;
     }
-
+    
     /**
      * add new screen with string id
      * 
@@ -48,7 +48,7 @@ public class ScreenControl implements Visible {
         screens.put(name, screen);
         screen.getScene().getRoot().setOpacity(0);
     }
-
+    
     /**
      * remove a screen by string id
      * 
@@ -57,7 +57,7 @@ public class ScreenControl implements Visible {
     public void removeScreen(String name) {
         screens.remove(name);
     }
-
+    
     /**
      * set a screen by string id
      * 
@@ -69,16 +69,16 @@ public class ScreenControl implements Visible {
             System.out.println("invalid screen");
             return;
         }
-
+        
         // fade out animation
         if (screen != null) {
             FadeTransition ft = new FadeTransition(new Duration(500), screen.getScene().getRoot());
             ft.setFromValue(1);
             ft.setToValue(0);
             ft.play();
-
+            
             ticking = false;
-
+            
             ft.setOnFinished(e -> {
                 fadeIn(name);
             });
@@ -86,7 +86,7 @@ public class ScreenControl implements Visible {
             fadeIn(name);
         }
     }
-
+    
     /**
      * fade in the given screen
      * 
@@ -96,11 +96,11 @@ public class ScreenControl implements Visible {
     private void fadeIn(String name) {
         screen = screens.get(name);
         Window.setScene(screen.getScene());
-
+        
         screen.getScene().getRoot().setOpacity(1);
         ticking = true;
     }
-
+    
     /**
      * set a new screen by giving it a name
      * 
@@ -112,19 +112,19 @@ public class ScreenControl implements Visible {
         if (screens.get(name) != null) {
             return;
         }
-
+        
         // add screen first and then set it
         addScreen(name, screen);
         setScreen(name);
     }
-
+    
     @Override
     public void tick(int ticks) {
         if (ticking && screen != null) {
             screen.tick(ticks);
         }
     }
-
+    
     @Override
     public void render() {
         if (screen != null) {

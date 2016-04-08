@@ -7,7 +7,7 @@ public interface Visible {
      * @param ticks
      */
     public void tick(int ticks);
-
+    
     /**
      * render method for visualization
      */

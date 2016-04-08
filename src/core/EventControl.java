@@ -6,14 +6,14 @@ import javafx.scene.input.KeyEvent;
 
 public class EventControl {
     private static EventControl instance;
-    private ArrayList<String>   input;
+    private ArrayList<String> input;
     // private ArrayList<String> delete;
-
+    
     private EventControl() {
         input = new ArrayList<String>();
         // delete = new ArrayList<String>();
     }
-
+    
     /**
      * get event instance
      * 
@@ -23,10 +23,10 @@ public class EventControl {
         if (instance == null) {
             instance = new EventControl();
         }
-
+        
         return instance;
     }
-
+    
     /**
      * add the pressed down key code
      * 
@@ -37,7 +37,7 @@ public class EventControl {
         if (!input.contains(code))
             input.add(code);
     }
-
+    
     /**
      * remove the pressed down key code
      * 
@@ -48,7 +48,7 @@ public class EventControl {
         // delete.add(code); // remove later
         input.remove(code);
     }
-
+    
     /**
      * clears the queue
      * 
@@ -57,55 +57,55 @@ public class EventControl {
     public void clear() {
         input.clear();
     }
-
+    
     public boolean isLeft() {
         return input.contains("LEFT") || input.contains("A");
     }
-
+    
     public boolean isRight() {
         return input.contains("RIGHT") || input.contains("D");
     }
-
+    
     public boolean isUp() {
         return input.contains("UP") || input.contains("W");
     }
-
+    
     public boolean isDown() {
         return input.contains("DOWN") || input.contains("S");
     }
-
+    
     public boolean isC() {
         return input.contains("C");
     }
-
+    
     public boolean isQ() {
         return input.contains("Q");
     }
-
+    
     public boolean isEnter() {
         return input.contains("ENTER");
     }
-
+    
     public boolean isESC() {
         return input.contains("ESCAPE");
     }
-
+    
     public boolean isOne() {
         return input.contains("DIGIT1") || input.contains("NUMPAD1");
     }
-
+    
     public boolean isTwo() {
         return input.contains("DIGIT2") || input.contains("NUMPAD2");
     }
-
+    
     public boolean isThree() {
         return input.contains("DIGIT3") || input.contains("NUMPAD3");
     }
-
+    
     public boolean isFour() {
         return input.contains("DIGIT4") || input.contains("NUMPAD4");
     }
-
+    
     public boolean isFive() {
         return input.contains("DIGIT5") || input.contains("NUMPAD5");
     }

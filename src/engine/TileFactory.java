@@ -7,28 +7,28 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 
 public class TileFactory {
-
+    
     private static TileFactory singleton;
-
-    private Image[][][]        subTiles;
-
+    
+    private Image[][][] subTiles;
+    
     public static TileFactory getTilesFactory() {
         if (singleton == null) {
             singleton = new TileFactory();
         }
         return singleton;
     }
-
+    
     private TileFactory() {
-
+        
         int sourceCount = TileSource.values().length;
         subTiles = new Image[sourceCount][][];
-
+        
         // 1st dim. count of different ressauces
         for (int i = 0; i < sourceCount; i++) {
-
+            
             TileSource source = TileSource.values()[i];
-
+            
             // 2. dim number of cols
             int cols = (int) ((source.getImage().getWidth() + 1) / (source.getTileWidth() + source.getMargin()));
             subTiles[i] = new Image[cols][];
@@ -39,7 +39,7 @@ public class TileFactory {
             }
         }
     }
-
+    
     /**
      * 
      * @param gc
@@ -56,68 +56,68 @@ public class TileFactory {
      *            , choose tile with coordinate (starting at 0, 0)
      */
     public void drawTile(GraphicsContext gc, ImageSource imgSource, int x, int y, int size) {
-
+        
         if (subTiles[imgSource.getTileSourceOrdinal()][imgSource.getTileX()][imgSource.getTileY()] == null) {
-
+            
             loadImageSource(imgSource);
         }
-
+        
         gc.drawImage(subTiles[imgSource.getTileSourceOrdinal()][imgSource.getTileX()][imgSource.getTileY()], x * size,
                 y * size);
     }
-
+    
     public Image scale(ImageSource imgSource, int scaling) {
-
+        
         Image source = subTiles[imgSource.getTileSourceOrdinal()][imgSource.getTileX()][imgSource.getTileY()];
-
+        
         if (source == null) {
             loadImageSource(imgSource);
         }
-
+        
         source = subTiles[imgSource.getTileSourceOrdinal()][imgSource.getTileX()][imgSource.getTileY()];
-
+        
         return scale(imgSource, (int) source.getWidth() * scaling, (int) source.getHeight() * scaling);
     }
-
+    
     public Image getImage(ImageSource imgSource) {
-
+        
         Image source = subTiles[imgSource.getTileSourceOrdinal()][imgSource.getTileX()][imgSource.getTileY()];
-
+        
         if (source == null) {
             loadImageSource(imgSource);
         }
-
+        
         return subTiles[imgSource.getTileSourceOrdinal()][imgSource.getTileX()][imgSource.getTileY()];
-
+        
     }
-
+    
     public Image scale(ImageSource imgSource, int newWidth, int newHeight) {
-
+        
         Image source = subTiles[imgSource.getTileSourceOrdinal()][imgSource.getTileX()][imgSource.getTileY()];
-
+        
         if (source == null) {
             loadImageSource(imgSource);
         }
-
+        
         source = subTiles[imgSource.getTileSourceOrdinal()][imgSource.getTileX()][imgSource.getTileY()];
-
+        
         ImageView imageView = new ImageView(source);
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(newWidth);
         imageView.setFitHeight(newHeight);
         return imageView.snapshot(null, null);
     }
-
+    
     private void loadImageSource(ImageSource imgSource) {
-
+        
         TileSource source = TileSource.values()[imgSource.getTileSourceOrdinal()];
-
+        
         PixelReader reader = source.getImage().getPixelReader();
         WritableImage newImage = new WritableImage(reader,
                 (source.getTileWidth() + source.getMargin()) * imgSource.getTileX(),
                 (source.getTileHeight() + source.getMargin()) * imgSource.getTileY(), source.getTileWidth(),
                 source.getTileHeight());
-
+                
         subTiles[imgSource.getTileSourceOrdinal()][imgSource.getTileX()][imgSource.getTileY()] = newImage;
     }
 }
