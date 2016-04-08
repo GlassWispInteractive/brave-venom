@@ -13,10 +13,10 @@ public class Global {
     public static final int    WINDOW_WIDTH  = 1200;
     public static final int    WINDOW_HEIGHT = 800;
 
-    private final static int   TILE_SIZE     = 16;
-    public final static int    PANEL_HEIGHT  = 3 * TILE_SIZE;
-    public final static int    GAME_WIDTH    = WINDOW_WIDTH;
-    public final static int    GAME_HEIGHT   = WINDOW_HEIGHT - 2 * PANEL_HEIGHT;
+    private static final int   TILE_SIZE     = 16;
+    public static final int    PANEL_HEIGHT  = 3 * TILE_SIZE;
+    public static final int    GAME_WIDTH    = WINDOW_WIDTH;
+    public static final int    GAME_HEIGHT   = WINDOW_HEIGHT - 2 * PANEL_HEIGHT;
 
     // fonts
     public static final Font   HUGE_FONT     = Font.font("Helvetica", FontWeight.BOLD, 64);
