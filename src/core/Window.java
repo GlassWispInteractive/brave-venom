@@ -49,8 +49,6 @@ public class Window extends Application {
 		ctrl.setScreen("menu", (MenuScreen.getScreen()));
 		// ctrl.addScreen("", );
 
-		// precompute the game initialization
-
 		gameloop = new AnimationTimer() {
 
 			public void handle(long currentNanoTime) {
