@@ -102,7 +102,6 @@ public class MenuScreen extends Screen {
             gc.setFill(i != cur ? Global.GREEN : Global.GREEN.brighter());
             gc.fillText(list.get(i), w / 2, 200 + 90 * (i + 1) + 30);
         }
-
     }
 
     /**

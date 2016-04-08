@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import screens.EmptyScreen;
 import screens.MenuScreen;
 
-public abstract class Main extends Application {
+public class Main extends Application {
     public static boolean music = false;
 
     // make the stage acessible
@@ -31,6 +31,11 @@ public abstract class Main extends Application {
     }
 
     @Override
+    public void init() {
+
+    }
+
+    @Override
     public void start(Stage stage) {
         // stage settings
         stage.setTitle(Global.TITLE);
@@ -39,8 +44,7 @@ public abstract class Main extends Application {
 
         // event handling
         stage.setOnCloseRequest(event -> {
-            gameloop.stop();
-            saveGame();
+            stop();
         });
 
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -87,6 +91,18 @@ public abstract class Main extends Application {
         gameloop.start();
     }
 
-    protected abstract void saveGame();
+    @Override
+    public void stop() {
+        gameloop.stop();
+        save();
+    }
+
+    public void load() {
+        // TODO: implement me
+    }
+
+    public void save() {
+        // TODO: implement me
+    }
 
 }
