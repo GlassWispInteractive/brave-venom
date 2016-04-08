@@ -13,104 +13,104 @@ import javafx.scene.text.TextAlignment;
 //import static game.State.*;
 
 public class MenuScreen extends core.Screen {
-	// singleton
-	private static MenuScreen singleton;
+    // singleton
+    private static MenuScreen singleton;
 
-	private Image logo;
+    private Image             logo;
 
-	private ArrayList<String> list;
-	private int cur;
+    private ArrayList<String> list;
+    private int               cur;
 
-	private MenuScreen() {
-		super();
+    private MenuScreen() {
+        super();
 
-		// init
-		setMenuPoints(new String[] { "Start", "Wildcard", "Help", "Credits", "Exit" });
+        // init
+        setMenuPoints(new String[] { "Start", "Wildcard", "Help", "Credits", "Exit" });
 
-		// load logo
-		logo = new Image("/res/graphics/logo.png");
-	}
+        // load logo
+        logo = new Image("/res/graphics/logo.png");
+    }
 
-	public static MenuScreen getScreen() {
-		if (singleton == null) {
-			singleton = new MenuScreen();
-		}
+    public static MenuScreen getScreen() {
+        if (singleton == null) {
+            singleton = new MenuScreen();
+        }
 
-		return singleton;
-	}
+        return singleton;
+    }
 
-	@Override
-	public void tick(int ticks) {
-		EventControl e = EventControl.getEvents();
+    @Override
+    public void tick(int ticks) {
+        EventControl e = EventControl.getEvents();
 
-		// event handling
-		if (e.isUp())
-			cur = (cur + list.size() - 1) % list.size();
+        // event handling
+        if (e.isUp())
+            cur = (cur + list.size() - 1) % list.size();
 
-		if (e.isDown())
-			cur = (cur + 1) % list.size();
+        if (e.isDown())
+            cur = (cur + 1) % list.size();
 
-		if (e.isEnter()) {
-			switch (list.get(cur)) {
-			case "Classic Mode":
-				break;
+        if (e.isEnter()) {
+            switch (list.get(cur)) {
+            case "Classic Mode":
+                break;
 
-			case "Credits":
-				break;
+            case "Credits":
+                break;
 
-			case "Help":
-				break;
+            case "Help":
+                break;
 
-			case "Exit":
-				System.exit(0);
-				break;
-			default:
-				break;
-			}
-		}
+            case "Exit":
+                System.exit(0);
+                break;
+            default:
+                break;
+            }
+        }
 
-		// no double key activation
-		EventControl.getEvents().clear();
-	}
+        // no double key activation
+        EventControl.getEvents().clear();
+    }
 
-	@Override
-	public void render() {
-		// start from clean screen
-		final GraphicsContext gc = gcs.get("main");
-		gc.clearRect(0, 0, Global.WINDOW_WIDTH, Global.WINDOW_HEIGHT);
+    @Override
+    public void render() {
+        // start from clean screen
+        final GraphicsContext gc = gcs.get("main");
+        gc.clearRect(0, 0, Global.WINDOW_WIDTH, Global.WINDOW_HEIGHT);
 
-		// canvas settings
-		final double w = gc.getCanvas().getWidth();
+        // canvas settings
+        final double w = gc.getCanvas().getWidth();
 
-		// render logo image
-		gc.drawImage(logo, (w - logo.getWidth()) / 2, 80);
+        // render logo image
+        gc.drawImage(logo, (w - logo.getWidth()) / 2, 80);
 
-		// font type
-		gc.setFont(Global.DEFAULT_FONT);
-		gc.setTextAlign(TextAlignment.CENTER);
-		gc.setTextBaseline(VPos.CENTER);
+        // font type
+        gc.setFont(Global.DEFAULT_FONT);
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setTextBaseline(VPos.CENTER);
 
-		gc.setLineWidth(1);
+        gc.setLineWidth(1);
 
-		for (int i = 0; i < list.size(); i++) {
-			// render box
-			gc.setFill(Global.FRONT.deriveColor(0, 1, 1, 0.7));
-			gc.fillRoundRect((w - 200) / 2, 200 + 90 * (i + 1), 200, 60, 60, 200);
+        for (int i = 0; i < list.size(); i++) {
+            // render box
+            gc.setFill(Global.FRONT.deriveColor(0, 1, 1, 0.7));
+            gc.fillRoundRect((w - 200) / 2, 200 + 90 * (i + 1), 200, 60, 60, 200);
 
-			// render text on box
-			gc.setFill(i != cur ? Global.GREEN : Global.GREEN.brighter());
-			gc.fillText(list.get(i), w / 2, 200 + 90 * (i + 1) + 30);
-		}
+            // render text on box
+            gc.setFill(i != cur ? Global.GREEN : Global.GREEN.brighter());
+            gc.fillText(list.get(i), w / 2, 200 + 90 * (i + 1) + 30);
+        }
 
-	}
+    }
 
-	/**
-	 * function to load a list of menu points
-	 * 
-	 * @param strings
-	 */
-	private void setMenuPoints(String[] strings) {
-		list = new ArrayList<String>(Arrays.asList(strings));
-		cur = 0;
-	}
+    /**
+     * function to load a list of menu points
+     * 
+     * @param strings
+     */
+    private void setMenuPoints(String[] strings) {
+        list = new ArrayList<String>(Arrays.asList(strings));
+        cur = 0;
+    }
 }
