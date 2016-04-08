@@ -12,7 +12,7 @@ public class Global {
 	// sizes
 	public static final int WINDOW_WIDTH = 1200;
 	public static final int WINDOW_HEIGHT = 800;
-	
+
 	private final static int TILE_SIZE = 16;
 	public final static int PANEL_HEIGHT = 3 * TILE_SIZE;
 	public final static int GAME_WIDTH = WINDOW_WIDTH;
@@ -29,8 +29,10 @@ public class Global {
 	public static final Color BACK = (Color) Paint.valueOf("#CFCFCF");
 	public static final Color GREEN = (Color) Paint.valueOf("#1B8056");
 	public static final Color DARKGREEN = (Color) Paint.valueOf("#0F4730");;
-	
-	
+
+	/**
+	 * never try to instance an object
+	 */
 	private Global() {
 		throw new AssertionError();
 	}
