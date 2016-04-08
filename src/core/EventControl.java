@@ -14,6 +14,11 @@ public class EventControl {
 		// delete = new ArrayList<String>();
 	}
 
+	/**
+	 * get event instance
+	 * 
+	 * @return
+	 */
 	public static EventControl getEvents() {
 		if (instance == null) {
 			instance = new EventControl();
@@ -22,18 +27,33 @@ public class EventControl {
 		return instance;
 	}
 
+	/**
+	 * add the pressed down key code
+	 * 
+	 * @param e
+	 */
 	public void addCode(KeyEvent e) {
 		String code = e.getCode().toString();
 		if (!input.contains(code))
 			input.add(code);
 	}
 
+	/**
+	 * remove the pressed down key code
+	 * 
+	 * @param e
+	 */
 	public void removeCode(KeyEvent e) {
 		String code = e.getCode().toString();
 		// delete.add(code); // remove later
 		input.remove(code);
 	}
 
+	/**
+	 * clears the queue
+	 * 
+	 * use this if you want to get rid off the activly pressed buttons
+	 */
 	public void clear() {
 		input.clear();
 	}
@@ -57,6 +77,7 @@ public class EventControl {
 	public boolean isC() {
 		return input.contains("C");
 	}
+
 	public boolean isQ() {
 		return input.contains("Q");
 	}

@@ -21,6 +21,16 @@ public class MenuScreen extends core.Screen {
 	private ArrayList<String> list;
 	private int cur;
 
+	private MenuScreen() {
+		super();
+
+		// init
+		setMenuPoints(new String[] { "Start", "Wildcard", "Help", "Credits", "Exit" });
+
+		// load logo
+		logo = new Image("/res/graphics/logo.png");
+	}
+
 	public static MenuScreen getScreen() {
 		if (singleton == null) {
 			singleton = new MenuScreen();
@@ -29,15 +39,7 @@ public class MenuScreen extends core.Screen {
 		return singleton;
 	}
 
-	private MenuScreen() {
-		super();
-
-		// init
-		setList(new String[] { "Classic Mode", "Arcade Mode", "Credits", "Help", "Exit" });
-
-		logo = new Image("/res/graphics/logo.png");
-	}
-
+	@Override
 	public void tick(int ticks) {
 		EventControl e = EventControl.getEvents();
 
@@ -71,6 +73,7 @@ public class MenuScreen extends core.Screen {
 		EventControl.getEvents().clear();
 	}
 
+	@Override
 	public void render() {
 		// start from clean screen
 		final GraphicsContext gc = gcs.get("main");
@@ -101,7 +104,12 @@ public class MenuScreen extends core.Screen {
 
 	}
 
-	private void setList(String[] strings) {
+	/**
+	 * function to load a list of menu points
+	 * 
+	 * @param strings
+	 */
+	private void setMenuPoints(String[] strings) {
 		list = new ArrayList<String>(Arrays.asList(strings));
 		cur = 0;
 	}

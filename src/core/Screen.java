@@ -8,7 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 
-public abstract class Screen {
+public abstract class Screen implements Visible {
 	// singleton object
 	protected static Screen singleton;
 
@@ -62,13 +62,18 @@ public abstract class Screen {
 		layers.put(name, layer);
 		gcs.put(name, layer.getGraphicsContext2D());
 	}
-	
+
+	/**
+	 * @return the scene
+	 */
 	public Scene getScene() {
 		return scene;
 	}
 
-	protected abstract void tick(int ticks);
+	@Override
+	public abstract void tick(int ticks);
 
-	protected abstract void render();
+	@Override
+	public abstract void render();
 
 }

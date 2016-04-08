@@ -5,7 +5,7 @@ import java.util.HashMap;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 
-public class ScreenControl {
+public class ScreenControl implements Visible {
 	// singleton object
 	private static ScreenControl singleton;
 
@@ -18,6 +18,11 @@ public class ScreenControl {
 		screens = new HashMap<>();
 	}
 
+	/**
+	 * function returns the control
+	 * 
+	 * @return
+	 */
 	public static ScreenControl getCtrl() {
 		if (singleton == null) {
 			singleton = new ScreenControl();
@@ -82,6 +87,12 @@ public class ScreenControl {
 		}
 	}
 
+	/**
+	 * fade in the given screen
+	 * 
+	 * @param name
+	 *            name of screen
+	 */
 	private void fadeIn(String name) {
 		screen = screens.get(name);
 		Window.setScene(screen.getScene());
@@ -107,12 +118,14 @@ public class ScreenControl {
 		setScreen(name);
 	}
 
+	@Override
 	public void tick(int ticks) {
 		if (ticking && screen != null) {
 			screen.tick(ticks);
 		}
 	}
 
+	@Override
 	public void render() {
 		if (screen != null) {
 			screen.render();
