@@ -2,41 +2,59 @@ package core;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import screens.EmptyScreen;
 import screens.MenuScreen;
 
-public class Main extends Application {
-    public static boolean music = false;
+public abstract class Context extends Application {
 
     // make the stage acessible
     private static Scene scene;
     private static boolean newStage = false;
 
-    // class members
-    private AnimationTimer gameloop;
+    private AnimationTimer animationTimer;
+    private ScreenControl screenControl;
     private int passedTicks = 0;
     private double lastNanoTime = System.nanoTime();
     private double time = 0;
 
-    public static void main(String[] args) {
-        launch(args);
+    private ReadOnlyStringWrapper title = new ReadOnlyStringWrapper();
+    private Stage stage;
+
+    public Context(String title) {
+        this.title.set(title);
     }
 
     public static void setScene(Scene scene) {
-        Main.newStage = true;
-        Main.scene = scene;
+        Context.newStage = true;
+        Context.scene = scene;
     }
 
-    @Override
     public void init() {
-
     }
 
     @Override
     public void start(Stage stage) {
+        this.stage = stage;
+        initStage();
+        initScreenControl();
+        initAnimationTimes();
+
+        stage.show();
+        animationTimer.start();
+    }
+
+    @Override
+    public void stop() {
+        animationTimer.stop();
+    }
+
+
+    private void initStage() {
         // stage settings
         stage.setTitle(Global.TITLE);
         stage.setResizable(false);
@@ -47,20 +65,27 @@ public class Main extends Application {
             stop();
         });
 
+        // TODO: use KeyCodeCombination instead?
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             EventControl.getInstance().addKeyCode(event.getCode());
         });
 
+        // TODO: use KeyCodeCombination instead?
         stage.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             EventControl.getInstance().removeKeyCode(event.getCode());
         });
 
-        ScreenControl ctrl = ScreenControl.getInstance();
-        ctrl.addScreen("menu", MenuScreen.instance());
-        ctrl.setScreen("empty", new EmptyScreen());
-        // ctrl.addScreen("", );
+    }
 
-        gameloop = new AnimationTimer() {
+    private void initScreenControl() {
+        screenControl = ScreenControl.getInstance();
+        screenControl.addScreen("menu", MenuScreen.instance());
+        screenControl.setScreen("empty", new EmptyScreen());
+        // ctrl.addScreen("", );
+    }
+
+    private void initAnimationTimes() {
+        animationTimer = new AnimationTimer() {
 
             @Override
             public void handle(long currentNanoTime) {
@@ -71,38 +96,28 @@ public class Main extends Application {
                 time -= passedTicks / 60.0;
 
                 // adjust stage if necessary
-                if (Main.newStage) {
+                if (Context.newStage) {
                     newStage = false;
 
                     stage.setScene(scene);
                 }
 
                 if (EventControl.getInstance().isESC()) {
-                    ctrl.setScreen("menu");
+                    screenControl.setScreen("menu");
                 }
 
                 // compute a frame
-                ctrl.tick(passedTicks);
-                ctrl.render();
+                screenControl.tick(passedTicks);
+                screenControl.render();
             }
         };
-
-        stage.show();
-        gameloop.start();
     }
 
-    @Override
-    public void stop() {
-        gameloop.stop();
-        save();
+    public String getTitle() {
+        return title.get();
     }
 
-    public void load() {
-        // TODO: implement me
+    public ReadOnlyStringProperty titleProperty() {
+        return title.getReadOnlyProperty();
     }
-
-    public void save() {
-        // TODO: implement me
-    }
-
 }

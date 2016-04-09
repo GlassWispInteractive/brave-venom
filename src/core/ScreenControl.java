@@ -96,7 +96,7 @@ public class ScreenControl implements Visible {
      */
     private void fadeIn(String name) {
         screen = screens.get(name);
-        Main.setScene(screen.getScene());
+        Context.setScene(screen.getScene());
 
         screen.getScene().getRoot().setOpacity(1);
         ticking = true;
