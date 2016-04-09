@@ -1,18 +1,18 @@
 package core;
 
-import core.audio.AudioManager;
-import core.graphics.GraphicsManager;
+import core.audio.AbstractAudioMaster;
+import core.graphics.AbstractGraphicsMaster;
 import javafx.stage.Stage;
 
 public abstract class Game extends Context {
 
-    private final GraphicsManager graphicsManager;
-    private final AudioManager audioManager;
+    private final AbstractGraphicsMaster graphicsMaster;
+    private final AbstractAudioMaster audioMaster;
 
-    public Game(String title, GraphicsManager graphicsManager, AudioManager audioManager) {
+    public Game(String title, AbstractGraphicsMaster graphicsMaster, AbstractAudioMaster audioMaster) {
         super(title);
-        this.graphicsManager = graphicsManager;
-        this.audioManager = audioManager;
+        this.graphicsMaster = graphicsMaster;
+        this.audioMaster = audioMaster;
     }
 
     @Override
@@ -35,11 +35,11 @@ public abstract class Game extends Context {
 
     protected abstract void save();
 
-    public AudioManager getAudioManager() {
-        return audioManager;
+    public AbstractAudioMaster getAudioMaster() {
+        return audioMaster;
     }
 
-    public GraphicsManager getGraphicsManager() {
-        return graphicsManager;
+    public AbstractGraphicsMaster getGraphicsMaster() {
+        return graphicsMaster;
     }
 }

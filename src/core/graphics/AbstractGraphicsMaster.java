@@ -3,7 +3,7 @@ package core.graphics;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public abstract class GraphicsManager {
+public abstract class AbstractGraphicsMaster {
 
     protected IntegerProperty windowWdith = new SimpleIntegerProperty();
     protected IntegerProperty windowHeight = new SimpleIntegerProperty();

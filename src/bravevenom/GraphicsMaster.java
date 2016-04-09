@@ -1,12 +1,12 @@
 package bravevenom;
 
-import core.graphics.GraphicsManager;
+import core.graphics.AbstractGraphicsMaster;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class BVGraphicsManager extends GraphicsManager {
+public class GraphicsMaster extends AbstractGraphicsMaster {
     // fonts
     public static final Font HUGE_FONT = Font.font("Helvetica", FontWeight.BOLD, 64);
     public static final Font BIG_FONT = Font.font("Helvetica", FontWeight.BOLD, 32);
@@ -19,7 +19,7 @@ public class BVGraphicsManager extends GraphicsManager {
     public static final Color GREEN = (Color) Paint.valueOf("#1B8056");
     public static final Color DARKGREEN = (Color) Paint.valueOf("#0F4730");
 
-    public BVGraphicsManager() {
+    public GraphicsMaster() {
         windowWdith.setValue(1200);
         windowHeight.setValue(800);
 

@@ -6,7 +6,7 @@ public abstract class ScreenDecorator extends Screen {
     public ScreenDecorator(Screen decoratedScreen) {
         super(decoratedScreen.getScreenControl());
         this.decoratedScreen = decoratedScreen;
-        group = decoratedScreen.group;
+        root = decoratedScreen.root;
         scene = decoratedScreen.scene;
         layers = decoratedScreen.layers;
         gcs = decoratedScreen.gcs;
