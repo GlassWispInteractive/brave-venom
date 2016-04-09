@@ -6,25 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventControl {
-    private static EventControl instance;
+    private final Context context;
 
     private List<KeyCode> input = new ArrayList<>();
     // private ArrayList<String> delete = new ArrayList<String>();
 
-    private EventControl() {
-    }
-
-    /**
-     * Returns the EventControl instance.
-     *
-     * @return the EventControl instance
-     */
-    public static EventControl getInstance() {
-        if (instance == null) {
-            instance = new EventControl();
-        }
-
-        return instance;
+    public EventControl(Context context) {
+        this.context = context;
     }
 
     /**
@@ -105,5 +93,9 @@ public class EventControl {
 
     public boolean isFive() {
         return input.contains(KeyCode.DIGIT5) || input.contains(KeyCode.NUMPAD5);
+    }
+
+    public Context getContext() {
+        return context;
     }
 }

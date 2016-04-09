@@ -6,29 +6,16 @@ import javafx.util.Duration;
 import java.util.HashMap;
 
 public class ScreenControl implements Visible {
-    // singleton object
-    private static ScreenControl singleton;
+
+    private final Context context;
 
     // game state
-    private HashMap<String, Screen> screens;
+    private HashMap<String, Screen> screens = new HashMap<>();
     private Screen screen;
     private boolean ticking = true;
 
-    private ScreenControl() {
-        screens = new HashMap<>();
-    }
-
-    /**
-     * Returns the ScreenControl getInstance.
-     *
-     * @return the ScreenControl getInstance
-     */
-    public static ScreenControl getInstance() {
-        if (singleton == null) {
-            singleton = new ScreenControl();
-        }
-
-        return singleton;
+    public ScreenControl(Context context) {
+        this.context = context;
     }
 
     /**
@@ -134,5 +121,9 @@ public class ScreenControl implements Visible {
         if (screen != null) {
             screen.render();
         }
+    }
+
+    public Context getContext() {
+        return context;
     }
 }

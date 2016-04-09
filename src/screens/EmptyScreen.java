@@ -4,17 +4,22 @@
 package screens;
 
 import core.Screen;
+import core.ScreenControl;
 
 /**
  * @author danny
  */
 public class EmptyScreen extends Screen {
 
+    public EmptyScreen(ScreenControl screenControl) {
+        super(screenControl);
+    }
+
     /*
-     * (non-Javadoc)
-     * 
-     * @see core.Screen#tick(int)
-     */
+         * (non-Javadoc)
+         *
+         * @see core.Screen#tick(int)
+         */
     @Override
     public void tick(int ticks) {
         // TODO Auto-generated method stub

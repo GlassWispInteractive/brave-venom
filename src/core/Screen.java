@@ -8,8 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.HashMap;
 
 public abstract class Screen implements Visible {
-    // singleton object
-    protected static Screen singleton;
+    protected final ScreenControl screenControl;
 
     // class members
     protected Group group = new Group();
@@ -17,12 +16,11 @@ public abstract class Screen implements Visible {
     protected HashMap<String, Canvas> layers = new HashMap<>();
     protected HashMap<String, GraphicsContext> gcs = new HashMap<>();
 
-    protected Screen() {
+    protected Screen(ScreenControl screenControl) {
+        this.screenControl = screenControl;
         // create layers and extract their gc
         layers.put("main", new Canvas(Global.WINDOW_WIDTH, Global.WINDOW_HEIGHT));
-
         gcs.put("main", layers.get("main").getGraphicsContext2D());
-
         group.getChildren().add(layers.get("main"));
     }
 
@@ -60,4 +58,7 @@ public abstract class Screen implements Visible {
     @Override
     public abstract void render();
 
+    public ScreenControl getScreenControl() {
+        return screenControl;
+    }
 }

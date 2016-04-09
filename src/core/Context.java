@@ -15,15 +15,15 @@ public abstract class Context extends Application {
     // make the stage acessible
     private static Scene scene;
     private static boolean newStage = false;
-
-    private AnimationTimer animationTimer;
-    private ScreenControl screenControl;
     private int passedTicks = 0;
     private double lastNanoTime = System.nanoTime();
     private double time = 0;
+    private Stage stage;
 
     private ReadOnlyStringWrapper title = new ReadOnlyStringWrapper();
-    private Stage stage;
+    private AnimationTimer animationTimer;
+    private ScreenControl screenControl;
+    private EventControl eventControl;
 
     public Context(String title) {
         this.title.set(title);
@@ -53,7 +53,6 @@ public abstract class Context extends Application {
         animationTimer.stop();
     }
 
-
     private void initStage() {
         // stage settings
         stage.setTitle(Global.TITLE);
@@ -65,28 +64,29 @@ public abstract class Context extends Application {
             stop();
         });
 
+        eventControl = new EventControl(this);
+
         // TODO: use KeyCodeCombination instead?
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            EventControl.getInstance().addKeyCode(event.getCode());
+            eventControl.addKeyCode(event.getCode());
         });
 
         // TODO: use KeyCodeCombination instead?
         stage.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
-            EventControl.getInstance().removeKeyCode(event.getCode());
+            eventControl.removeKeyCode(event.getCode());
         });
 
     }
 
     private void initScreenControl() {
-        screenControl = ScreenControl.getInstance();
-        screenControl.addScreen("menu", MenuScreen.instance());
-        screenControl.setScreen("empty", new EmptyScreen());
+        screenControl = new ScreenControl(this);
+        screenControl.addScreen("menu", new MenuScreen(screenControl));
+        screenControl.setScreen("empty", new EmptyScreen(screenControl));
         // ctrl.addScreen("", );
     }
 
     private void initAnimationTimes() {
         animationTimer = new AnimationTimer() {
-
             @Override
             public void handle(long currentNanoTime) {
                 // calculate time since last update.
@@ -102,7 +102,7 @@ public abstract class Context extends Application {
                     stage.setScene(scene);
                 }
 
-                if (EventControl.getInstance().isESC()) {
+                if (eventControl.isESC()) {
                     screenControl.setScreen("menu");
                 }
 
@@ -119,5 +119,9 @@ public abstract class Context extends Application {
 
     public ReadOnlyStringProperty titleProperty() {
         return title.getReadOnlyProperty();
+    }
+
+    public EventControl getEventControl() {
+        return eventControl;
     }
 }

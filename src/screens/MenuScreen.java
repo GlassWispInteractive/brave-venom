@@ -1,8 +1,6 @@
 package screens;
 
-import core.EventControl;
-import core.Global;
-import core.Screen;
+import core.*;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -22,8 +20,8 @@ public class MenuScreen extends Screen {
     private ArrayList<String> list;
     private int cur;
 
-    private MenuScreen() {
-        super();
+    public MenuScreen(ScreenControl screenControl) {
+        super(screenControl);
 
         // init
         setMenuPoints(new String[] { "Start", "Wildcard", "Help", "Credits", "Exit" });
@@ -32,26 +30,22 @@ public class MenuScreen extends Screen {
         logo = new Image("/res/graphics/logo.png");
     }
 
-    public static MenuScreen instance() {
-        if (instance == null) {
-            instance = new MenuScreen();
-        }
-
-        return instance;
+    public final Context getContext() {
+        return screenControl.getContext();
     }
 
     @Override
     public void tick(int ticks) {
-        EventControl e = EventControl.getInstance();
+        EventControl eventControl = getContext().getEventControl();
 
         // event handling
-        if (e.isUp())
+        if (eventControl.isUp())
             cur = (cur + list.size() - 1) % list.size();
 
-        if (e.isDown())
+        if (eventControl.isDown())
             cur = (cur + 1) % list.size();
 
-        if (e.isEnter()) {
+        if (eventControl.isEnter()) {
             switch (list.get(cur)) {
             case "Classic Mode":
                 break;
@@ -71,7 +65,7 @@ public class MenuScreen extends Screen {
         }
 
         // no double key activation
-        EventControl.getInstance().clear();
+        eventControl.clear();
     }
 
     @Override
