@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 
 import java.util.HashMap;
 
-public class ScreenControl implements Visible {
+public class ScreenControl {
 
     private final Context context;
 
@@ -107,7 +107,6 @@ public class ScreenControl implements Visible {
     //        showScreen(name);
     //    }
 
-    @Override
     public void tick(int ticks) {
         if (ticking && screen != null) {
             screen.tick(ticks);
@@ -117,7 +116,6 @@ public class ScreenControl implements Visible {
     /**
      * Renders the current screen.
      */
-    @Override
     public void render() {
         if (screen != null) {
             screen.render();

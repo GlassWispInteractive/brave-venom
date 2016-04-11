@@ -7,7 +7,7 @@ import javafx.scene.layout.StackPane;
 
 import java.util.HashMap;
 
-public abstract class Screen implements Visible {
+public abstract class Screen {
     protected final ScreenControl screenControl;
 
     // class members
@@ -52,10 +52,8 @@ public abstract class Screen implements Visible {
         return scene;
     }
 
-    @Override
     public abstract void tick(int ticks);
 
-    @Override
     public abstract void render();
 
     public ScreenControl getScreenControl() {
