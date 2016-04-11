@@ -10,13 +10,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
-public class MainMenuScreen extends MenuScreen {
-    public MainMenuScreen(ScreenControl screenControl) {
+public class SettingsMenuScreen extends MenuScreen {
+
+    public SettingsMenuScreen(ScreenControl screenControl) {
         super(screenControl);
         init_scene();
     }
 
     private void init_scene() {
+        scene.getStylesheets().add(getClass().getResource("screens.css").toExternalForm());
         BorderPane background = this.getBackground();
         BorderPane foreground = this.getForeground();
 
@@ -45,40 +47,15 @@ public class MainMenuScreen extends MenuScreen {
         tilePaneButtons.setAlignment(Pos.CENTER);
         vboxMenu.getChildren().add(tilePaneButtons);
 
-        Button buttonStart = new Button("Start");
-        Button buttonWildcard = new Button("Wildcard");
-        Button buttonHelp = new Button("Help");
-        Button buttonSettings = new Button("Settings");
-        Button buttonExit = new Button("Exit");
-        tilePaneButtons.getChildren().addAll(buttonStart, buttonWildcard, buttonHelp, buttonSettings, buttonExit);
+        Button buttonBack = new Button("Back");
+        tilePaneButtons.getChildren().addAll(buttonBack);
 
-        buttonStart.setPrefWidth(Double.MAX_VALUE);
-        buttonStart.setPrefHeight(Double.MAX_VALUE);
-        buttonWildcard.setPrefWidth(Double.MAX_VALUE);
-        buttonWildcard.setPrefHeight(Double.MAX_VALUE);
-        buttonHelp.setPrefWidth(Double.MAX_VALUE);
-        buttonHelp.setPrefHeight(Double.MAX_VALUE);
-        buttonSettings.setPrefWidth(Double.MAX_VALUE);
-        buttonSettings.setPrefHeight(Double.MAX_VALUE);
-        buttonExit.setPrefWidth(Double.MAX_VALUE);
-        buttonExit.setPrefHeight(Double.MAX_VALUE);
+        buttonBack.setPrefWidth(Double.MAX_VALUE);
+        buttonBack.setPrefHeight(Double.MAX_VALUE);
 
-        buttonStart.setOnAction((e) -> {
-            // TODO: implement me
-        });
-        buttonWildcard.setOnAction((e) -> {
-            // TODO: implement me
-        });
-        buttonHelp.setOnAction((e) -> {
-            screenControl.showScreen("help_menu");
-        });
-        buttonSettings.setOnAction((e) -> {
-            screenControl.showScreen("settings_menu");
-        });
-        buttonExit.setOnAction((e) -> {
-            getContext().stop();
+        buttonBack.setOnAction((e) -> {
+            screenControl.showScreen("main_menu");
         });
 
     }
-
 }

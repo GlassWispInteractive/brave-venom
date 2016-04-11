@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public abstract class AbstractGraphicsMaster {
     
-    protected IntegerProperty windowWdith = new SimpleIntegerProperty();
+    protected IntegerProperty windowWidth = new SimpleIntegerProperty();
     protected IntegerProperty windowHeight = new SimpleIntegerProperty();
     
     protected IntegerProperty tileSize = new SimpleIntegerProperty();
@@ -14,16 +14,16 @@ public abstract class AbstractGraphicsMaster {
     protected IntegerProperty gameWidth = new SimpleIntegerProperty();
     protected IntegerProperty gameHeight = new SimpleIntegerProperty();
     
-    public int getWindowWdith() {
-        return windowWdith.get();
+    public int getWindowWidth() {
+        return windowWidth.get();
     }
     
-    public void setWindowWdith(int windowWdith) {
-        this.windowWdith.set(windowWdith);
+    public void setWindowWidth(int windowWidth) {
+        this.windowWidth.set(windowWidth);
     }
     
-    public IntegerProperty windowWdithProperty() {
-        return windowWdith;
+    public IntegerProperty windowWidthProperty() {
+        return windowWidth;
     }
     
     public int getWindowHeight() {

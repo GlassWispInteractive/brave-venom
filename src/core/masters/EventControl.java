@@ -1,8 +1,9 @@
-package core;
+package core.masters;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import core.Context;
 import javafx.scene.input.KeyCode;
 
 public class EventControl {

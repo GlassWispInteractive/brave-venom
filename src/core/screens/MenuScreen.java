@@ -1,12 +1,12 @@
-package game.screens;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+package core.screens;
 
 import core.Context;
-import core.EventControl;
-import core.Screen;
-import core.ScreenControl;
+import core.masters.EventControl;
+import javafx.geometry.Pos;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+
+import java.util.ArrayList;
 
 //import static game.State.*;
 
@@ -14,42 +14,57 @@ public class MenuScreen extends Screen {
     // instance
     protected ArrayList<String> menuPoints;
     private int cur;
-    
+    private BorderPane background;
+    private BorderPane foreground;
+
     public MenuScreen(ScreenControl screenControl) {
         super(screenControl);
-        
-        // init
-        setMenuPoints(new String[] { "Start", "Wildcard", "Help", "Credits", "Exit" });
-        //
-        // load logo
+
+        init_scene();
     }
-    
+
+    private void init_scene() {
+        background = new BorderPane();
+        foreground = new BorderPane();
+        root.getChildren().addAll(background, foreground);
+        StackPane.setAlignment(background, Pos.CENTER);
+        StackPane.setAlignment(foreground, Pos.CENTER);
+    }
+
+    public BorderPane getBackground() {
+        return background;
+    }
+
+    public BorderPane getForeground() {
+        return foreground;
+    }
+
     public final Context getContext() {
         return screenControl.getContext();
     }
-    
+
     @Override
     public void tick(int ticks) {
         EventControl eventControl = getContext().getEventControl();
-        
+
         // event handling
         if (eventControl.isUp())
             cur = (cur + menuPoints.size() - 1) % menuPoints.size();
-            
+
         if (eventControl.isDown())
             cur = (cur + 1) % menuPoints.size();
-            
+
         if (eventControl.isEnter()) {
             switch (menuPoints.get(cur)) {
             case "Classic Mode":
                 break;
-                
+
             case "Credits":
                 break;
-                
+
             case "Help":
                 break;
-                
+
             case "Exit":
                 System.exit(0);
                 break;
@@ -57,11 +72,11 @@ public class MenuScreen extends Screen {
                 break;
             }
         }
-        
+
         // no double key activation
         eventControl.clear();
     }
-    
+
     @Override
     public void render() {
         // // start from clean screen
@@ -91,15 +106,5 @@ public class MenuScreen extends Screen {
         // gc.setFill(i != cur ? Global.GREEN : Global.GREEN.brighter());
         // gc.fillText(menuPoints.get(i), w / 2, 200 + 90 * (i + 1) + 30);
         // }
-    }
-    
-    /**
-     * function to load a menuPoints of menu points
-     *
-     * @param strings
-     */
-    private void setMenuPoints(String[] strings) {
-        menuPoints = new ArrayList<String>(Arrays.asList(strings));
-        cur = 0;
     }
 }

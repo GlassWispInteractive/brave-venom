@@ -1,7 +1,4 @@
-package game.screens;
-
-import core.Screen;
-import core.ScreenControl;
+package core.screens;
 
 public abstract class GameScreen extends Screen {
     protected GameScreen(ScreenControl screenControl) {

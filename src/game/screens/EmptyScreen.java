@@ -3,38 +3,38 @@
  */
 package game.screens;
 
-import core.Screen;
-import core.ScreenControl;
+import core.screens.ScreenControl;
+import core.screens.MenuScreen;
 
 /**
  * @author danny
  */
-public class EmptyScreen extends Screen {
-    
+public class EmptyScreen extends MenuScreen {
+
     public EmptyScreen(ScreenControl screenControl) {
         super(screenControl);
     }
-    
+
     /*
      * (non-Javadoc)
      *
-     * @see core.Screen#tick(int)
+     * @see core.screens.Screen#tick(int)
      */
     @Override
     public void tick(int ticks) {
         // TODO Auto-generated method stub
-        
+
     }
-    
+
     /*
      * (non-Javadoc)
      * 
-     * @see core.Screen#render()
+     * @see core.screens.Screen#render()
      */
     @Override
     public void render() {
         // TODO Auto-generated method stub
-        
+
     }
-    
+
 }

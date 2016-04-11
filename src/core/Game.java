@@ -5,14 +5,10 @@ import core.masters.AbstractGraphicsMaster;
 import javafx.stage.Stage;
 
 public abstract class Game extends Context {
-    
-    private final AbstractGraphicsMaster graphicsMaster;
-    private final AbstractAudioMaster audioMaster;
+
     
     public Game(String title, AbstractGraphicsMaster graphicsMaster, AbstractAudioMaster audioMaster) {
-        super(title);
-        this.graphicsMaster = graphicsMaster;
-        this.audioMaster = audioMaster;
+        super(title, graphicsMaster, audioMaster);
     }
     
     @Override
@@ -34,12 +30,4 @@ public abstract class Game extends Context {
     protected abstract void load();
     
     protected abstract void save();
-    
-    public AbstractAudioMaster getAudioMaster() {
-        return audioMaster;
-    }
-    
-    public AbstractGraphicsMaster getGraphicsMaster() {
-        return graphicsMaster;
-    }
 }

@@ -1,8 +1,9 @@
-package core;
+package core.screens;
+
+import core.Context;
+import javafx.scene.Scene;
 
 import java.util.HashMap;
-
-import javafx.scene.Scene;
 
 public class ScreenControl {
     
