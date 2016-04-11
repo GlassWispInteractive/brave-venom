@@ -1,4 +1,4 @@
-package core.graphics;
+package core.masters;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

@@ -1,7 +1,7 @@
 package core;
 
-import core.audio.AbstractAudioMaster;
-import core.graphics.AbstractGraphicsMaster;
+import core.masters.AbstractAudioMaster;
+import core.masters.AbstractGraphicsMaster;
 import javafx.stage.Stage;
 
 public abstract class Game extends Context {

@@ -1,24 +1,17 @@
-package core.audio;
+package game;
 
-import javafx.scene.media.Media;
+
+import core.masters.AbstractAudioMaster;
 import javafx.scene.media.MediaPlayer;
 
-import java.io.File;
-
-/**
- * new class for future sound management
- *
- * @author danny
- */
-class SoundControl {
+public class AudioMaster extends AbstractAudioMaster {
     private boolean on = false;
 
     private MediaPlayer mediaPlayer;
-    private Media sound;
 
-    public SoundControl() {
-        sound = new Media(new File("src/resources/sounds/tristram.mp3").toURI().toString());
-        mediaPlayer = new MediaPlayer(sound);
+    public AudioMaster() {
+//        Media sound = new Media(new File("src/res/audio/go.ogg").toURI().toString());
+//        mediaPlayer = new MediaPlayer(sound);
     }
 
     private void update() {

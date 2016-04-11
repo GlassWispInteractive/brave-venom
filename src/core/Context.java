@@ -1,6 +1,5 @@
 package core;
 
-import bravevenom.screens.MainMenuScreen;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -8,6 +7,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import screens.MainMenuScreen;
 
 public abstract class Context extends Application {
 

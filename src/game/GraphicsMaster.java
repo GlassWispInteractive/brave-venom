@@ -1,6 +1,6 @@
-package bravevenom;
+package game;
 
-import core.graphics.AbstractGraphicsMaster;
+import core.masters.AbstractGraphicsMaster;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;

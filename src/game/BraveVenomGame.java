@@ -1,8 +1,8 @@
-package bravevenom;
+package game;
 
-import bravevenom.screens.MainMenuScreen;
 import core.Game;
 import javafx.stage.Stage;
+import screens.MainMenuScreen;
 
 public class BraveVenomGame extends Game {
     private static final String TITLE = "BraveVenomGame";
