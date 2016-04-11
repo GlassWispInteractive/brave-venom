@@ -14,24 +14,22 @@ public class MainMenuScreen extends MenuScreen {
         super(screenControl);
         init_scene();
     }
-
+    
     private void init_scene() {
         BorderPane background = new BorderPane();
         BorderPane foreground = new BorderPane();
         root.getChildren().addAll(background, foreground);
-
-        Image bgImage = new Image(getClass().getResourceAsStream("../res/graphics/scorpion.png"));
-        ImageView backgroundImageView = new ImageView(
-                bgImage);
+        
+        ImageView backgroundImageView = new ImageView(new Image("/res/graphics/scorpion.png"));
         background.setCenter(backgroundImageView);
         background.setOpacity(0.5);
-
+        
         VBox vboxButtons = new VBox(20);
         foreground.setCenter(vboxButtons);
         vboxButtons.setMaxWidth(200);
         vboxButtons.setPrefWidth(200);
         vboxButtons.setAlignment(Pos.CENTER);
-
+        
         for (String menuPoint : menuPoints) {
             Button button = new Button(menuPoint);
             button.maxWidthProperty().bindBidirectional(vboxButtons.maxWidthProperty());
@@ -39,10 +37,10 @@ public class MainMenuScreen extends MenuScreen {
             button.setPrefHeight(40);
             vboxButtons.getChildren().add(button);
         }
-
+        
         StackPane.setAlignment(background, Pos.CENTER);
         StackPane.setAlignment(foreground, Pos.CENTER);
-
+        
     }
-
+    
 }
