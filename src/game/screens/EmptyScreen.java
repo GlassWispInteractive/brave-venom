@@ -1,7 +1,7 @@
 /**
  *
  */
-package screens;
+package game.screens;
 
 import core.Screen;
 import core.ScreenControl;

@@ -1,4 +1,4 @@
-package game;
+package game.masters;
 
 import core.masters.AbstractGraphicsMaster;
 import javafx.scene.paint.Color;

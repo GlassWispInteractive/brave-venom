@@ -1,5 +1,6 @@
 package core;
 
+import game.screens.MainMenuScreen;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -7,7 +8,6 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import screens.MainMenuScreen;
 
 public abstract class Context extends Application {
     
@@ -67,12 +67,10 @@ public abstract class Context extends Application {
         
         eventControl = new EventControl(this);
         
-        // TODO: use KeyCodeCombination instead?
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             eventControl.addKeyCode(event.getCode());
         });
         
-        // TODO: use KeyCodeCombination instead?
         stage.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             eventControl.removeKeyCode(event.getCode());
         });

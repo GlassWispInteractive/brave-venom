@@ -83,7 +83,7 @@ public class ScreenControl {
     }
     
     /**
-     * Fadi in on the screen with the given name.
+     * Fade in on the screen with the given name.
      *
      * @param name
      *            the name of the screen

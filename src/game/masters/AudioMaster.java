@@ -1,4 +1,4 @@
-package game;
+package game.masters;
 
 import core.masters.AbstractAudioMaster;
 import javafx.scene.media.MediaPlayer;
