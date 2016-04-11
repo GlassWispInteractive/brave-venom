@@ -1,4 +1,4 @@
-package bravevenom.screens;
+package screens;
 
 import core.ScreenControl;
 import javafx.geometry.Pos;
@@ -8,7 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import screens.MenuScreen;
 
 public class MainMenuScreen extends MenuScreen {
     public MainMenuScreen(ScreenControl screenControl) {
@@ -21,9 +20,11 @@ public class MainMenuScreen extends MenuScreen {
         BorderPane foreground = new BorderPane();
         root.getChildren().addAll(background, foreground);
 
+        Image bgImage = new Image(getClass().getResourceAsStream("../res/graphics/scorpion.png"));
         ImageView backgroundImageView = new ImageView(
-                new Image(getClass().getResourceAsStream("../../res/graphics/scorpion.png")));
+                bgImage);
         background.setCenter(backgroundImageView);
+        background.setOpacity(0.5);
 
         VBox vboxButtons = new VBox(20);
         foreground.setCenter(vboxButtons);
