@@ -34,7 +34,7 @@ public class HelpMenuScreen extends AbstractMenuScreen {
         // set background
         ImageView backgroundImageView = new ImageView(context.getGraphicsMaster().getImage("scorpion"));
         background.setCenter(backgroundImageView);
-        background.setOpacity(0.5);
+        background.setOpacity(0.3);
 
         // set foreground
         VBox vboxMenu = new VBox();
@@ -73,7 +73,7 @@ public class HelpMenuScreen extends AbstractMenuScreen {
         buttonBack.setPrefHeight(Double.MAX_VALUE);
 
         buttonBack.setOnAction((e) -> {
-            context.getScreenControl().showScreen("main_menu");
+            context.getScreenControl().showScreen("main_menu", foreground);
         });
 
         Label labelDescription = new Label(HELP_TEXT);

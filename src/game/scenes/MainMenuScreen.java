@@ -79,10 +79,10 @@ public class MainMenuScreen extends AbstractMenuScreen {
             // TODO: implement me
         });
         buttonHelp.setOnAction((e) -> {
-            context.getScreenControl().showScreen("help_menu");
+            context.getScreenControl().showScreen("help_menu", foreground);
         });
         buttonSettings.setOnAction((e) -> {
-            context.getScreenControl().showScreen("settings_menu");
+            context.getScreenControl().showScreen("settings_menu", foreground);
         });
         buttonExit.setOnAction((e) -> {
             Platform.exit();

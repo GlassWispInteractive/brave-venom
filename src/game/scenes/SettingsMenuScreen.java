@@ -24,7 +24,7 @@ public class SettingsMenuScreen extends AbstractMenuScreen {
         // set background
         ImageView backgroundImageView = new ImageView(new Image("/res/graphics/scorpion.png"));
         background.setCenter(backgroundImageView);
-        background.setOpacity(0.5);
+        background.setOpacity(0.3);
 
         // set foreground
         VBox vboxMenu = new VBox();
@@ -59,7 +59,7 @@ public class SettingsMenuScreen extends AbstractMenuScreen {
         buttonBack.setPrefHeight(Double.MAX_VALUE);
 
         buttonBack.setOnAction((e) -> {
-            context.getScreenControl().showScreen("main_menu");
+            context.getScreenControl().showScreen("main_menu", foreground);
         });
 
         BorderPane borderPaneEmpty = new BorderPane();
