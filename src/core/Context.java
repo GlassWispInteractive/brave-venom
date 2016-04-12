@@ -1,8 +1,8 @@
 package core;
 
 import core.masters.AudioMaster;
-import core.masters.AbstractGraphicsMaster;
 import core.masters.EventMaster;
+import core.masters.GraphicsMaster;
 import core.masters.SceneMaster;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public abstract class Context extends Application {
     // instances from the master classes
-    protected final AbstractGraphicsMaster graphicsMaster;
+    protected final GraphicsMaster graphicsMaster;
     protected final AudioMaster audioMaster;
     protected SceneMaster screenControl;
     protected EventMaster eventControl;
@@ -29,7 +29,7 @@ public abstract class Context extends Application {
     private Stage stage;
     private AnimationTimer animationTimer;
     
-    public Context(String title, AbstractGraphicsMaster graphicsMaster, AudioMaster audioMaster) {
+    public Context(String title, GraphicsMaster graphicsMaster, AudioMaster audioMaster) {
         this.title.set(title);
         this.graphicsMaster = graphicsMaster;
         this.audioMaster = audioMaster;
@@ -137,7 +137,7 @@ public abstract class Context extends Application {
         return audioMaster;
     }
     
-    public AbstractGraphicsMaster getGraphicsMaster() {
+    public GraphicsMaster getGraphicsMaster() {
         return graphicsMaster;
     }
 }

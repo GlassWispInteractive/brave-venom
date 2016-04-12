@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-public abstract class AbstractGraphicsMaster {
+public class GraphicsMaster {
     // static colors
     public static final Color FRONT = (Color) Paint.valueOf("#000000");
     public static final Color BACK = (Color) Paint.valueOf("#CFCFCF");
@@ -25,7 +25,7 @@ public abstract class AbstractGraphicsMaster {
     /**
      * constructor
      */
-    public AbstractGraphicsMaster() {
+    public GraphicsMaster() {
     
     }
     

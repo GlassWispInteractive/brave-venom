@@ -2,6 +2,7 @@ package game.masters;
 
 import core.Game;
 import core.masters.AudioMaster;
+import core.masters.GraphicsMaster;
 import game.scenes.HelpMenuScreen;
 import game.scenes.MainMenuScreen;
 import game.scenes.SettingsMenuScreen;
@@ -40,9 +41,9 @@ public class BraveVenomGame extends Game {
     }
     
     private void init_scenes() {
-        screenControl.addScreen("main_menu", new MainMenuScreen(screenControl));
-        screenControl.addScreen("help_menu", new HelpMenuScreen(screenControl));
-        screenControl.addScreen("settings_menu", new SettingsMenuScreen(screenControl));
+        screenControl.addScreen("main_menu", new MainMenuScreen(this));
+        screenControl.addScreen("help_menu", new HelpMenuScreen(this));
+        screenControl.addScreen("settings_menu", new SettingsMenuScreen(this));
     }
     
     @Override

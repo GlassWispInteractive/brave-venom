@@ -1,13 +1,12 @@
 package core;
 
 import core.masters.AudioMaster;
-import core.masters.AbstractGraphicsMaster;
+import core.masters.GraphicsMaster;
 import javafx.stage.Stage;
 
 public abstract class Game extends Context {
-
     
-    public Game(String title, AbstractGraphicsMaster graphicsMaster, AudioMaster audioMaster) {
+    public Game(String title, GraphicsMaster graphicsMaster, AudioMaster audioMaster) {
         super(title, graphicsMaster, audioMaster);
     }
     

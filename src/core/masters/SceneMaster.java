@@ -1,18 +1,17 @@
 package core.masters;
 
-import core.Context;
-import core.screens.Screen;
-import javafx.scene.Scene;
-
 import java.util.HashMap;
+
+import core.Context;
+import javafx.scene.Scene;
 
 public class SceneMaster {
     
     private final Context context;
     
     // game state
-    private HashMap<String, Screen> screens = new HashMap<>();
-    private Screen screen;
+    private HashMap<String, Scene> scenes = new HashMap<>();
+    private Scene scene;
     private boolean ticking = true;
     
     public SceneMaster(Context context) {
@@ -24,8 +23,8 @@ public class SceneMaster {
      *
      * @return the current screen
      */
-    public Screen getScreen() {
-        return screen;
+    public Scene getScreen() {
+        return scene;
     }
     
     /**
@@ -35,31 +34,15 @@ public class SceneMaster {
      *            the name of the screen to be shown
      */
     public void showScreen(String name) {
-        Scene scene = screens.get(name).getScene();
+        // dont try to set new screen
+        if (scenes.get(name) == null) {
+            System.err.println("scene name is invalid");
+            return;
+        }
+        
+        Scene scene = scenes.get(name);
         context.setScene(scene);
-        this.screen = screens.get(name);
-        // // dont try to set new screen
-        // if (screens.get(name) == null) {
-        // System.out.println("invalid screen");
-        // return;
-        // }
-        //
-        // // fade out animation
-        // if (screen != null) {
-        // FadeTransition ft = new FadeTransition(new Duration(500),
-        // screen.getScene().getRoot());
-        // ft.setFromValue(1);
-        // ft.setToValue(0);
-        // ft.play();
-        //
-        // ticking = false;
-        //
-        // ft.setOnFinished(e -> {
-        // fadeIn(name);
-        // });
-        // } else {
-        // fadeIn(name);
-        // }
+        this.scene = scenes.get(name);
     }
     
     /**
@@ -70,8 +53,8 @@ public class SceneMaster {
      * @param screen
      *            the screen
      */
-    public void addScreen(String name, Screen screen) {
-        screens.put(name, screen);
+    public void addScreen(String name, Scene screen) {
+        scenes.put(name, screen);
     }
     
     /**
@@ -81,7 +64,7 @@ public class SceneMaster {
      *            the name of the screen
      */
     public void removeScreen(String name) {
-        screens.remove(name);
+        scenes.remove(name);
     }
     
     /**
@@ -91,10 +74,10 @@ public class SceneMaster {
      *            the name of the screen
      */
     private void fadeIn(String name) {
-        screen = screens.get(name);
-        context.setScene(screen.getScene());
+        scene = scenes.get(name);
+        context.setScene(scene);
         
-        screen.getScene().getRoot().setOpacity(1);
+        scene.getRoot().setOpacity(1);
         ticking = true;
     }
     
@@ -117,8 +100,7 @@ public class SceneMaster {
     // }
     
     public void tick(int ticks) {
-        if (ticking && screen != null) {
-            screen.tick(ticks);
+        if (ticking && scene != null) {
         }
     }
     
@@ -126,8 +108,7 @@ public class SceneMaster {
      * Renders the current screen.
      */
     public void render() {
-        if (screen != null) {
-            screen.render();
+        if (scene != null) {
         }
     }
     

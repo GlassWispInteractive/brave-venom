@@ -1,6 +1,6 @@
 package game.scenes;
 
-import core.masters.SceneMaster;
+import core.Context;
 import core.screens.MenuScreen;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,34 +11,34 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 public class SettingsMenuScreen extends MenuScreen {
-
-    public SettingsMenuScreen(SceneMaster screenControl) {
-        super(screenControl);
+    
+    public SettingsMenuScreen(Context context) {
+        super(context);
         init_scene();
     }
-
+    
     private void init_scene() {
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         BorderPane background = this.getBackground();
         BorderPane foreground = this.getForeground();
-
+        
         // set background
         ImageView backgroundImageView = new ImageView(new Image("/res/graphics/scorpion.png"));
         background.setCenter(backgroundImageView);
         background.setOpacity(0.5);
-
+        
         // set foreground
-
+        
         VBox vboxMenu = new VBox(40);
         vboxMenu.setMaxWidth(400);
         vboxMenu.setPrefWidth(400);
         vboxMenu.setFillWidth(true);
         vboxMenu.setAlignment(Pos.CENTER);
         foreground.setCenter(vboxMenu);
-
+        
         ImageView imageViewLogo = new ImageView(new Image("/res/graphics/logo.png"));
         vboxMenu.getChildren().add(imageViewLogo);
-
+        
         TilePane tilePaneButtons = new TilePane(20, 20);
         tilePaneButtons.setPrefColumns(1);
         tilePaneButtons.setMaxWidth(200);
@@ -46,16 +46,16 @@ public class SettingsMenuScreen extends MenuScreen {
         tilePaneButtons.setPrefTileHeight(40);
         tilePaneButtons.setAlignment(Pos.CENTER);
         vboxMenu.getChildren().add(tilePaneButtons);
-
+        
         Button buttonBack = new Button("Back");
         tilePaneButtons.getChildren().addAll(buttonBack);
-
+        
         buttonBack.setPrefWidth(Double.MAX_VALUE);
         buttonBack.setPrefHeight(Double.MAX_VALUE);
-
+        
         buttonBack.setOnAction((e) -> {
-            screenControl.showScreen("main_menu");
+            context.getScreenControl().showScreen("main_menu");
         });
-
+        
     }
 }

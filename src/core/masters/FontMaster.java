@@ -5,7 +5,6 @@ package core.masters;
 
 import java.io.InputStream;
 
-import game.masters.GraphicsMaster;
 import javafx.scene.text.Font;
 
 public class FontMaster {
