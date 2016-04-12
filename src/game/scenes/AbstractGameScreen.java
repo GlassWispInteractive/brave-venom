@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
-public abstract class GameScreen extends Scene {
+public abstract class AbstractGameScreen extends Scene {
     protected Context contex;
     
     private HashMap<String, GraphicsContext> gcs;
@@ -19,7 +19,7 @@ public abstract class GameScreen extends Scene {
      * 
      * @param context
      */
-    protected GameScreen(Context context) {
+    protected AbstractGameScreen(Context context) {
         super(new Group(), context.getGraphicsMaster().getWindowWidth().get(),
                 context.getGraphicsMaster().getWindowHeight().get(), GraphicsMaster.BACK);
                 

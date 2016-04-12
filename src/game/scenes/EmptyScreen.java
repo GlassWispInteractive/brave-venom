@@ -8,7 +8,7 @@ import core.Context;
 /**
  * @author danny
  */
-public class EmptyScreen extends MenuScreen {
+public class EmptyScreen extends AbstractMenuScreen {
     
     public EmptyScreen(Context context) {
         super(context);

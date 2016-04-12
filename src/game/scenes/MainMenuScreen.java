@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
-public class MainMenuScreen extends MenuScreen {
+public class MainMenuScreen extends AbstractMenuScreen {
     public MainMenuScreen(Context context) {
         super(context);
         

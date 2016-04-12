@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPane;
 
 //import static game.State.*;
 
-public class MenuScreen extends Scene {
+public class AbstractMenuScreen extends Scene {
     protected Context context;
     
     // instance
@@ -21,7 +21,7 @@ public class MenuScreen extends Scene {
     private BorderPane background;
     private BorderPane foreground;
     
-    public MenuScreen(Context context) {
+    public AbstractMenuScreen(Context context) {
         super(new StackPane(), context.getGraphicsMaster().getWindowWidth().get(),
                 context.getGraphicsMaster().getWindowHeight().get());
                 
