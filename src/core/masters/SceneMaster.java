@@ -43,15 +43,18 @@ public class SceneMaster {
         }
         
         // update the showing scene
+        boolean firstStart = (scene == null);
         scene = scenes.get(name);
         context.setScene(scene);
         
-        // show a fade in animation
-        FadeTransition ft = new FadeTransition(Duration.millis(500));
-        ft.setNode(scene.getRoot());
-        ft.setFromValue(1);
-        ft.setToValue(0);
-        ft.play();
+        if (!firstStart) {
+            // show a fade in animation
+            FadeTransition ft = new FadeTransition(Duration.millis(500));
+            ft.setNode(scene.getRoot());
+            ft.setFromValue(0);
+            ft.setToValue(1);
+            ft.play();
+        }
     }
     
     /**

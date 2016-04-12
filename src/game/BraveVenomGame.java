@@ -15,13 +15,13 @@ public class BraveVenomGame extends Game {
         super(TITLE, new GraphicsMaster(), new AudioMaster());
         
         // general settings
-        graphicsMaster.getWindowWidth().set(1200);
-        graphicsMaster.getWindowHeight().set(800);
-        graphicsMaster.getTileSize().set(16);
-        graphicsMaster.getPanelHeight().bind(graphicsMaster.getTileSize().multiply(3));
-        graphicsMaster.getGameHeight()
-                .bind(graphicsMaster.getWindowHeight().subtract(graphicsMaster.getPanelHeight().multiply(2)));
-        graphicsMaster.getGameWidth().bind(graphicsMaster.getWindowWidth());
+        graphicsMaster.windowWidth.set(1200);
+        graphicsMaster.windowHeight.set(800);
+        graphicsMaster.tileSize.set(16);
+        graphicsMaster.panelHeight.bind(graphicsMaster.tileSize.multiply(3));
+        graphicsMaster.gameHeight
+                .bind(graphicsMaster.windowHeight.subtract(graphicsMaster.panelHeight.multiply(2)));
+        graphicsMaster.gameWidth.bind(graphicsMaster.windowWidth);
     }
     
     public static void main(String[] args) {

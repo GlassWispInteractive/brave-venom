@@ -13,14 +13,14 @@ public class GraphicsMaster {
     public static final Color DARKGREEN = (Color) Paint.valueOf("#0F4730");
     
     // properties
-    protected IntegerProperty windowWidth = new SimpleIntegerProperty();
-    protected IntegerProperty windowHeight = new SimpleIntegerProperty();
+    public final IntegerProperty windowWidth = new SimpleIntegerProperty();
+    public final IntegerProperty windowHeight = new SimpleIntegerProperty();
     
-    protected IntegerProperty tileSize = new SimpleIntegerProperty();
-    protected IntegerProperty panelHeight = new SimpleIntegerProperty();
+    public final IntegerProperty tileSize = new SimpleIntegerProperty();
+    public final IntegerProperty panelHeight = new SimpleIntegerProperty();
     
-    protected IntegerProperty gameWidth = new SimpleIntegerProperty();
-    protected IntegerProperty gameHeight = new SimpleIntegerProperty();
+    public final IntegerProperty gameWidth = new SimpleIntegerProperty();
+    public final IntegerProperty gameHeight = new SimpleIntegerProperty();
     
     /**
      * constructor
@@ -28,47 +28,4 @@ public class GraphicsMaster {
     public GraphicsMaster() {
     
     }
-    
-    /**
-     * @return the windowWidth
-     */
-    public IntegerProperty getWindowWidth() {
-        return windowWidth;
-    }
-    
-    /**
-     * @return the windowHeight
-     */
-    public IntegerProperty getWindowHeight() {
-        return windowHeight;
-    }
-    
-    /**
-     * @return the tileSize
-     */
-    public IntegerProperty getTileSize() {
-        return tileSize;
-    }
-    
-    /**
-     * @return the panelHeight
-     */
-    public IntegerProperty getPanelHeight() {
-        return panelHeight;
-    }
-    
-    /**
-     * @return the gameWidth
-     */
-    public IntegerProperty getGameWidth() {
-        return gameWidth;
-    }
-    
-    /**
-     * @return the gameHeight
-     */
-    public IntegerProperty getGameHeight() {
-        return gameHeight;
-    }
-    
 }

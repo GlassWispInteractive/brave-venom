@@ -22,8 +22,8 @@ public class AbstractMenuScreen extends Scene {
     private BorderPane foreground;
     
     public AbstractMenuScreen(Context context) {
-        super(new StackPane(), context.getGraphicsMaster().getWindowWidth().get(),
-                context.getGraphicsMaster().getWindowHeight().get());
+        super(new StackPane(), context.getGraphicsMaster().windowWidth.get(),
+                context.getGraphicsMaster().windowHeight.get());
                 
         this.context = context;
         init_scene();
@@ -32,7 +32,9 @@ public class AbstractMenuScreen extends Scene {
     private void init_scene() {
         background = new BorderPane();
         foreground = new BorderPane();
-        // getRoot().getChildren().addAll(background, foreground);
+        
+        
+        ((StackPane) getRoot()).getChildren().addAll(background, foreground);
         StackPane.setAlignment(background, Pos.CENTER);
         StackPane.setAlignment(foreground, Pos.CENTER);
     }

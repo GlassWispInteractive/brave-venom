@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.StackPane;
 
 public abstract class AbstractGameScreen extends Scene {
     protected Context contex;
@@ -20,8 +21,8 @@ public abstract class AbstractGameScreen extends Scene {
      * @param context
      */
     protected AbstractGameScreen(Context context) {
-        super(new Group(), context.getGraphicsMaster().getWindowWidth().get(),
-                context.getGraphicsMaster().getWindowHeight().get(), GraphicsMaster.BACK);
+        super(new Group(), context.getGraphicsMaster().windowWidth.get(),
+                context.getGraphicsMaster().windowHeight.get(), GraphicsMaster.BACK);
                 
         this.contex = context;
     }
@@ -37,7 +38,7 @@ public abstract class AbstractGameScreen extends Scene {
      */
     protected void addCanvas(String name, double x, double y, double w, double h) {
         Canvas layer = new Canvas(w, h);
-        // getRoot().getChildren().add(layer);
+        ((StackPane) getRoot()).getChildren().add(layer);
         layer.relocate(x, y);
         
         // update hash maps
