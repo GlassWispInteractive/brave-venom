@@ -6,13 +6,13 @@ import java.util.List;
 import core.Context;
 import javafx.scene.input.KeyCode;
 
-public class EventControl {
+public class EventMaster {
     private final Context context;
     
     private List<KeyCode> input = new ArrayList<>();
     // private ArrayList<String> delete = new ArrayList<String>();
     
-    public EventControl(Context context) {
+    public EventMaster(Context context) {
         this.context = context;
     }
     

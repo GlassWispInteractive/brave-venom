@@ -2,9 +2,17 @@ package core.masters;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public abstract class AbstractGraphicsMaster {
+    // static colors
+    public static final Color FRONT = (Color) Paint.valueOf("#000000");
+    public static final Color BACK = (Color) Paint.valueOf("#CFCFCF");
+    public static final Color GREEN = (Color) Paint.valueOf("#1B8056");
+    public static final Color DARKGREEN = (Color) Paint.valueOf("#0F4730");
     
+    // properties
     protected IntegerProperty windowWidth = new SimpleIntegerProperty();
     protected IntegerProperty windowHeight = new SimpleIntegerProperty();
     
@@ -14,75 +22,53 @@ public abstract class AbstractGraphicsMaster {
     protected IntegerProperty gameWidth = new SimpleIntegerProperty();
     protected IntegerProperty gameHeight = new SimpleIntegerProperty();
     
-    public int getWindowWidth() {
-        return windowWidth.get();
+    /**
+     * constructor
+     */
+    public AbstractGraphicsMaster() {
+    
     }
     
-    public void setWindowWidth(int windowWidth) {
-        this.windowWidth.set(windowWidth);
-    }
-    
-    public IntegerProperty windowWidthProperty() {
+    /**
+     * @return the windowWidth
+     */
+    public IntegerProperty getWindowWidth() {
         return windowWidth;
     }
     
-    public int getWindowHeight() {
-        return windowHeight.get();
-    }
-    
-    public void setWindowHeight(int windowHeight) {
-        this.windowHeight.set(windowHeight);
-    }
-    
-    public IntegerProperty windowHeightProperty() {
+    /**
+     * @return the windowHeight
+     */
+    public IntegerProperty getWindowHeight() {
         return windowHeight;
     }
     
-    public int getTileSize() {
-        return tileSize.get();
-    }
-    
-    public void setTileSize(int tileSize) {
-        this.tileSize.set(tileSize);
-    }
-    
-    public IntegerProperty tileSizeProperty() {
+    /**
+     * @return the tileSize
+     */
+    public IntegerProperty getTileSize() {
         return tileSize;
     }
     
-    public int getPanelHeight() {
-        return panelHeight.get();
-    }
-    
-    public void setPanelHeight(int panelHeight) {
-        this.panelHeight.set(panelHeight);
-    }
-    
-    public IntegerProperty panelHeightProperty() {
+    /**
+     * @return the panelHeight
+     */
+    public IntegerProperty getPanelHeight() {
         return panelHeight;
     }
     
-    public int getGameWidth() {
-        return gameWidth.get();
-    }
-    
-    public void setGameWidth(int gameWidth) {
-        this.gameWidth.set(gameWidth);
-    }
-    
-    public IntegerProperty gameWidthProperty() {
+    /**
+     * @return the gameWidth
+     */
+    public IntegerProperty getGameWidth() {
         return gameWidth;
     }
     
-    public int getGameHeight() {
-        return gameHeight.get();
-    }
-    
-    public void setGameHeight(int gameHeight) {
-        this.gameHeight.set(gameHeight);
-    }
-    
-    public IntegerProperty gameHeightProperty() {
+    /**
+     * @return the gameHeight
+     */
+    public IntegerProperty getGameHeight() {
         return gameHeight;
     }
+    
 }

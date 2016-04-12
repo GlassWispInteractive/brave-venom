@@ -1,9 +1,8 @@
-package game.masters;
+package core.masters;
 
-import core.masters.AbstractAudioMaster;
 import javafx.scene.media.MediaPlayer;
 
-public class AudioMaster extends AbstractAudioMaster {
+public class AudioMaster {
     private boolean on = false;
     
     private MediaPlayer mediaPlayer;

@@ -1,9 +1,9 @@
 /**
  *
  */
-package game.screens;
+package game.scenes;
 
-import core.screens.ScreenControl;
+import core.masters.SceneMaster;
 import core.screens.MenuScreen;
 
 /**
@@ -11,7 +11,7 @@ import core.screens.MenuScreen;
  */
 public class EmptyScreen extends MenuScreen {
 
-    public EmptyScreen(ScreenControl screenControl) {
+    public EmptyScreen(SceneMaster screenControl) {
         super(screenControl);
     }
 

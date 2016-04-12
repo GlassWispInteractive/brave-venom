@@ -1,24 +1,33 @@
-package game.screens;
+package game.scenes;
 
+import core.masters.FontMaster;
+import core.masters.SceneMaster;
 import core.screens.MenuScreen;
-import core.screens.ScreenControl;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
-public class SettingsMenuScreen extends MenuScreen {
+public class HelpMenuScreen extends MenuScreen {
+    private final static String HELP_TEXT = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy "
+            + "eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et "
+            + "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem "
+            + "ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod "
+            + "tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et "
+            + "justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor "
+            + "sit amet.";
 
-    public SettingsMenuScreen(ScreenControl screenControl) {
+    public HelpMenuScreen(SceneMaster screenControl) {
         super(screenControl);
         init_scene();
     }
 
     private void init_scene() {
-        scene.getStylesheets().add(getClass().getResource("screens.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
         BorderPane background = this.getBackground();
         BorderPane foreground = this.getForeground();
 
@@ -56,6 +65,13 @@ public class SettingsMenuScreen extends MenuScreen {
         buttonBack.setOnAction((e) -> {
             screenControl.showScreen("main_menu");
         });
+
+        Label labelDescription = new Label(HELP_TEXT);
+        labelDescription.setWrapText(true);
+        labelDescription.setBackground(new Background(new BackgroundFill(new Color(1, 1, 1, 0.8), null, null)));
+        labelDescription.setFont(FontMaster.SMALL_FONT);
+
+        vboxMenu.getChildren().add(labelDescription);
 
     }
 }

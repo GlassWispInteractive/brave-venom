@@ -1,11 +1,12 @@
-package core.screens;
+package core.masters;
 
 import core.Context;
+import core.screens.Screen;
 import javafx.scene.Scene;
 
 import java.util.HashMap;
 
-public class ScreenControl {
+public class SceneMaster {
     
     private final Context context;
     
@@ -14,7 +15,7 @@ public class ScreenControl {
     private Screen screen;
     private boolean ticking = true;
     
-    public ScreenControl(Context context) {
+    public SceneMaster(Context context) {
         this.context = context;
     }
     

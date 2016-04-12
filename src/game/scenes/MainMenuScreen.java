@@ -1,7 +1,7 @@
-package game.screens;
+package game.scenes;
 
+import core.masters.SceneMaster;
 import core.screens.MenuScreen;
-import core.screens.ScreenControl;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -11,7 +11,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 public class MainMenuScreen extends MenuScreen {
-    public MainMenuScreen(ScreenControl screenControl) {
+    public MainMenuScreen(SceneMaster screenControl) {
         super(screenControl);
         init_scene();
     }
@@ -23,7 +23,7 @@ public class MainMenuScreen extends MenuScreen {
         // set background
         ImageView backgroundImageView = new ImageView(new Image("/res/graphics/scorpion.png"));
         background.setCenter(backgroundImageView);
-        background.setOpacity(0.5);
+        background.setOpacity(0.3);
 
         // set foreground
 

@@ -1,6 +1,7 @@
 package core.screens;
 
 import core.masters.AbstractGraphicsMaster;
+import core.masters.SceneMaster;
 import game.masters.GraphicsMaster;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -11,7 +12,7 @@ import javafx.scene.layout.StackPane;
 import java.util.HashMap;
 
 public abstract class Screen {
-    protected final ScreenControl screenControl;
+    protected final SceneMaster screenControl;
 
     // class members
     protected StackPane root = new StackPane();
@@ -19,11 +20,11 @@ public abstract class Screen {
     protected HashMap<String, Node> nodes = new HashMap<>();
     protected HashMap<String, GraphicsContext> gcs = new HashMap<>();
 
-    protected Screen(ScreenControl screenControl) {
+    protected Screen(SceneMaster screenControl) {
         this.screenControl = screenControl;
 
         AbstractGraphicsMaster graphicsMaster = getGraphicsMaster();
-        scene = new Scene(new StackPane(), graphicsMaster.getWindowWidth(), graphicsMaster.getWindowHeight(),
+        scene = new Scene(new StackPane(), graphicsMaster.getWindowWidth().get(), graphicsMaster.getWindowHeight().get(),
                 GraphicsMaster.BACK);
 
         this.root = (StackPane) scene.getRoot();
@@ -66,7 +67,7 @@ public abstract class Screen {
 
     public abstract void render();
 
-    public final ScreenControl getScreenControl() {
+    public final SceneMaster getScreenControl() {
         return screenControl;
     }
 

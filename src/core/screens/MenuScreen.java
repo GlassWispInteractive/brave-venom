@@ -1,7 +1,8 @@
 package core.screens;
 
 import core.Context;
-import core.masters.EventControl;
+import core.masters.EventMaster;
+import core.masters.SceneMaster;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -17,7 +18,7 @@ public class MenuScreen extends Screen {
     private BorderPane background;
     private BorderPane foreground;
 
-    public MenuScreen(ScreenControl screenControl) {
+    public MenuScreen(SceneMaster screenControl) {
         super(screenControl);
 
         init_scene();
@@ -45,7 +46,7 @@ public class MenuScreen extends Screen {
 
     @Override
     public void tick(int ticks) {
-        EventControl eventControl = getContext().getEventControl();
+        EventMaster eventControl = getContext().getEventControl();
 
         // event handling
         if (eventControl.isUp())
