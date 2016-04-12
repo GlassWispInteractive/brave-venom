@@ -15,23 +15,13 @@ public class TileMaster {
     private static final int WIDTH = 16;
     private static final int HEIGHT = 16;
     
-    // delete in final version
-    private static TileMaster singleton;
-    
     private HashMap<String, Image> sheets = new HashMap<>();
     private HashMap<String, Image[][]> tiles = new HashMap<>();
     
-    public static TileMaster getInstance() {
-        if (singleton == null) {
-            singleton = new TileMaster();
-        }
-        return singleton;
-    }
-    
-    private TileMaster() {
+    public TileMaster() {
         // load all tile sheets from the specific resource folder
         try {
-            Files.walk(Paths.get("src/res/tilesheets")).forEach(filePath -> {
+            Files.walk(Paths.get("src/res/tilesheet")).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                     String[] s = filePath.toString().split("\\\\");
                     String name = s[s.length - 1];
@@ -76,6 +66,5 @@ public class TileMaster {
         tiles.get(key)[tileX][tileY] = newImage;
         
         return newImage;
-        
     }
 }

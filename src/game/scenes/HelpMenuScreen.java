@@ -5,7 +5,6 @@ import core.masters.FontMaster;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -37,7 +36,7 @@ public class HelpMenuScreen extends AbstractMenuScreen {
         BorderPane foreground = this.getForeground();
         
         // set background
-        ImageView backgroundImageView = new ImageView(new Image("/res/graphics/scorpion.png"));
+        ImageView backgroundImageView = new ImageView(context.getGraphicsMaster().getImage("scorpion"));
         background.setCenter(backgroundImageView);
         background.setOpacity(0.5);
         
@@ -50,7 +49,7 @@ public class HelpMenuScreen extends AbstractMenuScreen {
         vboxMenu.setAlignment(Pos.CENTER);
         foreground.setCenter(vboxMenu);
         
-        ImageView imageViewLogo = new ImageView(new Image("/res/graphics/logo.png"));
+        ImageView imageViewLogo = new ImageView(context.getGraphicsMaster().getImage("logo"));
         vboxMenu.getChildren().add(imageViewLogo);
         
         TilePane tilePaneButtons = new TilePane(20, 20);
