@@ -24,6 +24,7 @@ public abstract class Game extends Context {
     public void stop() {
         super.stop();
         save();
+        System.exit(0);
     }
     
     protected abstract void load();
