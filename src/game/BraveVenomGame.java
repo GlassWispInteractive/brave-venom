@@ -1,4 +1,4 @@
-package game.masters;
+package game;
 
 import core.Game;
 import core.masters.AudioMaster;
