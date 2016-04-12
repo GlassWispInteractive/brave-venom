@@ -1,4 +1,4 @@
-package core.screens;
+package game.scenes;
 
 import javafx.scene.Scene;
 

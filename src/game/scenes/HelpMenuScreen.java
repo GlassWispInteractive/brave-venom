@@ -2,7 +2,6 @@ package game.scenes;
 
 import core.Context;
 import core.masters.FontMaster;
-import core.screens.MenuScreen;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

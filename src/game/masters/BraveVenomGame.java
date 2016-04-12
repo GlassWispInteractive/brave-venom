@@ -37,13 +37,13 @@ public class BraveVenomGame extends Game {
     @Override
     public void start(Stage stage) {
         super.start(stage);
-        screenControl.showScreen("main_menu");
+        sceneMaster.showScreen("main_menu");
     }
     
     private void init_scenes() {
-        screenControl.addScreen("main_menu", new MainMenuScreen(this));
-        screenControl.addScreen("help_menu", new HelpMenuScreen(this));
-        screenControl.addScreen("settings_menu", new SettingsMenuScreen(this));
+        sceneMaster.addScreen("main_menu", new MainMenuScreen(this));
+        sceneMaster.addScreen("help_menu", new HelpMenuScreen(this));
+        sceneMaster.addScreen("settings_menu", new SettingsMenuScreen(this));
     }
     
     @Override

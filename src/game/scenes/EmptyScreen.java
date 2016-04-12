@@ -4,7 +4,6 @@
 package game.scenes;
 
 import core.Context;
-import core.screens.MenuScreen;
 
 /**
  * @author danny

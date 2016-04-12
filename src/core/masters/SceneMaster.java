@@ -3,7 +3,9 @@ package core.masters;
 import java.util.HashMap;
 
 import core.Context;
+import javafx.animation.FadeTransition;
 import javafx.scene.Scene;
+import javafx.util.Duration;
 
 public class SceneMaster {
     
@@ -40,9 +42,16 @@ public class SceneMaster {
             return;
         }
         
-        Scene scene = scenes.get(name);
+        // update the showing scene
+        scene = scenes.get(name);
         context.setScene(scene);
-        this.scene = scenes.get(name);
+        
+        // show a fade in animation
+        FadeTransition ft = new FadeTransition(Duration.millis(500));
+        ft.setNode(scene.getRoot());
+        ft.setFromValue(1);
+        ft.setToValue(0);
+        ft.play();
     }
     
     /**
@@ -66,38 +75,6 @@ public class SceneMaster {
     public void removeScreen(String name) {
         scenes.remove(name);
     }
-    
-    /**
-     * Fade in on the screen with the given name.
-     *
-     * @param name
-     *            the name of the screen
-     */
-    private void fadeIn(String name) {
-        scene = scenes.get(name);
-        context.setScene(scene);
-        
-        scene.getRoot().setOpacity(1);
-        ticking = true;
-    }
-    
-    // /**
-    // * Sets a new screen with the given name if no screen was assigned to the
-    // name, yet.
-    // *
-    // * @param name the name of the screen
-    // * @param screen the screen
-    // */
-    // public void setScreen(String name, Screen screen) {
-    // // if scene id is already used, dont set screen
-    // if (screens.get(name) != null) {
-    // return;
-    // }
-    //
-    // // add screen first and then set it
-    // addScreen(name, screen);
-    // showScreen(name);
-    // }
     
     public void tick(int ticks) {
         if (ticking && scene != null) {

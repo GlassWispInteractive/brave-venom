@@ -16,8 +16,8 @@ public abstract class Context extends Application {
     // instances from the master classes
     protected final GraphicsMaster graphicsMaster;
     protected final AudioMaster audioMaster;
-    protected SceneMaster screenControl;
-    protected EventMaster eventControl;
+    protected final SceneMaster sceneMaster;
+    protected final EventMaster eventMaster;
     
     // make the stage acessible
     private Scene scene;
@@ -33,6 +33,9 @@ public abstract class Context extends Application {
         this.title.set(title);
         this.graphicsMaster = graphicsMaster;
         this.audioMaster = audioMaster;
+        
+        this.sceneMaster = new SceneMaster(this);
+        this.eventMaster = new EventMaster(this);
     }
     
     public void setScene(Scene scene) {
@@ -42,7 +45,6 @@ public abstract class Context extends Application {
     }
     
     public void init() {
-        screenControl = new SceneMaster(this);
         initAnimationTimer();
     }
     
@@ -73,14 +75,12 @@ public abstract class Context extends Application {
             stop();
         });
         
-        eventControl = new EventMaster(this);
-        
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            eventControl.addKeyCode(event.getCode());
+            eventMaster.addKeyCode(event.getCode());
         });
         
         stage.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
-            eventControl.removeKeyCode(event.getCode());
+            eventMaster.removeKeyCode(event.getCode());
         });
         
     }
@@ -107,8 +107,8 @@ public abstract class Context extends Application {
                 // }
                 
                 // compute a frame
-                screenControl.tick(passedTicks);
-                screenControl.render();
+                sceneMaster.tick(passedTicks);
+                sceneMaster.render();
             }
         };
     }
@@ -118,11 +118,11 @@ public abstract class Context extends Application {
     }
     
     public EventMaster getEventControl() {
-        return eventControl;
+        return eventMaster;
     }
     
     public SceneMaster getScreenControl() {
-        return screenControl;
+        return sceneMaster;
     }
     
     public String getTitle() {
