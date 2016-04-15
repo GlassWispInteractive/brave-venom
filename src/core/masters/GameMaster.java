@@ -2,7 +2,7 @@ package core.masters;
 
 import java.util.List;
 
-import game.entity.Rocket;
+import game.entity.Player;
 import game.entity.Enemy;
 import game.entity.Shot;
 import core.Context;
@@ -25,13 +25,14 @@ public class GameMaster extends AnimationTimer {
 	private double lastNanoTime = System.nanoTime();
 	private double time = 0;
 
-	private Rocket player;
-	private List<Enemy> enemies;
-	private List<Shot> playerShots;
-	private List<Shot> enemyShots;
+	public Player player;
+	public List<Enemy> enemies;
+	public List<Shot> playerShots;
+	public List<Shot> enemyShots;
 
 	public GameMaster(Context context) {
 		this.context = context;
+		this.player = new Player(this, 100, 100, 0, "rocket");
 	}
 
 	@Override

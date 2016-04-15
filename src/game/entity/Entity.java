@@ -12,7 +12,7 @@ public abstract class Entity {
 	protected int dir; // 0 - 360
 	protected Canvas sprite;
 
-	Entity(GameMaster gm, int x, int y, int dir, String spritefile) {
+	public Entity(GameMaster gm, int x, int y, int dir, String spritefile) {
 		this.gm = gm;
 		this.x = x;
 		this.y = y;
