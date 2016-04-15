@@ -5,8 +5,11 @@ import javafx.scene.canvas.Canvas;
 
 public class Shot extends Entity {
 
-	Shot(GameMaster gm, int x, int y, int dir, String spritefile) {
+	protected Entity origin;
+
+	Shot(GameMaster gm, int x, int y, int dir, String spritefile, Entity origin) {
 		super(gm, x, y, dir, spritefile);
+		this.origin = origin;
 	}
 
 	@Override

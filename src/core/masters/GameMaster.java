@@ -1,5 +1,10 @@
 package core.masters;
 
+import java.util.List;
+
+import game.entity.Rocket;
+import game.entity.Enemy;
+import game.entity.Shot;
 import core.Context;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.IntegerProperty;
@@ -19,6 +24,11 @@ public class GameMaster extends AnimationTimer {
 	public final Context context;
 	private double lastNanoTime = System.nanoTime();
 	private double time = 0;
+
+	private Rocket player;
+	private List<Enemy> enemies;
+	private List<Shot> playerShots;
+	private List<Shot> enemyShots;
 
 	public GameMaster(Context context) {
 		this.context = context;
