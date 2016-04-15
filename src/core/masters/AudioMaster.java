@@ -1,9 +1,9 @@
 package core.masters;
 
-import java.io.File;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
+import java.io.File;
 
 public class AudioMaster {
 	private boolean on = true;
@@ -30,8 +30,7 @@ public class AudioMaster {
 	}
 
 	/**
-	 * @param on
-	 *            the on to set
+	 * @param on the on to set
 	 */
 	public void setOn(boolean on) {
 		this.on = on;

@@ -14,7 +14,6 @@ public class MainMenuScene extends AbstractMenuScene {
 	public MainMenuScene(SceneMaster sceneMaster) {
 		super(sceneMaster);
 
-
 		init_scene();
 	}
 

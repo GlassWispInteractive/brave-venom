@@ -31,7 +31,8 @@ public class HelpMenuScene extends AbstractMenuScene {
 		BorderPane foreground = this.getForeground();
 
 		// set background
-		ImageView backgroundImageView = new ImageView(sceneMaster.getContext().getGraphicsMaster().getImage("scorpion"));
+		ImageView backgroundImageView = new ImageView(
+				sceneMaster.getContext().getGraphicsMaster().getImage("scorpion"));
 		background.setCenter(backgroundImageView);
 		background.setOpacity(0.3);
 

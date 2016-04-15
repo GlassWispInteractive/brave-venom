@@ -10,25 +10,25 @@ import java.util.HashMap;
 
 public class SceneMaster {
 
-    private final Context context;
+	private final Context context;
 
-    // game state
-    private HashMap<String, Scene> scenes = new HashMap<>();
-    private Scene scene;
-    private boolean ticking = true;
+	// game state
+	private HashMap<String, Scene> scenes = new HashMap<>();
+	private Scene scene;
+	private boolean ticking = true;
 
-    public SceneMaster(Context context) {
-        this.context = context;
-    }
+	public SceneMaster(Context context) {
+		this.context = context;
+	}
 
-    /**
-     * Returns the current screen.
-     *
-     * @return the current screen
-     */
-    public Scene getScreen() {
-        return scene;
-    }
+	/**
+	 * Returns the current screen.
+	 *
+	 * @return the current screen
+	 */
+	public Scene getScreen() {
+		return scene;
+	}
 
 	/**
 	 * Sets the screen with the given name to be shown. The scene root will be faded.

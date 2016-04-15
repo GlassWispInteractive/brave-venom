@@ -3,8 +3,6 @@
  */
 package core.masters;
 
-import java.io.InputStream;
-
 import javafx.scene.text.Font;
 
 import java.io.InputStream;

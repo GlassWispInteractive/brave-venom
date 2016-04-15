@@ -1,9 +1,6 @@
 package core;
 
-import core.masters.AudioMaster;
-import core.masters.EventMaster;
-import core.masters.GraphicsMaster;
-import core.masters.SceneMaster;
+import core.masters.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -118,10 +115,6 @@ public abstract class Context extends Application {
 
 	public GraphicsMaster getGraphicsMaster() {
 		return graphicsMaster;
-	}
-
-	public TileMaster getTileMaster() {
-		return tileMaster;
 	}
 
 	public SceneMaster getSceneMaster() {
