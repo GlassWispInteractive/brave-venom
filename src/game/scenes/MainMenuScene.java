@@ -4,7 +4,6 @@ import core.masters.SceneMaster;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
@@ -24,7 +23,7 @@ public class MainMenuScene extends AbstractMenuScene {
 		BorderPane foreground = this.getForeground();
 
 		// set background
-		ImageView backgroundImageView = new ImageView(new Image("/res/graphics/scorpion.png"));
+		ImageView backgroundImageView = new ImageView(sceneMaster.getContext().getGraphicsMaster().getImage("scorpion"));
 		background.setCenter(backgroundImageView);
 		background.setOpacity(0.3);
 
@@ -36,7 +35,7 @@ public class MainMenuScene extends AbstractMenuScene {
 		BorderPane borderPaneLogo = new BorderPane();
 		borderPaneLogo.setPrefHeight(240);
 
-		ImageView imageViewLogo = new ImageView(new Image("/res/graphics/logo.png"));
+		ImageView imageViewLogo = new ImageView(sceneMaster.getContext().getGraphicsMaster().getImage("logo"));
 		borderPaneLogo.setCenter(imageViewLogo);
 		BorderPane.setAlignment(imageViewLogo, Pos.CENTER);
 

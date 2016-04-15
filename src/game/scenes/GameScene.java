@@ -18,7 +18,7 @@ public class GameScene extends AbstractGameScene {
 	private void initScene() {
 		updateBackground();
 		updateForeGround();
-		updateGui();
+//		updateGui();
 	}
 
 	private void updateBackground() {

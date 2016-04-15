@@ -37,11 +37,13 @@ public class GraphicsMaster {
 	public GraphicsMaster() {
 		// load all tile sheets from the specific resource folder
 		try {
-			Files.walk(Paths.get("src/res/graphics")).forEach(filePath -> {
+			Files.walk(Paths.get("res/graphics")).forEach(filePath -> {
 				if (Files.isRegularFile(filePath)) {
-					String[] s = filePath.toString().split("\\\\");
-					String name = s[s.length - 1];
-					name = name.substring(0, name.lastIndexOf("."));
+					int start = filePath.toString().lastIndexOf(System.getProperty("file.separator")) + 1;
+					int end = filePath.toString().lastIndexOf(".");
+					 
+					 String name = filePath.toString().substring(start, end);
+					 
 
 					// save the full image
 					images.put(name, new Image(filePath.toUri().toString()));
