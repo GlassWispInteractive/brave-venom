@@ -68,6 +68,10 @@ public class EventMaster {
 		return input.contains(KeyCode.Q);
 	}
 
+	public boolean isSpace() {
+		return input.contains(KeyCode.SPACE);
+	}
+
 	public boolean isEnter() {
 		return input.contains(KeyCode.ENTER);
 	}

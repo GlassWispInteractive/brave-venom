@@ -5,7 +5,7 @@ import javafx.scene.canvas.Canvas;
 
 public class Enemy extends Entity {
 
-	Enemy(GameMaster gm, int x, int y, int dir, String spritefile) {
+	public Enemy(GameMaster gm, int x, int y, int dir, String spritefile) {
 		super(gm, x, y, dir, spritefile);
 	}
 
