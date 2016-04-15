@@ -1,4 +1,4 @@
-# brave-venom
+# Brave Venom
 
 This is the project at the Game Jam at the Computer Science department in winter term 2016.
 
