@@ -16,7 +16,7 @@ public class GameMaster extends AnimationTimer {
 	public final IntegerProperty currentRoundTime = new SimpleIntegerProperty(roundTime.get());
 	public final IntegerProperty currentDesperation = new SimpleIntegerProperty(0);
 
-	private final Context context;
+	public final Context context;
 	private double lastNanoTime = System.nanoTime();
 	private double time = 0;
 

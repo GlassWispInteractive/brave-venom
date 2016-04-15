@@ -13,11 +13,11 @@ import javafx.stage.Stage;
 
 public abstract class Context extends Application {
 	// instances from the master classes
-	protected final GraphicsMaster graphicsMaster;
-	protected final AudioMaster audioMaster;
-	protected final SceneMaster sceneMaster;
-	protected final EventMaster eventMaster;
-	protected final GameMaster gameMaster;
+	public final GraphicsMaster graphicsMaster;
+	public final AudioMaster audioMaster;
+	public final SceneMaster sceneMaster;
+	public final EventMaster eventMaster;
+	public final GameMaster gameMaster;
 
 	// make the stage acessible
 	private Scene scene;
