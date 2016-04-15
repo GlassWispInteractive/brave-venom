@@ -1,6 +1,9 @@
 package core;
 
-import core.masters.*;
+import core.masters.AudioMaster;
+import core.masters.EventMaster;
+import core.masters.GraphicsMaster;
+import core.masters.SceneMaster;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -17,7 +20,6 @@ public abstract class Context extends Application {
 	protected final AudioMaster audioMaster;
 	protected final SceneMaster sceneMaster;
 	protected final EventMaster eventMaster;
-	protected final TileMaster tileMaster;
 	protected final GameMaster gameMaster;
 
 	// make the stage acessible
@@ -37,7 +39,6 @@ public abstract class Context extends Application {
 		this.audioMaster = audioMaster;
 		this.sceneMaster = new SceneMaster(this);
 		this.eventMaster = new EventMaster(this);
-		this.tileMaster = new TileMaster();
 		this.gameMaster = new GameMaster(this);
 	}
 
@@ -48,16 +49,12 @@ public abstract class Context extends Application {
 	}
 
 	public void init() {
-		//        initAnimationTimer();
 	}
 
 	@Override
 	public void start(Stage stage) {
 		this.stage = stage;
 		initStage();
-		// MainMenuScene s = new MainMenuScene(null);
-		// stage.setScene(s.getScene());
-
 		stage.show();
 	}
 

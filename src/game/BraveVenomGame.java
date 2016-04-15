@@ -1,19 +1,18 @@
 package game;
 
-import core.Context;
+import core.Game;
 import core.masters.AudioMaster;
 import core.masters.GraphicsMaster;
-import game.scenes.GameScene;
-import game.scenes.HelpMenuScene;
-import game.scenes.MainMenuScene;
-import game.scenes.SettingsMenuScene;
+import game.scenes.HelpMenuScreen;
+import game.scenes.MainMenuScreen;
+import game.scenes.SettingsMenuScreen;
 import javafx.stage.Stage;
 
 public class BraveVenomGame extends Context {
 	private static final String TITLE = "BraveVenomGame";
 
-	public BraveVenomGame() {
-		super(TITLE, new GraphicsMaster(), new AudioMaster());
+    public BraveVenomGame() {
+        super(TITLE, new GraphicsMaster(), new AudioMaster());
 
 		// general settings
 		graphicsMaster.windowWidth.set(1200);
