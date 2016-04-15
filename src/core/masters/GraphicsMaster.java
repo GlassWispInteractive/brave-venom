@@ -1,5 +1,6 @@
 package core.masters;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -39,7 +40,7 @@ public class GraphicsMaster {
         try {
             Files.walk(Paths.get("src/res/graphics")).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
-                    String[] s = filePath.toString().split("\\\\");
+                    String[] s = filePath.toString().split(File.separator);
                     String name = s[s.length - 1];
                     name = name.substring(0, name.lastIndexOf("."));
                     
