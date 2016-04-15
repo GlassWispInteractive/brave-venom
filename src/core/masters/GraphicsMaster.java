@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -42,7 +41,7 @@ public class GraphicsMaster {
 				if (Files.isRegularFile(filePath)) {
 					int start = filePath.toString().lastIndexOf(System.getProperty("file.separator")) + 1;
 					int end = filePath.toString().lastIndexOf(".");
-					
+
 					String name = filePath.toString().substring(start, end);
 
 					// save the full image
