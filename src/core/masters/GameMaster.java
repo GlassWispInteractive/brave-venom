@@ -2,10 +2,11 @@ package core.masters;
 
 import java.util.List;
 
-import game.entity.Player;
-import game.entity.Enemy;
-import game.entity.Shot;
 import core.Context;
+import game.entity.Enemy;
+import game.entity.Player;
+import game.entity.Shot;
+import game.scenes.GameScene;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -32,7 +33,9 @@ public class GameMaster extends AnimationTimer {
 
 	public GameMaster(Context context) {
 		this.context = context;
-		this.player = new Player(this, 100, 100, 0, "rocket");
+		this.player = new Player(this, 100, 100, 0);
+		
+		GameScene gamescene = ((GameScene) context.getSceneMaster().getScreen("game"));
 	}
 
 	@Override

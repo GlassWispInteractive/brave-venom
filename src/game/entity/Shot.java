@@ -8,7 +8,7 @@ public class Shot extends Entity {
 	protected Entity origin;
 
 	public Shot(GameMaster gm, int x, int y, int dir, String spritefile, Entity origin) {
-		super(gm, x, y, dir, spritefile);
+		super(gm, x, y, dir);
 		this.origin = origin;
 	}
 

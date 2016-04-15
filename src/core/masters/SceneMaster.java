@@ -146,4 +146,8 @@ public class SceneMaster {
 	public Context getContext() {
 		return context;
 	}
+
+	public Scene getScreen(String key) {
+		return scenes.get(key);
+	}
 }
