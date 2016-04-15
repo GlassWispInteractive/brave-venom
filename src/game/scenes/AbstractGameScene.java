@@ -13,14 +13,15 @@ import javafx.scene.layout.StackPane;
 public abstract class AbstractGameScene extends Scene {
 	protected SceneMaster sceneMaster;
 	protected BorderPane background;
-	protected BorderPane foreground;
-	protected BorderPane gui;
+	protected BorderPane enemyPane;
+	protected BorderPane bulletPane;
+	protected BorderPane playerPane;
+	protected BorderPane topHUD;
+	protected BorderPane bottomHUD;
 	private HashMap<String, GraphicsContext> gcs;
 
 	protected AbstractGameScene(SceneMaster sceneMaster) {
-		super(new StackPane(), sceneMaster.getContext().getGraphicsMaster().windowWidth.get(),
-				sceneMaster.getContext().getGraphicsMaster().windowHeight.get(),
-				sceneMaster.getContext().getGraphicsMaster().BACK);
+		super(new StackPane(), sceneMaster.windowWidth.get(), sceneMaster.windowHeight.get(), sceneMaster.BACK);
 
 		this.sceneMaster = sceneMaster;
 		init_scene();
@@ -28,13 +29,19 @@ public abstract class AbstractGameScene extends Scene {
 
 	private void init_scene() {
 		background = new BorderPane();
-		foreground = new BorderPane();
-		gui = new BorderPane();
+		enemyPane = new BorderPane();
+		playerPane = new BorderPane();
+		bulletPane = new BorderPane();
+		topHUD = new BorderPane();
+		bottomHUD = new BorderPane();
 
-		((StackPane) getRoot()).getChildren().addAll(background, foreground, gui);
+		((StackPane) getRoot()).getChildren().addAll(background, enemyPane, playerPane, bulletPane, topHUD, bottomHUD);
 		StackPane.setAlignment(background, Pos.CENTER);
-		StackPane.setAlignment(foreground, Pos.CENTER);
-		StackPane.setAlignment(gui, Pos.CENTER);
+		StackPane.setAlignment(enemyPane, Pos.CENTER);
+		StackPane.setAlignment(playerPane, Pos.CENTER);
+		StackPane.setAlignment(bulletPane, Pos.CENTER);
+		StackPane.setAlignment(topHUD, Pos.CENTER);
+		StackPane.setAlignment(bottomHUD, Pos.CENTER);
 	}
 
 	/**

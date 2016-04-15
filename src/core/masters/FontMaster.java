@@ -3,9 +3,9 @@
  */
 package core.masters;
 
-import java.io.InputStream;
-
 import javafx.scene.text.Font;
+
+import java.io.InputStream;
 
 public class FontMaster {
 	public static final Font LARGE_FONT;
@@ -21,8 +21,8 @@ public class FontMaster {
 		// font loading does not work in the current version
 		// Font.loadFont("../../res/font/kenvector_future.ttf", 30);
 		// Font.loadFont("../../res/font/kenvector_future_thin.ttf", 30);
-		InputStream inputStream1 = GraphicsMaster.class.getResourceAsStream("../../res/font/kenvector_future.ttf");
-		InputStream inputStream2 = GraphicsMaster.class.getResourceAsStream("../../res/font/kenvector_future_thin.ttf");
+		InputStream inputStream1 = FontMaster.class.getResourceAsStream("../../res/font/kenvector_future.ttf");
+		InputStream inputStream2 = FontMaster.class.getResourceAsStream("../../res/font/kenvector_future_thin.ttf");
 
 		System.out.println(inputStream1);
 		LARGE_FONT = Font.loadFont(inputStream1, 30);
