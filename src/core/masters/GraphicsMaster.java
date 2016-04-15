@@ -1,15 +1,16 @@
 package core.masters;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashMap;
-
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
 
 public class GraphicsMaster {
 	// static colors
@@ -37,12 +38,11 @@ public class GraphicsMaster {
 	public GraphicsMaster() {
 		// load all tile sheets from the specific resource folder
 		try {
-			Files.walk(Paths.get("res/graphics")).forEach(filePath -> {
+			Files.walk(Paths.get("src/res/graphics")).forEach(filePath -> {
 				if (Files.isRegularFile(filePath)) {
-					int start = filePath.toString().lastIndexOf(System.getProperty("file.separator")) + 1;
-					int end = filePath.toString().lastIndexOf(".");
-
-					String name = filePath.toString().substring(start, end);
+					String[] s = filePath.toString().split(File.separator);
+					String name = s[s.length - 1];
+					name = name.substring(0, name.lastIndexOf("."));
 
 					// save the full image
 					images.put(name, new Image(filePath.toUri().toString()));
