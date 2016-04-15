@@ -19,7 +19,7 @@ public class BraveVenomGame extends Context {
 		graphicsMaster.windowWidth.set(1200);
 		graphicsMaster.windowHeight.set(800);
 		graphicsMaster.tileSize.set(16);
-		graphicsMaster.panelHeight.bind(graphicsMaster.tileSize.multiply(3));
+		graphicsMaster.panelHeight.bind(graphicsMaster.tileSize.multiply(5));
 		graphicsMaster.gameHeight.bind(graphicsMaster.windowHeight.subtract(graphicsMaster.panelHeight.multiply(2)));
 		graphicsMaster.gameWidth.bind(graphicsMaster.windowWidth);
 	}

@@ -1,11 +1,11 @@
 package game.scenes;
 
-import core.masters.FontMaster;
 import core.masters.GameMaster;
 import core.masters.GraphicsMaster;
 import core.masters.SceneMaster;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class GameScene extends AbstractGameScene {
@@ -22,10 +22,31 @@ public class GameScene extends AbstractGameScene {
 	}
 
 	private void updateBackground() {
-
+		GraphicsMaster graphicsMaster = sceneMaster.getContext().getGraphicsMaster();
+		GameMaster gameMaster = sceneMaster.getContext().getGameMaster();
+		
+		Canvas canvas = new Canvas(graphicsMaster.gameWidth.get(), graphicsMaster.gameHeight.get());
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		background.getChildren().add(canvas);
+		
+		gc.getCanvas().relocate(0, graphicsMaster.panelHeight.get());
+		gc.setFill(Color.BLACK);
+		Image sky = graphicsMaster.getImage("sky_blue");
+		for (int x = 0; x < graphicsMaster.gameWidth.get() / sky.getWidth(); x++) {
+			for (int y = 0; y < graphicsMaster.gameHeight.get() / sky.getHeight(); y++) {
+				gc.drawImage(sky, sky.getWidth() * x, sky.getHeight() * y);
+			}
+		}
+		
 	}
 
 	private void updateForeGround() {
+		GraphicsMaster graphicsMaster = sceneMaster.getContext().getGraphicsMaster();
+		GameMaster gameMaster = sceneMaster.getContext().getGameMaster();
+		
+		Canvas canvas = new Canvas(graphicsMaster.gameWidth.get(), graphicsMaster.gameHeight.get());
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+		background.getChildren().add(canvas);
 	}
 
 	private void updateGui() {
