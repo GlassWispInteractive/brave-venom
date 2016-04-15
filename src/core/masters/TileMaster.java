@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.regex.Pattern;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -23,7 +24,8 @@ public class TileMaster {
 		try {
 			Files.walk(Paths.get("res/tilesheet")).forEach(filePath -> {
 				if (Files.isRegularFile(filePath)) {
-					String[] s = filePath.toString().split("\\\\");
+					String pattern = Pattern.quote(System.getProperty("file.separator"));
+					String[] s = filePath.toString().split(pattern);
 					String name = s[s.length - 1];
 					name = name.substring(0, name.lastIndexOf("."));
 

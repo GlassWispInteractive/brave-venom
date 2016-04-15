@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -39,7 +40,8 @@ public class GraphicsMaster {
 		try {
 			Files.walk(Paths.get("res/graphics")).forEach(filePath -> {
 				if (Files.isRegularFile(filePath)) {
-					String[] s = filePath.toString().split("\\\\");
+					String pattern = Pattern.quote(System.getProperty("file.separator"));
+					String[] s = filePath.toString().split(pattern);
 					String name = s[s.length - 1];
 					name = name.substring(0, name.lastIndexOf("."));
 
