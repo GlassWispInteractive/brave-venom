@@ -1,11 +1,15 @@
 package game;
 
+import java.io.File;
+
 import core.Game;
 import core.masters.AudioMaster;
 import core.masters.GraphicsMaster;
 import game.scenes.HelpMenuScreen;
 import game.scenes.MainMenuScreen;
 import game.scenes.SettingsMenuScreen;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class BraveVenomGame extends Game {
@@ -21,6 +25,8 @@ public class BraveVenomGame extends Game {
 		graphicsMaster.panelHeight.bind(graphicsMaster.tileSize.multiply(3));
 		graphicsMaster.gameHeight.bind(graphicsMaster.windowHeight.subtract(graphicsMaster.panelHeight.multiply(2)));
 		graphicsMaster.gameWidth.bind(graphicsMaster.windowWidth);
+		
+		
 	}
 
 	public static void main(String[] args) {

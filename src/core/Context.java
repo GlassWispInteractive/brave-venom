@@ -4,7 +4,6 @@ import core.masters.AudioMaster;
 import core.masters.EventMaster;
 import core.masters.GraphicsMaster;
 import core.masters.SceneMaster;
-import core.masters.TileMaster;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -19,7 +18,7 @@ public abstract class Context extends Application {
 	protected final AudioMaster audioMaster;
 	protected final SceneMaster sceneMaster;
 	protected final EventMaster eventMaster;
-	protected final TileMaster tileMaster;
+//	protected final TileMaster tileMaster;
 
 	// make the stage acessible
 	private Scene scene;
@@ -38,7 +37,7 @@ public abstract class Context extends Application {
 
 		this.sceneMaster = new SceneMaster(this);
 		this.eventMaster = new EventMaster(this);
-		this.tileMaster = new TileMaster();
+//		this.tileMaster = new TileMaster();
 	}
 
 	public void setScene(Scene scene) {

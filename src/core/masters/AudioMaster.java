@@ -1,16 +1,19 @@
 package core.masters;
 
+import java.io.File;
+
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class AudioMaster {
-	private boolean on = false;
+	private boolean on = true;
 
 	private MediaPlayer mediaPlayer;
 
 	public AudioMaster() {
-		// Media sound = new Media(new
-		// File("src/res/audio/go.ogg").toURI().toString());
-		// mediaPlayer = new MediaPlayer(sound);
+		Media sound = new Media(new File("res/audio/lowThreeTone.mp3").toURI().toString());
+		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.setAutoPlay(true);
 	}
 
 	private void update() {
