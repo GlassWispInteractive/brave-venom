@@ -1,10 +1,10 @@
 package core.masters;
 
-import core.Context;
-import javafx.scene.input.KeyCode;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import core.Context;
+import javafx.scene.input.KeyCode;
 
 public class EventMaster {
 	private final Context context;

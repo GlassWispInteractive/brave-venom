@@ -1,12 +1,12 @@
 package core.masters;
 
+import java.util.HashMap;
+
 import core.Context;
 import javafx.animation.FadeTransition;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.util.Duration;
-
-import java.util.HashMap;
 
 public class SceneMaster {
 

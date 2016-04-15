@@ -1,13 +1,13 @@
 package game.scenes;
 
+import java.util.ArrayList;
+
 import core.masters.EventMaster;
 import core.masters.SceneMaster;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-
-import java.util.ArrayList;
 
 //import static game.State.*;
 

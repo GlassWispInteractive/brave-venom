@@ -1,9 +1,9 @@
 package core.masters;
 
+import java.io.File;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
-import java.io.File;
 
 public class AudioMaster {
 	private boolean on = true;

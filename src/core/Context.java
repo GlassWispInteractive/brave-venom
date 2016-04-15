@@ -1,6 +1,10 @@
 package core;
 
-import core.masters.*;
+import core.masters.AudioMaster;
+import core.masters.EventMaster;
+import core.masters.GameMaster;
+import core.masters.GraphicsMaster;
+import core.masters.SceneMaster;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyStringProperty;

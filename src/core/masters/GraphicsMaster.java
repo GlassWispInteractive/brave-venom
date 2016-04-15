@@ -1,22 +1,22 @@
 package core.masters;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashMap;
-
 public class GraphicsMaster {
 	// static colors
-	public static final Color FRONT = (Color) Paint.valueOf("#000000");
-	public static final Color BACK = (Color) Paint.valueOf("#CFCFCF");
-	public static final Color GREEN = (Color) Paint.valueOf("#1B8056");
-	public static final Color DARKGREEN = (Color) Paint.valueOf("#0F4730");
+	public final Color FRONT = (Color) Paint.valueOf("#CFCFCF");
+	public final Color BACK = (Color) Paint.valueOf("#000000");
+	public final Color GREEN = (Color) Paint.valueOf("#1B8056");
+	public final Color DARKGREEN = (Color) Paint.valueOf("#0F4730");
 
 	// properties
 	public final IntegerProperty windowWidth = new SimpleIntegerProperty();

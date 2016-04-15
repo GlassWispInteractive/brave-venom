@@ -1,6 +1,7 @@
 package game.scenes;
 
-import core.masters.GraphicsMaster;
+import java.util.HashMap;
+
 import core.masters.SceneMaster;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -8,8 +9,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-
-import java.util.HashMap;
 
 public abstract class AbstractGameScene extends Scene {
 	protected SceneMaster sceneMaster;
@@ -20,7 +19,8 @@ public abstract class AbstractGameScene extends Scene {
 
 	protected AbstractGameScene(SceneMaster sceneMaster) {
 		super(new StackPane(), sceneMaster.getContext().getGraphicsMaster().windowWidth.get(),
-				sceneMaster.getContext().getGraphicsMaster().windowHeight.get(), GraphicsMaster.BACK);
+				sceneMaster.getContext().getGraphicsMaster().windowHeight.get(),
+				sceneMaster.getContext().getGraphicsMaster().BACK);
 
 		this.sceneMaster = sceneMaster;
 		init_scene();
