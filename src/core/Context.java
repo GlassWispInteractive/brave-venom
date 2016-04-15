@@ -1,15 +1,14 @@
 package core;
 
-import core.masters.AudioMaster;
-import core.masters.EventMaster;
-import core.masters.GraphicsMaster;
-import core.masters.SceneMaster;
+import core.masters.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public abstract class Context extends Application {
@@ -18,7 +17,7 @@ public abstract class Context extends Application {
 	protected final AudioMaster audioMaster;
 	protected final SceneMaster sceneMaster;
 	protected final EventMaster eventMaster;
-//	protected final TileMaster tileMaster;
+	protected final GameMaster gameMaster;
 
 	// make the stage acessible
 	private Scene scene;
@@ -32,12 +31,12 @@ public abstract class Context extends Application {
 
 	public Context(String title, GraphicsMaster graphicsMaster, AudioMaster audioMaster) {
 		this.title.set(title);
+
 		this.graphicsMaster = graphicsMaster;
 		this.audioMaster = audioMaster;
-
 		this.sceneMaster = new SceneMaster(this);
 		this.eventMaster = new EventMaster(this);
-//		this.tileMaster = new TileMaster();
+		this.gameMaster = new GameMaster(this);
 	}
 
 	public void setScene(Scene scene) {
@@ -46,25 +45,20 @@ public abstract class Context extends Application {
 		stage.setScene(scene);
 	}
 
-	@Override
 	public void init() {
-		initAnimationTimer();
 	}
 
 	@Override
 	public void start(Stage stage) {
 		this.stage = stage;
 		initStage();
-		// MainMenuScreen s = new MainMenuScreen(null);
-		// stage.setScene(s.getScene());
-
 		stage.show();
-		// animationTimer.start();
 	}
 
 	@Override
 	public void stop() {
-		// animationTimer.stop();
+		gameMaster.stop();
+		save();
 	}
 
 	private void initStage() {
@@ -81,47 +75,19 @@ public abstract class Context extends Application {
 		stage.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
 			eventMaster.removeKeyCode(event.getCode());
 		});
+
+		System.out.println(Screen.getScreens().size());
+		if (Screen.getScreens().size() > 1) {
+
+			Rectangle2D bounds = Screen.getScreens().get(1).getBounds();
+			stage.setX(bounds.getMinX());
+			stage.setY(bounds.getMinY());
+		}
 	}
 
-	private void initAnimationTimer() {
-		final double fps = 60.0;
-		animationTimer = new AnimationTimer() {
-			@Override
-			public void handle(long currentNanoTime) {
-				// calculate time since last update.
-				time += (currentNanoTime - lastNanoTime) / 1000000000.0;
-				lastNanoTime = currentNanoTime;
-				passedTicks = (int) Math.floor(time * fps);
-				time -= passedTicks / fps;
+	protected abstract void load();
 
-				// adjust stage if necessary
-				if (Context.this.newStage) {
-					newStage = false;
-					stage.setScene(scene);
-				}
-
-				// if (eventControl.isESC()) {
-				// screenControl.showScreen("menu");
-				// }
-
-				// compute a frame
-				sceneMaster.tick(passedTicks);
-				sceneMaster.render();
-			}
-		};
-	}
-
-	public AnimationTimer getAnimationTimer() {
-		return animationTimer;
-	}
-
-	public EventMaster getEventControl() {
-		return eventMaster;
-	}
-
-	public SceneMaster getScreenControl() {
-		return sceneMaster;
-	}
+	protected abstract void save();
 
 	public String getTitle() {
 		return title.get();
@@ -131,11 +97,31 @@ public abstract class Context extends Application {
 		return title.getReadOnlyProperty();
 	}
 
+	public AnimationTimer getAnimationTimer() {
+		return animationTimer;
+	}
+
+	public EventMaster getEventMaster() {
+		return eventMaster;
+	}
+
+	public SceneMaster getScreenMaster() {
+		return sceneMaster;
+	}
+
 	public AudioMaster getAudioMaster() {
 		return audioMaster;
 	}
 
 	public GraphicsMaster getGraphicsMaster() {
 		return graphicsMaster;
+	}
+
+	public SceneMaster getSceneMaster() {
+		return sceneMaster;
+	}
+
+	public GameMaster getGameMaster() {
+		return gameMaster;
 	}
 }

@@ -1,6 +1,6 @@
 package game.scenes;
 
-import core.Context;
+import core.masters.SceneMaster;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,9 +9,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
-public class MainMenuScreen extends AbstractMenuScreen {
-	public MainMenuScreen(Context context) {
-		super(context);
+public class MainMenuScene extends AbstractMenuScene {
+	public MainMenuScene(SceneMaster sceneMaster) {
+		super(sceneMaster);
 
 		init_scene();
 	}
@@ -23,7 +23,7 @@ public class MainMenuScreen extends AbstractMenuScreen {
 		BorderPane foreground = this.getForeground();
 
 		// set background
-		ImageView backgroundImageView = new ImageView(context.getGraphicsMaster().getImage("scorpion"));
+		ImageView backgroundImageView = new ImageView(sceneMaster.getContext().getGraphicsMaster().getImage("scorpion"));
 		background.setCenter(backgroundImageView);
 		background.setOpacity(0.3);
 
@@ -35,7 +35,7 @@ public class MainMenuScreen extends AbstractMenuScreen {
 		BorderPane borderPaneLogo = new BorderPane();
 		borderPaneLogo.setPrefHeight(240);
 
-		ImageView imageViewLogo = new ImageView(context.getGraphicsMaster().getImage("logo"));
+		ImageView imageViewLogo = new ImageView(sceneMaster.getContext().getGraphicsMaster().getImage("logo"));
 		borderPaneLogo.setCenter(imageViewLogo);
 		BorderPane.setAlignment(imageViewLogo, Pos.CENTER);
 
@@ -54,7 +54,7 @@ public class MainMenuScreen extends AbstractMenuScreen {
 		vboxButtons.getChildren().add(tilePaneButtons);
 
 		Button buttonStart = new Button("Start");
-		Button buttonWildcard = new Button("Wildcard");
+		Button buttonWildcard = new Button("don't click");
 		Button buttonHelp = new Button("Help");
 		Button buttonSettings = new Button("Settings");
 		Button buttonExit = new Button("Exit");
@@ -72,16 +72,17 @@ public class MainMenuScreen extends AbstractMenuScreen {
 		buttonExit.setPrefHeight(Double.MAX_VALUE);
 
 		buttonStart.setOnAction((e) -> {
-			// TODO: implement me
+			sceneMaster.getContext().getScreenMaster().showScene("game", foreground);
+			sceneMaster.getContext().getGameMaster().start();
 		});
 		buttonWildcard.setOnAction((e) -> {
-			// TODO: implement me
+			Platform.exit();
 		});
 		buttonHelp.setOnAction((e) -> {
-			context.getScreenControl().showScreen("help_menu", foreground);
+			sceneMaster.getContext().getScreenMaster().showScene("help_menu", foreground);
 		});
 		buttonSettings.setOnAction((e) -> {
-			context.getScreenControl().showScreen("settings_menu", foreground);
+			sceneMaster.getContext().getScreenMaster().showScene("settings_menu", foreground);
 		});
 		buttonExit.setOnAction((e) -> {
 			Platform.exit();

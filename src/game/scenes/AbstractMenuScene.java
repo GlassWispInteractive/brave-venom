@@ -1,31 +1,30 @@
 package game.scenes;
 
-import java.util.ArrayList;
-
-import core.Context;
 import core.masters.EventMaster;
+import core.masters.SceneMaster;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
+import java.util.ArrayList;
+
 //import static game.State.*;
 
-public class AbstractMenuScreen extends Scene {
-	protected Context context;
+public class AbstractMenuScene extends Scene {
+	protected SceneMaster sceneMaster;
 
 	// instance
 
 	protected ArrayList<String> menuPoints;
 	private int cur;
-	private BorderPane background;
-	private BorderPane foreground;
+	protected BorderPane background;
+	protected BorderPane foreground;
 
-	public AbstractMenuScreen(Context context) {
-		super(new StackPane(), context.getGraphicsMaster().windowWidth.get(),
-				context.getGraphicsMaster().windowHeight.get());
-
-		this.context = context;
+	public AbstractMenuScene(SceneMaster sceneMaster) {
+		super(new StackPane(), sceneMaster.getContext().getGraphicsMaster().windowWidth.get(),
+				sceneMaster.getContext().getGraphicsMaster().windowHeight.get());
+		this.sceneMaster = sceneMaster;
 		init_scene();
 	}
 
@@ -46,12 +45,8 @@ public class AbstractMenuScreen extends Scene {
 		return foreground;
 	}
 
-	public final Context getContext() {
-		return context;
-	}
-
 	public void tick(int ticks) {
-		EventMaster eventControl = getContext().getEventControl();
+		EventMaster eventControl = sceneMaster.getContext().getEventMaster();
 
 		// event handling
 		if (eventControl.isUp())

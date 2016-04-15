@@ -1,19 +1,15 @@
 package game.scenes;
 
-import core.Context;
 import core.masters.FontMaster;
+import core.masters.SceneMaster;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-public class HelpMenuScreen extends AbstractMenuScreen {
+public class HelpMenuScene extends AbstractMenuScene {
 	private final static String HELP_TEXT = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy "
 			+ "eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et "
 			+ "accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem "
@@ -22,21 +18,21 @@ public class HelpMenuScreen extends AbstractMenuScreen {
 			+ "justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor "
 			+ "sit amet.";
 
-	public HelpMenuScreen(Context context) {
-		super(context);
+	public HelpMenuScene(SceneMaster sceneMaster) {
+		super(sceneMaster);
 
-		this.context = context;
-		init_scene();
+		initScene();
 	}
 
-	private void init_scene() {
+	private void initScene() {
 		getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 		BorderPane background = this.getBackground();
 		BorderPane foreground = this.getForeground();
 
 		// set background
-		ImageView backgroundImageView = new ImageView(context.getGraphicsMaster().getImage("scorpion"));
+		ImageView backgroundImageView = new ImageView(
+				sceneMaster.getContext().getGraphicsMaster().getImage("scorpion"));
 		background.setCenter(backgroundImageView);
 		background.setOpacity(0.3);
 
@@ -48,7 +44,7 @@ public class HelpMenuScreen extends AbstractMenuScreen {
 		BorderPane borderPaneLogo = new BorderPane();
 		borderPaneLogo.setPrefHeight(240);
 
-		ImageView imageViewLogo = new ImageView(context.getGraphicsMaster().getImage("logo"));
+		ImageView imageViewLogo = new ImageView(sceneMaster.getContext().getGraphicsMaster().getImage("logo"));
 		borderPaneLogo.setCenter(imageViewLogo);
 		BorderPane.setAlignment(imageViewLogo, Pos.CENTER);
 
@@ -77,7 +73,7 @@ public class HelpMenuScreen extends AbstractMenuScreen {
 		buttonBack.setPrefHeight(Double.MAX_VALUE);
 
 		buttonBack.setOnAction((e) -> {
-			context.getScreenControl().showScreen("main_menu", foreground);
+			sceneMaster.getContext().getScreenMaster().showScene("main_menu", foreground);
 		});
 
 		Label labelDescription = new Label(HELP_TEXT);

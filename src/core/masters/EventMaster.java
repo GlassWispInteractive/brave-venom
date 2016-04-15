@@ -1,10 +1,10 @@
 package core.masters;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import core.Context;
 import javafx.scene.input.KeyCode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventMaster {
 	private final Context context;
@@ -19,8 +19,7 @@ public class EventMaster {
 	/**
 	 * Adds a KeyCode as a current active input.
 	 *
-	 * @param keyCode
-	 *            the KeyCode
+	 * @param keyCode the KeyCode
 	 */
 	public void addKeyCode(KeyCode keyCode) {
 		if (!input.contains(keyCode))
@@ -30,8 +29,7 @@ public class EventMaster {
 	/**
 	 * Removes a KeyCode from the current active inputs.
 	 *
-	 * @param keyCode
-	 *            the KeyCode
+	 * @param keyCode the KeyCode
 	 */
 	public void removeKeyCode(KeyCode keyCode) {
 		input.remove(keyCode);

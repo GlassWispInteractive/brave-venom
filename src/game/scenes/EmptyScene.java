@@ -3,15 +3,15 @@
  */
 package game.scenes;
 
-import core.Context;
+import core.masters.SceneMaster;
 
 /**
  * @author danny
  */
-public class EmptyScreen extends AbstractMenuScreen {
+public class EmptyScene extends AbstractMenuScene {
 
-	public EmptyScreen(Context context) {
-		super(context);
+	public EmptyScene(SceneMaster sceneMaster) {
+		super(sceneMaster);
 	}
 
 	/*
@@ -27,7 +27,7 @@ public class EmptyScreen extends AbstractMenuScreen {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see core.screens.Screen#render()
 	 */
 	public void render() {

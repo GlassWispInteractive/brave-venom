@@ -1,12 +1,12 @@
 package core.masters;
 
-import java.util.HashMap;
-
 import core.Context;
 import javafx.animation.FadeTransition;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.util.Duration;
+
+import java.util.HashMap;
 
 public class SceneMaster {
 
@@ -31,36 +31,24 @@ public class SceneMaster {
 	}
 
 	/**
-	 * Sets the screen with the given name to be shown. The scene root will be
-	 * faded.
+	 * Sets the screen with the given name to be shown. The scene root will be faded.
 	 *
-	 * @param name
-	 *            the name of the screen to be shown
+	 * @param name the name of the screen to be shown
 	 */
-	public void showScreen(String name) {
-		// dont try to set new screen
-		if (scenes.get(name) == null) {
-			System.err.println("scene name is invalid");
-			return;
-		}
-		showScreen(name, scenes.get(name).getRoot());
+	public void showScene(String name) {
+		assert scenes.containsKey(name) : "scene name is invalid";
+
+		showScene(name, scenes.get(name).getRoot());
 	}
 
 	/**
-	 * Sets the screen with the given name to be shown. The given node will be
-	 * faded.
+	 * Sets the screen with the given name to be shown. The given node will be faded.
 	 *
-	 * @param name
-	 *            the name of the screen to be shown
-	 * @param nodeFade
-	 *            the node which will be faded
+	 * @param name     the name of the screen to be shown
+	 * @param nodeFade the node which will be faded
 	 */
-	public void showScreen(String name, Node nodeFade) {
-		// dont try to set new screen
-		if (scenes.get(name) == null) {
-			System.err.println("scene name is invalid");
-			return;
-		}
+	public void showScene(String name, Node nodeFade) {
+		assert scenes.containsKey(name) : "scene name is invalid";
 
 		// update the showing scene
 		boolean firstStart = (scene == null);
@@ -80,10 +68,8 @@ public class SceneMaster {
 	/**
 	 * Adds a new screen with the given name.
 	 *
-	 * @param name
-	 *            the name of the screen
-	 * @param screen
-	 *            the screen
+	 * @param name   the name of the screen
+	 * @param screen the screen
 	 */
 	public void addScreen(String name, Scene screen) {
 		scenes.put(name, screen);
@@ -92,8 +78,7 @@ public class SceneMaster {
 	/**
 	 * Removes the screen with the given name.
 	 *
-	 * @param name
-	 *            the name of the screen
+	 * @param name the name of the screen
 	 */
 	public void removeScreen(String name) {
 		scenes.remove(name);
