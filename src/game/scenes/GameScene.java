@@ -138,7 +138,7 @@ public class GameScene extends AbstractGameScene {
 		double latterY = bigY - sceneMaster.getImage("numeral1").getHeight() * 0.5;
 		for (int i = 0; i < cs.length; i++) {
 			gc.drawImage(sceneMaster.getImage("numeral" + cs[i]),
-					15 + life.getWidth() + (i + 1) * (numeral_x.getWidth() + 2), latterY);
+					15 + life.getWidth() + (i + 1) * (numeral_x.getWidth() + 4), latterY);
 		}
 
 		// desperate bar
