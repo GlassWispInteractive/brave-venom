@@ -29,7 +29,6 @@
 			</resource>
 		</resources>
 			<plugins>
-
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
@@ -38,8 +37,6 @@
 						<outputDirectory>${project.build.outputDirectory}/${res}</outputDirectory>
 					</configuration>
 				</plugin>
-
-
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -74,6 +71,24 @@
 							</manifest>
 						</archive>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>1.4.0</version>
+					<executions>
+						<execution>
+							<phase>test</phase>
+							<goals>
+								<goal>java</goal>
+							</goals>
+							<configuration>
+								<mainClass>${main}</mainClass>
+								<arguments>
+								</arguments>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 		</plugins>
 	</build>
