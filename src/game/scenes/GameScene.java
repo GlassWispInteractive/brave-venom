@@ -18,7 +18,7 @@ public class GameScene extends AbstractGameScene {
 	private void initScene() {
 		updateBackground();
 		updateForeGround();
-//		updateGui();
+		updateGui();
 	}
 
 	private void updateBackground() {
@@ -52,8 +52,8 @@ public class GameScene extends AbstractGameScene {
 		Color colorDesperateBarOuter = Color.DARKBLUE;
 		Color colorDesperateBarInner = Color.LIGHTBLUE;
 
-		double fontSizeLarge = FontMaster.LARGE_FONT.getSize();
-		double fontSizeNormal = FontMaster.NORMAL_FONT.getSize();
+//		double fontSizeLarge = FontMaster.LARGE_FONT.getSize();
+//		double fontSizeNormal = FontMaster.NORMAL_FONT.getSize();
 
 		double lifeIconWidth = 48;
 		double lifeIconHeight = 48;
