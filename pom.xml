@@ -76,19 +76,11 @@
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>exec-maven-plugin</artifactId>
 					<version>1.4.0</version>
-					<executions>
-						<execution>
-							<phase>test</phase>
-							<goals>
-								<goal>java</goal>
-							</goals>
-							<configuration>
-								<mainClass>${main}</mainClass>
-								<arguments>
-								</arguments>
-							</configuration>
-						</execution>
-					</executions>
+					<configuration>
+						<mainClass>${main}</mainClass>
+						<arguments>
+						</arguments>
+					</configuration>
 				</plugin>
 		</plugins>
 	</build>
