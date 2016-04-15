@@ -1,9 +1,8 @@
 package core.masters;
 
+import java.io.File;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
-import java.io.File;
 
 public class AudioMaster {
 	private boolean on = true;
@@ -11,9 +10,9 @@ public class AudioMaster {
 	private MediaPlayer mediaPlayer;
 
 	public AudioMaster() {
-		Media sound = new Media(new File("res/audio/lowThreeTone.mp3").toURI().toString());
-		mediaPlayer = new MediaPlayer(sound);
-		mediaPlayer.setAutoPlay(true);
+//		Media sound = new Media(new File("res/audio/lowThreeTone.mp3").toURI().toString());
+//		mediaPlayer = new MediaPlayer(sound);
+//		mediaPlayer.setAutoPlay(true);
 	}
 
 	private void update() {

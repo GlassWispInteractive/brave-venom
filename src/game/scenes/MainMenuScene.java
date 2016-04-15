@@ -17,8 +17,6 @@ public class MainMenuScene extends AbstractMenuScene {
 	}
 
 	private void init_scene() {
-		getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
 		BorderPane background = this.getBackground();
 		BorderPane foreground = this.getForeground();
 

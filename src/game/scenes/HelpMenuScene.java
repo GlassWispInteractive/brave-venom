@@ -25,8 +25,6 @@ public class HelpMenuScene extends AbstractMenuScene {
 	}
 
 	private void initScene() {
-		getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
 		BorderPane background = this.getBackground();
 		BorderPane foreground = this.getForeground();
 
