@@ -24,10 +24,10 @@ public class TileMaster {
 		try {
 			Files.walk(Paths.get("res/tilesheet")).forEach(filePath -> {
 				if (Files.isRegularFile(filePath)) {
-					String pattern = Pattern.quote(System.getProperty("file.separator"));
-					String[] s = filePath.toString().split(pattern);
-					String name = s[s.length - 1];
-					name = name.substring(0, name.lastIndexOf("."));
+					int start = filePath.toString().lastIndexOf(System.getProperty("file.separator")) + 1;
+					int end = filePath.toString().lastIndexOf(".");
+					
+					String name = filePath.toString().substring(start, end);
 
 					// save the full image
 					sheets.put(name, new Image(filePath.toUri().toString()));
