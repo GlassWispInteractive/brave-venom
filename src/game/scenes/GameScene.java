@@ -1,7 +1,6 @@
 package game.scenes;
 
 import core.masters.GameMaster;
-import core.masters.GraphicsMaster;
 import core.masters.SceneMaster;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,43 +21,40 @@ public class GameScene extends AbstractGameScene {
 	}
 
 	private void updateBackground() {
-		GraphicsMaster graphicsMaster = sceneMaster.getContext().getGraphicsMaster();
 		GameMaster gameMaster = sceneMaster.getContext().getGameMaster();
-		
-		Canvas canvas = new Canvas(graphicsMaster.gameWidth.get(), graphicsMaster.gameHeight.get());
+
+		Canvas canvas = new Canvas(sceneMaster.gameWidth.get(), sceneMaster.gameHeight.get());
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		background.getChildren().add(canvas);
-		
-		gc.getCanvas().relocate(0, graphicsMaster.panelHeight.get());
+
+		gc.getCanvas().relocate(0, sceneMaster.panelHeight.get());
 		gc.setFill(Color.BLACK);
-		Image sky = graphicsMaster.getImage("sky_blue");
-		for (int x = 0; x < graphicsMaster.gameWidth.get() / sky.getWidth(); x++) {
-			for (int y = 0; y < graphicsMaster.gameHeight.get() / sky.getHeight(); y++) {
+		Image sky = sceneMaster.getImage("sky_blue");
+		for (int x = 0; x < sceneMaster.gameWidth.get() / sky.getWidth(); x++) {
+			for (int y = 0; y < sceneMaster.gameHeight.get() / sky.getHeight(); y++) {
 				gc.drawImage(sky, sky.getWidth() * x, sky.getHeight() * y);
 			}
 		}
-		
+
 	}
 
 	private void updateForeGround() {
-		GraphicsMaster graphicsMaster = sceneMaster.getContext().getGraphicsMaster();
 		GameMaster gameMaster = sceneMaster.getContext().getGameMaster();
-		
-		Canvas canvas = new Canvas(graphicsMaster.gameWidth.get(), graphicsMaster.gameHeight.get());
+
+		Canvas canvas = new Canvas(sceneMaster.gameWidth.get(), sceneMaster.gameHeight.get());
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		background.getChildren().add(canvas);
 	}
 
 	private void updateGui() {
-		GraphicsMaster graphicsMaster = sceneMaster.getContext().getGraphicsMaster();
 		GameMaster gameMaster = sceneMaster.getContext().getGameMaster();
 
-		Canvas canvas = new Canvas(graphicsMaster.gameWidth.get(), graphicsMaster.gameHeight.get());
+		Canvas canvas = new Canvas(sceneMaster.gameWidth.get(), sceneMaster.gameHeight.get());
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		background.getChildren().add(canvas);
 
 		// general settings
-		double barOuterWidth = graphicsMaster.gameWidth.get() / 3;
+		double barOuterWidth = sceneMaster.gameWidth.get() / 3;
 		double barOuterHeight = 16;
 		double barOffset = 2;
 		double barInnerWidth = barOuterWidth - 2 * barOffset;
@@ -73,8 +69,8 @@ public class GameScene extends AbstractGameScene {
 		Color colorDesperateBarOuter = Color.DARKBLUE;
 		Color colorDesperateBarInner = Color.LIGHTBLUE;
 
-//		double fontSizeLarge = FontMaster.LARGE_FONT.getSize();
-//		double fontSizeNormal = FontMaster.NORMAL_FONT.getSize();
+		//		double fontSizeLarge = FontMaster.LARGE_FONT.getSize();
+		//		double fontSizeNormal = FontMaster.NORMAL_FONT.getSize();
 
 		double lifeIconWidth = 48;
 		double lifeIconHeight = 48;
@@ -84,7 +80,7 @@ public class GameScene extends AbstractGameScene {
 
 		// TODO: round time bar
 		// round time bar
-		xo = graphicsMaster.gameWidth.get() / 3;
+		xo = sceneMaster.gameWidth.get() / 3;
 		xi = xo + barOffset;
 		yo = barDistance;
 		yi = yo + barOffset;
@@ -103,7 +99,7 @@ public class GameScene extends AbstractGameScene {
 		gc.fillRoundRect(xi, yi, wi, hi, barInnerArc, barInnerArc);
 
 		// TODO: desperation bar
-		xo = graphicsMaster.gameWidth.get() / 3;
+		xo = sceneMaster.gameWidth.get() / 3;
 		xi = xo + barOffset;
 		yo = barDistance + barOuterHeight + barDistance;
 		yi = yo + barOffset;

@@ -1,5 +1,6 @@
 package core.masters;
 
+import core.Context;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -10,7 +11,7 @@ public class AudioMaster {
 
 	private MediaPlayer mediaPlayer;
 
-	public AudioMaster() {
+	public AudioMaster(Context context) {
 		Media sound = new Media(new File("res/audio/lowThreeTone.mp3").toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.setAutoPlay(true);

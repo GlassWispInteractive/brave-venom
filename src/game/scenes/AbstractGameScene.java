@@ -1,6 +1,5 @@
 package game.scenes;
 
-import core.masters.GraphicsMaster;
 import core.masters.SceneMaster;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,8 +18,7 @@ public abstract class AbstractGameScene extends Scene {
 	private HashMap<String, GraphicsContext> gcs;
 
 	protected AbstractGameScene(SceneMaster sceneMaster) {
-		super(new StackPane(), sceneMaster.getContext().getGraphicsMaster().windowWidth.get(),
-				sceneMaster.getContext().getGraphicsMaster().windowHeight.get(), GraphicsMaster.BACK);
+		super(new StackPane(), sceneMaster.windowWidth.get(), sceneMaster.windowHeight.get(), SceneMaster.BACK);
 
 		this.sceneMaster = sceneMaster;
 		init_scene();

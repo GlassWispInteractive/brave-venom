@@ -17,13 +17,12 @@ public class AbstractMenuScene extends Scene {
 	// instance
 
 	protected ArrayList<String> menuPoints;
-	private int cur;
 	protected BorderPane background;
 	protected BorderPane foreground;
+	private int cur;
 
 	public AbstractMenuScene(SceneMaster sceneMaster) {
-		super(new StackPane(), sceneMaster.getContext().getGraphicsMaster().windowWidth.get(),
-				sceneMaster.getContext().getGraphicsMaster().windowHeight.get());
+		super(new StackPane(), sceneMaster.windowWidth.get(), sceneMaster.windowHeight.get());
 		this.sceneMaster = sceneMaster;
 		init_scene();
 	}

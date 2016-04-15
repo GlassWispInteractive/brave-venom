@@ -1,8 +1,6 @@
 package game;
 
 import core.Context;
-import core.masters.AudioMaster;
-import core.masters.GraphicsMaster;
 import game.scenes.GameScene;
 import game.scenes.HelpMenuScene;
 import game.scenes.MainMenuScene;
@@ -13,15 +11,15 @@ public class BraveVenomGame extends Context {
 	private static final String TITLE = "BraveVenomGame";
 
 	public BraveVenomGame() {
-		super(TITLE, new GraphicsMaster(), new AudioMaster());
+		super(TITLE);
 
 		// general settings
-		graphicsMaster.windowWidth.set(1200);
-		graphicsMaster.windowHeight.set(800);
-		graphicsMaster.tileSize.set(16);
-		graphicsMaster.panelHeight.bind(graphicsMaster.tileSize.multiply(5));
-		graphicsMaster.gameHeight.bind(graphicsMaster.windowHeight.subtract(graphicsMaster.panelHeight.multiply(2)));
-		graphicsMaster.gameWidth.bind(graphicsMaster.windowWidth);
+		sceneMaster.windowWidth.set(1200);
+		sceneMaster.windowHeight.set(800);
+		sceneMaster.tileSize.set(16);
+		sceneMaster.panelHeight.bind(sceneMaster.tileSize.multiply(5));
+		sceneMaster.gameHeight.bind(sceneMaster.windowHeight.subtract(sceneMaster.panelHeight.multiply(2)));
+		sceneMaster.gameWidth.bind(sceneMaster.windowWidth);
 	}
 
 	public static void main(String[] args) {
