@@ -18,8 +18,12 @@ public class FontMaster {
 
 	// initialization of the static attributes
 	static {
-		InputStream inputStream1 = GraphicsMaster.class.getResourceAsStream("../res/font/kenvector_future.ttf");
-		InputStream inputStream2 = GraphicsMaster.class.getResourceAsStream("../res/font/kenvector_future_thin.ttf");
+		// font loading does not work in the current version
+		// Font.loadFont("../../res/font/kenvector_future.ttf", 30);
+		// Font.loadFont("../../res/font/kenvector_future_thin.ttf", 30);
+		InputStream inputStream1 = FontMaster.class.getResourceAsStream("../../res/font/kenvector_future.ttf");
+		InputStream inputStream2 = FontMaster.class.getResourceAsStream("../../res/font/kenvector_future_thin.ttf");
+
 		LARGE_FONT = Font.loadFont(inputStream1, 30);
 		NORMAL_FONT = Font.font("Kenvector Future", 20);
 		SMALL_FONT = Font.font("Kenvector Future", 16);

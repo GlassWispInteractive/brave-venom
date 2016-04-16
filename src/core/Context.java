@@ -1,6 +1,9 @@
 package core;
 
-import core.masters.*;
+import core.masters.AudioMaster;
+import core.masters.EventMaster;
+import core.masters.GameMaster;
+import core.masters.SceneMaster;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -13,11 +16,11 @@ import javafx.stage.Stage;
 
 public abstract class Context extends Application {
 	// instances from the master classes
-	protected final GraphicsMaster graphicsMaster;
-	protected final AudioMaster audioMaster;
-	protected final SceneMaster sceneMaster;
-	protected final EventMaster eventMaster;
-	protected final GameMaster gameMaster;
+	public final AudioMaster audioMaster;
+	public final SceneMaster sceneMaster;
+	public final EventMaster eventMaster;
+	public final GameMaster gameMaster;
+	public static Context instance = null;
 
 	// make the stage acessible
 	private Scene scene;
@@ -29,11 +32,14 @@ public abstract class Context extends Application {
 	private Stage stage;
 	private AnimationTimer animationTimer;
 
-	public Context(String title, GraphicsMaster graphicsMaster, AudioMaster audioMaster) {
+	public Context(String title) {
+		if (instance != null) {
+			throw new RuntimeException("Context already existing;");
+		}
+		instance = this;
 		this.title.set(title);
 
-		this.graphicsMaster = graphicsMaster;
-		this.audioMaster = audioMaster;
+		this.audioMaster = new AudioMaster(this);
 		this.sceneMaster = new SceneMaster(this);
 		this.eventMaster = new EventMaster(this);
 		this.gameMaster = new GameMaster(this);
@@ -76,7 +82,6 @@ public abstract class Context extends Application {
 			eventMaster.removeKeyCode(event.getCode());
 		});
 
-		System.out.println(Screen.getScreens().size());
 		if (Screen.getScreens().size() > 1) {
 
 			Rectangle2D bounds = Screen.getScreens().get(1).getBounds();
@@ -105,16 +110,8 @@ public abstract class Context extends Application {
 		return eventMaster;
 	}
 
-	public SceneMaster getScreenMaster() {
-		return sceneMaster;
-	}
-
 	public AudioMaster getAudioMaster() {
 		return audioMaster;
-	}
-
-	public GraphicsMaster getGraphicsMaster() {
-		return graphicsMaster;
 	}
 
 	public SceneMaster getSceneMaster() {

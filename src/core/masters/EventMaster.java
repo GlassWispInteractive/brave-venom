@@ -60,12 +60,52 @@ public class EventMaster {
 		return input.contains(KeyCode.DOWN) || input.contains(KeyCode.S);
 	}
 
+	public boolean isUpLeft() {
+		return isUp() && isLeft();
+	}
+
+	public boolean isUpRight() {
+		return isUp() && isRight();
+	}
+
+	public boolean isDownLeft() {
+		return isDown() && isLeft();
+	}
+
+	public boolean isDownRight() {
+		return isDown() && isRight();
+	}
+
+	public double getDir() {
+		if (isUpLeft())
+			return 5 * 45;
+		if (isUpRight())
+			return 7 * 45;
+		if (isDownLeft())
+			return 3 * 45;
+		if (isDownRight())
+			return 1 * 45;
+		if (isUp())
+			return 6 * 45;
+		if (isDown())
+			return 2 * 45;
+		if (isLeft())
+			return 4 * 45;
+		if (isRight())
+			return 0 * 45;
+		return Double.NaN;
+	}
+
 	public boolean isC() {
 		return input.contains(KeyCode.C);
 	}
 
 	public boolean isQ() {
 		return input.contains(KeyCode.Q);
+	}
+
+	public boolean isSpace() {
+		return input.contains(KeyCode.SPACE);
 	}
 
 	public boolean isEnter() {

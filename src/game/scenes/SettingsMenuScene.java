@@ -21,7 +21,7 @@ public class SettingsMenuScene extends AbstractMenuScene {
 		BorderPane foreground = this.getForeground();
 
 		// set background
-		ImageView backgroundImageView = new ImageView(sceneMaster.getContext().getGraphicsMaster().getImage("scorpion"));
+		ImageView backgroundImageView = new ImageView(sceneMaster.getImage("scorpion"));
 		background.setCenter(backgroundImageView);
 		background.setOpacity(0.3);
 
@@ -33,7 +33,7 @@ public class SettingsMenuScene extends AbstractMenuScene {
 		BorderPane borderPaneLogo = new BorderPane();
 		borderPaneLogo.setPrefHeight(240);
 
-		ImageView imageViewLogo = new ImageView(sceneMaster.getContext().getGraphicsMaster().getImage("logo"));
+		ImageView imageViewLogo = new ImageView(sceneMaster.getImage("logo"));
 		borderPaneLogo.setCenter(imageViewLogo);
 		BorderPane.setAlignment(imageViewLogo, Pos.CENTER);
 
@@ -58,7 +58,7 @@ public class SettingsMenuScene extends AbstractMenuScene {
 		buttonBack.setPrefHeight(Double.MAX_VALUE);
 
 		buttonBack.setOnAction((e) -> {
-			sceneMaster.getContext().getScreenMaster().showScene("main_menu", foreground);
+			sceneMaster.getContext().getSceneMaster().showScene("main_menu", foreground);
 		});
 
 		BorderPane borderPaneEmpty = new BorderPane();

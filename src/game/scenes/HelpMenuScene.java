@@ -6,7 +6,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class HelpMenuScene extends AbstractMenuScene {
@@ -29,8 +33,7 @@ public class HelpMenuScene extends AbstractMenuScene {
 		BorderPane foreground = this.getForeground();
 
 		// set background
-		ImageView backgroundImageView = new ImageView(
-				sceneMaster.getContext().getGraphicsMaster().getImage("scorpion"));
+		ImageView backgroundImageView = new ImageView(sceneMaster.getImage("scorpion"));
 		background.setCenter(backgroundImageView);
 		background.setOpacity(0.3);
 
@@ -42,7 +45,7 @@ public class HelpMenuScene extends AbstractMenuScene {
 		BorderPane borderPaneLogo = new BorderPane();
 		borderPaneLogo.setPrefHeight(240);
 
-		ImageView imageViewLogo = new ImageView(sceneMaster.getContext().getGraphicsMaster().getImage("logo"));
+		ImageView imageViewLogo = new ImageView(sceneMaster.getImage("logo"));
 		borderPaneLogo.setCenter(imageViewLogo);
 		BorderPane.setAlignment(imageViewLogo, Pos.CENTER);
 
@@ -71,7 +74,7 @@ public class HelpMenuScene extends AbstractMenuScene {
 		buttonBack.setPrefHeight(Double.MAX_VALUE);
 
 		buttonBack.setOnAction((e) -> {
-			sceneMaster.getContext().getScreenMaster().showScene("main_menu", foreground);
+			sceneMaster.getContext().getSceneMaster().showScene("main_menu", foreground);
 		});
 
 		Label labelDescription = new Label(HELP_TEXT);

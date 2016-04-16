@@ -21,7 +21,7 @@ public class MainMenuScene extends AbstractMenuScene {
 		BorderPane foreground = this.getForeground();
 
 		// set background
-		ImageView backgroundImageView = new ImageView(sceneMaster.getContext().getGraphicsMaster().getImage("scorpion"));
+		ImageView backgroundImageView = new ImageView(sceneMaster.getImage("scorpion"));
 		background.setCenter(backgroundImageView);
 		background.setOpacity(0.3);
 
@@ -33,7 +33,7 @@ public class MainMenuScene extends AbstractMenuScene {
 		BorderPane borderPaneLogo = new BorderPane();
 		borderPaneLogo.setPrefHeight(240);
 
-		ImageView imageViewLogo = new ImageView(sceneMaster.getContext().getGraphicsMaster().getImage("logo"));
+		ImageView imageViewLogo = new ImageView(sceneMaster.getImage("logo"));
 		borderPaneLogo.setCenter(imageViewLogo);
 		BorderPane.setAlignment(imageViewLogo, Pos.CENTER);
 
@@ -70,17 +70,17 @@ public class MainMenuScene extends AbstractMenuScene {
 		buttonExit.setPrefHeight(Double.MAX_VALUE);
 
 		buttonStart.setOnAction((e) -> {
-			sceneMaster.getContext().getScreenMaster().showScene("game", foreground);
+			sceneMaster.getContext().getSceneMaster().showScene("game", foreground);
 			sceneMaster.getContext().getGameMaster().start();
 		});
 		buttonWildcard.setOnAction((e) -> {
 			Platform.exit();
 		});
 		buttonHelp.setOnAction((e) -> {
-			sceneMaster.getContext().getScreenMaster().showScene("help_menu", foreground);
+			sceneMaster.getContext().getSceneMaster().showScene("help_menu", foreground);
 		});
 		buttonSettings.setOnAction((e) -> {
-			sceneMaster.getContext().getScreenMaster().showScene("settings_menu", foreground);
+			sceneMaster.getContext().getSceneMaster().showScene("settings_menu", foreground);
 		});
 		buttonExit.setOnAction((e) -> {
 			Platform.exit();

@@ -1,27 +1,37 @@
 package core.masters;
 
 import core.Context;
+import game.entity.*;
+import game.scenes.GameScene;
 import javafx.animation.AnimationTimer;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class GameMaster extends AnimationTimer {
 
-	public final IntegerProperty life = new SimpleIntegerProperty(3);
-	public final IntegerProperty round = new SimpleIntegerProperty(100);
-	public final IntegerProperty roundTime = new SimpleIntegerProperty(100);
-	public final IntegerProperty desperation = new SimpleIntegerProperty(100);
-	public final IntegerProperty currentLife = new SimpleIntegerProperty(life.get());
-	public final IntegerProperty currentRound = new SimpleIntegerProperty(1);
-	public final IntegerProperty currentRoundTime = new SimpleIntegerProperty(roundTime.get());
-	public final IntegerProperty currentDesperation = new SimpleIntegerProperty(0);
+	public final Context context;
+	public final List<Enemy> enemies = new LinkedList<>();
+	public final List<Shot> playerShots = new LinkedList<>();
+	public final List<Shot> enemyShots = new LinkedList<>();
 
-	private final Context context;
+	public final int maxLife = 3;
+	public final int maxRound = 100;
+	public final int maxRoundTime = 100;
+	public final int maxDesperation = 100;
+	public Player player;
+	public double mouseX;
+	public double mouseY;
+	private int currentLife = maxLife;
+	private int currentRound = 1;
+	private int currentRoundTime = maxRoundTime;
+	private int currentDesperation = 0;
 	private double lastNanoTime = System.nanoTime();
 	private double time = 0;
 
 	public GameMaster(Context context) {
 		this.context = context;
+
 	}
 
 	@Override
@@ -36,16 +46,48 @@ public class GameMaster extends AnimationTimer {
 
 		// TODO: add ESC event handler for game scene
 
-		// compute a frame
+		tick(passedTicks);
+		render();
+	}
+
+	private void tick(int ticks) {
 		SceneMaster sceneMaster = context.getSceneMaster();
-		sceneMaster.tick(passedTicks);
+		sceneMaster.tick(ticks);
+		for (Enemy enemy : enemies)
+			enemy.tick(ticks);
+		for (Shot shot : playerShots)
+			shot.tick(ticks);
+		for (Shot shot : enemyShots)
+			shot.tick(ticks);
+		player.tick(ticks);
+
+		// debug info
+		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
+		gameScene.allticks += ticks;
+		gameScene.tickLabel.setText(gameScene.allticks + " ticks");
+	}
+
+	private void render() {
+
+		SceneMaster sceneMaster = context.getSceneMaster();
 		sceneMaster.render();
+		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
+		gameScene.update();
 	}
 
 	@Override
 	public void start() {
 		super.start();
-		// ...
+		player = new Player(200, 200, 0, 10);
+		Enemy enemy1 = new ActiveEnemy(1000, 1000, 0, 1);
+		Enemy enemy2 = new PassiveEnemy(-100, 400, 0, 1);
+
+		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
+		gamescene.addEntitiy(EntityType.PLAYER, player);
+		gamescene.addEntitiy(EntityType.ENEMY, enemy1);
+		gamescene.addEntitiy(EntityType.ENEMY, enemy2);
+		enemies.add(enemy1);
+		enemies.add(enemy2);
 	}
 
 	public void pause() {
@@ -65,5 +107,63 @@ public class GameMaster extends AnimationTimer {
 	public void restart() {
 		stop();
 		start();
+	}
+
+	public int getCurrentLife() {
+		return currentLife;
+	}
+
+	public void damage(int damage) {
+		if (damage >= 0)
+			this.currentLife = Math.max(currentLife - damage, 0);
+	}
+
+	public void heal(int health) {
+		if (health >= 0)
+			this.currentLife = Math.min(currentLife + health, maxLife);
+	}
+
+	public int getCurrentRound() {
+		return currentRound;
+	}
+
+	public void setCurrentRound(int currentRound) {
+		this.currentRound = currentRound;
+	}
+
+	public int getCurrentRoundTime() {
+		return currentRoundTime;
+	}
+
+	public void startRoundTime() {
+		this.currentRoundTime = 0;
+	}
+
+	public int getCurrentDesperation() {
+		return currentDesperation;
+	}
+
+	public void addDesperation(int addedDesperation) {
+		if (addedDesperation >= 0)
+			currentDesperation = Math.min(currentDesperation + addedDesperation, maxDesperation);
+		if (currentDesperation == maxDesperation) {
+			// TODO: start furious round
+		}
+	}
+
+	public void resetCurrentDesperation() {
+		currentDesperation = 0;
+	}
+
+	public void addShot(Shot shot) {
+		if (shot.origin instanceof Enemy) {
+			enemyShots.add(shot);
+		} else {
+			playerShots.add(shot);
+		}
+	}
+
+	public void mouseClicked(double x, double y) {
+		//		player.spawnShot();
 	}
 }
