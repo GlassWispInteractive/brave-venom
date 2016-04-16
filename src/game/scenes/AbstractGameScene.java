@@ -48,6 +48,9 @@ public abstract class AbstractGameScene extends Scene {
 			gameMaster.mouseX = e.getX();
 			gameMaster.mouseY = e.getY() - yOffset;
 		});
+		root.setOnMouseClicked((e) -> {
+			gameMaster.mouseClicked(e.getX(), e.getY());
+		});
 
 	}
 

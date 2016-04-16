@@ -79,13 +79,10 @@ public class GameMaster extends AnimationTimer {
 	public void start() {
 		super.start();
 		player = new Player(200, 200, 0, 10);
-		Enemy enemy1 = new ActiveEnemy(100, 100, 0, 1);
-		Enemy enemy2 = new PassivEnemy(100, 100, 0, 1);
+		Enemy enemy1 = new ActiveEnemy(1000, 1000, 0, 1);
+		Enemy enemy2 = new PassiveEnemy(-100, 400, 0, 1);
 
 		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
-		//		gamescene.addEntitiy(EntityType.PLAYER, player);
-		// ...
-
 		gamescene.addEntitiy(EntityType.PLAYER, player);
 		gamescene.addEntitiy(EntityType.ENEMY, enemy1);
 		gamescene.addEntitiy(EntityType.ENEMY, enemy2);
@@ -164,5 +161,9 @@ public class GameMaster extends AnimationTimer {
 		} else {
 			playerShots.add(shot);
 		}
+	}
+
+	public void mouseClicked(double x, double y) {
+		//		player.spawnShot();
 	}
 }

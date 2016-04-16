@@ -4,8 +4,8 @@ import core.Context;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Rotate;
 
-public class PassivEnemy extends Enemy {
-	public PassivEnemy(double x, double y, double dir, double speed) {
+public class PassiveEnemy extends Enemy {
+	public PassiveEnemy(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
 		initImage(Context.instance.getSceneMaster().getImage("meteorBrown_big1"));
 	}

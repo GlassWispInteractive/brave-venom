@@ -35,8 +35,4 @@ public class ActiveEnemy extends Enemy {
 		gc.drawImage(image, x, y);
 		gc.restore();
 	}
-
-	protected void spawnShot() {
-
-	}
 }

@@ -97,7 +97,7 @@ public abstract class Entity {
 		this.dirLooking += dd * radialSpeed * ticks;
 	}
 
-	protected void spawnShot() {
+	public void spawnShot() {
 		Shot shot = new Shot(getXCenter(), getYCenter(), dirLooking, 10, "laserBlue12", this);
 		Context.instance.gameMaster.addShot(shot);
 	}

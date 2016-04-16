@@ -5,10 +5,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Rotate;
 
 public class Player extends Entity {
-	// private final double[] dxs = { -Math.sqrt(2), 0, Math.sqrt(2), 1,
-	// Math.sqrt(2), 0, -Math.sqrt(2), -1 };
-	// private final double[] dys = { -Math.sqrt(2), -1, -Math.sqrt(2), 0,
-	// Math.sqrt(2), 1, Math.sqrt(2), 0 };
 
 	private int damage = 2;
 
@@ -38,6 +34,7 @@ public class Player extends Entity {
 		double y = (canvasSize - imageHeight) / 2;
 
 		gc.drawImage(image, x, y);
+		gc.restore();
 
 		if (damage >= 1 && damage <= 3) {
 			gc.drawImage(Context.instance.getSceneMaster().getImage("playerShip1_damage" + damage), x, y);
