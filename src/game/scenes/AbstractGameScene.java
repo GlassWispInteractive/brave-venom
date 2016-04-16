@@ -1,5 +1,7 @@
 package game.scenes;
 
+import core.Context;
+import core.masters.GameMaster;
 import core.masters.SceneMaster;
 import game.entity.Entity;
 import game.entity.EntityType;
@@ -33,10 +35,22 @@ public abstract class AbstractGameScene extends Scene {
 		super(new StackPane(), sceneMaster.windowWidth.get(), sceneMaster.windowHeight.get(), sceneMaster.BACK);
 
 		this.sceneMaster = sceneMaster;
-		init_scene();
+		initScene();
+		initMouseHandler();
 	}
 
-	private void init_scene() {
+	private void initMouseHandler() {
+		Pane root = (Pane) getRoot();
+		GameMaster gameMaster = Context.instance.getGameMaster();
+		double yOffset = sceneMaster.panelHeight.get();
+		root.setOnMouseMoved((e) -> {
+			gameMaster.mouseX = e.getX();
+			gameMaster.mouseY = e.getY() - yOffset;
+		});
+
+	}
+
+	private void initScene() {
 		double gameWidth = sceneMaster.gameWidth.get();
 		double gameHeight = sceneMaster.gameHeight.get();
 		double windowWidth = sceneMaster.windowWidth.get();

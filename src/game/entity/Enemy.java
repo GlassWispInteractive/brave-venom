@@ -47,6 +47,8 @@ public class Enemy extends Entity {
 		super(x, y, dir, speed);
 		Image player = Context.instance.getSceneMaster().getImage("playerShip1_red");
 		canvas = new Canvas(player.getWidth(), player.getHeight());
+		xOffset = canvas.getWidth() / 2;
+		yOffset = canvas.getHeight() / 2;
 		//		update();
 	}
 
@@ -71,11 +73,6 @@ public class Enemy extends Entity {
 	}
 
 	private void spawnShot() {
-
-	}
-
-	@Override
-	public void render(GraphicsContext gc) {
 
 	}
 

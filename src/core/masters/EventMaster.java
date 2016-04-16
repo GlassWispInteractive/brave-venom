@@ -1,10 +1,10 @@
 package core.masters;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import core.Context;
 import javafx.scene.input.KeyCode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventMaster {
 	private final Context context;
@@ -58,6 +58,42 @@ public class EventMaster {
 
 	public boolean isDown() {
 		return input.contains(KeyCode.DOWN) || input.contains(KeyCode.S);
+	}
+
+	public boolean isUpLeft() {
+		return isUp() && isLeft();
+	}
+
+	public boolean isUpRight() {
+		return isUp() && isRight();
+	}
+
+	public boolean isDownLeft() {
+		return isDown() && isLeft();
+	}
+
+	public boolean isDownRight() {
+		return isDown() && isRight();
+	}
+
+	public int getDir() {
+		if (isUpLeft())
+			return 0;
+		if (isUpRight())
+			return 1;
+		if (isDownLeft())
+			return 2;
+		if (isDownRight())
+			return 3;
+		if (isUp())
+			return 4;
+		if (isDown())
+			return 5;
+		if (isLeft())
+			return 6;
+		if (isRight())
+			return 7;
+		return -1;
 	}
 
 	public boolean isC() {

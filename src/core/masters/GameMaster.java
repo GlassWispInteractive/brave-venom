@@ -23,6 +23,8 @@ public class GameMaster extends AnimationTimer {
 	public final int maxRoundTime = 100;
 	public final int maxDesperation = 100;
 	public Player player;
+	public double mouseX;
+	public double mouseY;
 	private int currentLife = maxLife;
 	private int currentRound = 1;
 	private int currentRoundTime = maxRoundTime;
@@ -79,7 +81,7 @@ public class GameMaster extends AnimationTimer {
 	@Override
 	public void start() {
 		super.start();
-		player = new Player(0, 0, 0, 0);
+		player = new Player(200, 200, 0, 10);
 		Enemy enemy = new Enemy(100, 100, 0, 0);
 
 		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
