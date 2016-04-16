@@ -35,4 +35,9 @@ public class ActiveEnemy extends Enemy {
 		gc.drawImage(image, x, y);
 		gc.restore();
 	}
+
+	public void spawnShot() {
+		Shot shot = new Shot(getXCenter(), getYCenter(), dirLooking, 20, "laserRed12", this);
+		Context.instance.gameMaster.addShot(shot);
+	}
 }

@@ -1,6 +1,5 @@
 package game.entity;
 
-import core.Context;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 
@@ -36,7 +35,6 @@ public abstract class Entity {
 		yOffset = canvas.getHeight() / 2;
 		x -= xOffset;
 		y -= yOffset;
-
 	}
 
 	public Canvas getCanvas() {
@@ -98,10 +96,5 @@ public abstract class Entity {
 	protected void turnToDir(double dir, int ticks) {
 		double dd = ((dir - this.dirLooking) % 720 + 180) % 360 - 180; // crazy but needed this way
 		this.dirLooking += dd * radialSpeed * ticks;
-	}
-
-	public void spawnShot() {
-		Shot shot = new Shot(getXCenter(), getYCenter(), dirLooking, 10, "laserBlue12", this);
-		Context.instance.gameMaster.addShot(shot);
 	}
 }

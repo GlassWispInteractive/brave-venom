@@ -64,13 +64,13 @@ public abstract class AbstractGameScene extends Scene {
 		background = new Canvas(windowWidth, windowHeight);
 		StackPane entityPanes = new StackPane();
 		entityPanes.relocate(0, panelHeight);
+		shotPane = new Pane();
 		enemyPane = new Pane();
 		playerPane = new Pane();
-		shotPane = new Pane();
 		forceSize(enemyPane, gameWidth, gameHeight);
 		forceSize(playerPane, gameWidth, gameHeight);
 		forceSize(shotPane, gameWidth, gameHeight);
-		entityPanes.getChildren().addAll(enemyPane, playerPane, shotPane);
+		entityPanes.getChildren().addAll(shotPane, enemyPane, playerPane);
 
 		Pane topHUDPane = new Pane();
 		Pane bottomHUDPane = new Pane();
