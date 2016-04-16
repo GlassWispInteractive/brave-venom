@@ -10,7 +10,7 @@ public abstract class Entity {
 	protected double dirLooking; // 0 - 360
 	protected double dirMotion;
 	protected double speed; // in pixel per tick
-	protected double radialSpeed = 0.1;
+	public double radialSpeed = 0.1;
 	protected Canvas canvas;
 	protected double xOffset;
 	protected double yOffset;
