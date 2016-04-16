@@ -5,11 +5,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 
 public abstract class Entity {
-	private final static double[] dxs = { -1 / Math.sqrt(2), 1 / Math.sqrt(2), -1 / Math.sqrt(2), 1 / Math.sqrt(2), 0,
-			0, -1, 1 };
-	private final static double[] dys = { -1 / Math.sqrt(2), -1 / Math.sqrt(2), 1 / Math.sqrt(2), 1 / Math.sqrt(2), -1,
-			1, 0, 0 };
-
 	protected double x; // 0 - max X
 	protected double y; // 0 - max Y
 	protected double dirLooking; // 0 - 360
