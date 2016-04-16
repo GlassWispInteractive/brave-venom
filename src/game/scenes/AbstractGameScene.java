@@ -3,7 +3,6 @@ package game.scenes;
 import core.masters.SceneMaster;
 import game.entity.Entity;
 import game.entity.EntityType;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,12 +14,12 @@ import java.util.HashMap;
 
 public abstract class AbstractGameScene extends Scene {
 	protected SceneMaster sceneMaster;
-	protected BorderPane background;
+	protected Canvas background;
 	protected Pane enemyPane;
 	protected Pane shotPane;
 	protected Pane playerPane;
-	protected BorderPane topHUD;
-	protected BorderPane bottomHUD;
+	protected Canvas topHUD;
+	protected Canvas bottomHUD;
 	private HashMap<String, GraphicsContext> gcs;
 
 	protected AbstractGameScene(SceneMaster sceneMaster) {
@@ -31,20 +30,37 @@ public abstract class AbstractGameScene extends Scene {
 	}
 
 	private void init_scene() {
-		background = new BorderPane();
+		double gameWidth = sceneMaster.gameWidth.get();
+		double gameHeight = sceneMaster.gameHeight.get();
+		double windowWidth = sceneMaster.windowWidth.get();
+		double windowHeight = sceneMaster.windowHeight.get();
+		double panelHeight = sceneMaster.panelHeight.get();
+
+		background = new Canvas(windowWidth, windowHeight);
+		StackPane entityPanes = new StackPane();
 		enemyPane = new Pane();
 		playerPane = new Pane();
 		shotPane = new Pane();
-		topHUD = new BorderPane();
-		bottomHUD = new BorderPane();
+		forceSize(enemyPane, gameWidth, gameHeight);
+		forceSize(playerPane, gameWidth, gameHeight);
+		forceSize(shotPane, gameWidth, gameHeight);
+		entityPanes.getChildren().addAll(enemyPane, playerPane, shotPane);
+		BorderPane foreground = new BorderPane();
+		topHUD = new Canvas(windowWidth, panelHeight);
+		bottomHUD = new Canvas(windowWidth, panelHeight);
+		foreground.setTop(topHUD);
+		foreground.setCenter(entityPanes);
+		foreground.setBottom(bottomHUD);
+		((StackPane) getRoot()).getChildren().addAll(background, foreground);
+	}
 
-		((StackPane) getRoot()).getChildren().addAll(background, enemyPane, playerPane, shotPane, topHUD, bottomHUD);
-		StackPane.setAlignment(background, Pos.CENTER);
-		StackPane.setAlignment(enemyPane, Pos.CENTER);
-		StackPane.setAlignment(playerPane, Pos.CENTER);
-		StackPane.setAlignment(shotPane, Pos.CENTER);
-		StackPane.setAlignment(topHUD, Pos.CENTER);
-		StackPane.setAlignment(bottomHUD, Pos.CENTER);
+	private void forceSize(Pane pane, double width, double height) {
+		pane.setPrefWidth(width);
+		pane.setPrefHeight(height);
+		pane.setMaxWidth(width);
+		pane.setMaxHeight(height);
+		pane.setMinWidth(width);
+		pane.setMinHeight(height);
 	}
 
 	/**
@@ -71,8 +87,11 @@ public abstract class AbstractGameScene extends Scene {
 
 	public void addEntitiy(EntityType entityType, Entity entity) {
 		Pane pane = getPane(entityType);
-		if (pane != null)
-			pane.getChildren().add(entity.getCanvas());
+		if (pane != null) {
+			Canvas canvas = entity.getCanvas();
+			pane.getChildren().add(canvas);
+			canvas.relocate(entity.getX(), entity.getY());
+		}
 	}
 
 	public void removeEntitiy(EntityType entityType, Entity entity) {

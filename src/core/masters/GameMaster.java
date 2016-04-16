@@ -10,6 +10,7 @@ import javafx.animation.AnimationTimer;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class GameMaster extends AnimationTimer {
@@ -24,16 +25,15 @@ public class GameMaster extends AnimationTimer {
 	public final IntegerProperty currentDesperation = new SimpleIntegerProperty(0);
 
 	public final Context context;
+	public final List<Enemy> enemies = new LinkedList<>();
+	public final List<Shot> playerShots = new LinkedList<>();
+	public final List<Shot> enemyShots = new LinkedList<>();
 	public Player player;
-	public List<Enemy> enemies;
-	public List<Shot> playerShots;
-	public List<Shot> enemyShots;
 	private double lastNanoTime = System.nanoTime();
 	private double time = 0;
 
 	public GameMaster(Context context) {
 		this.context = context;
-		this.player = new Player(this, 100, 100, 0);
 
 	}
 
@@ -58,10 +58,15 @@ public class GameMaster extends AnimationTimer {
 	@Override
 	public void start() {
 		super.start();
+		player = new Player(this, 0, 0, 0);
+		Enemy enemy = new Enemy(this, 100, 100, 0);
 
 		GameScene gamescene = ((GameScene) context.getSceneMaster().getScreen("game"));
-		gamescene.addEntitiy(EntityType.PLAYER, player);
+		//		gamescene.addEntitiy(EntityType.PLAYER, player);
 		// ...
+
+		gamescene.addEntitiy(EntityType.PLAYER, player);
+		gamescene.addEntitiy(EntityType.ENEMY, enemy);
 	}
 
 	public void pause() {
@@ -81,5 +86,17 @@ public class GameMaster extends AnimationTimer {
 	public void restart() {
 		stop();
 		start();
+	}
+
+	public List<Enemy> getEnemies() {
+		return enemies;
+	}
+
+	public List<Shot> getEnemyShots() {
+		return enemyShots;
+	}
+
+	public List<Shot> getPlayerShots() {
+		return playerShots;
 	}
 }

@@ -11,7 +11,7 @@ public class Player extends Entity {
 	public Player(GameMaster gm, int x, int y, int dir) {
 		super(gm, x, y, dir);
 
-		Image player = gm.context.getScreenMaster().getImage("playerShip1_blue");
+		Image player = gm.context.getSceneMaster().getImage("playerShip1_blue");
 		canvas = new Canvas(player.getWidth(), player.getHeight());
 		update();
 	}
@@ -61,7 +61,7 @@ public class Player extends Entity {
 	}
 
 	@Override
-	public void render(Canvas canvas) {
+	public void render(GraphicsContext gc) {
 
 	}
 

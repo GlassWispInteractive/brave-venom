@@ -2,6 +2,7 @@ package game.entity;
 
 import core.masters.GameMaster;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Entity {
 
@@ -27,6 +28,13 @@ public abstract class Entity {
 
 	public abstract void tick();
 
-	public abstract void render(Canvas targetCanvas);
+	public abstract void render(GraphicsContext gc);
 
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
 }

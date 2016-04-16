@@ -3,6 +3,9 @@ package game.scenes;
 import core.masters.FontMaster;
 import core.masters.GameMaster;
 import core.masters.SceneMaster;
+import game.entity.Enemy;
+import game.entity.Player;
+import game.entity.Shot;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,15 +24,13 @@ public class GameScene extends AbstractGameScene {
 
 	private void initScene() {
 		updateBackground();
-		updateForeGround();
-		topHUD();
+		updateForeground();
+		updateTopHUD();
 	}
 
 	private void updateBackground() {
-
-		Canvas canvas = new Canvas(sceneMaster.windowWidth.get(), sceneMaster.windowHeight.get());
+		Canvas canvas = background;
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		background.getChildren().add(canvas);
 
 		gc.setFill(Color.BLACK);
 		Image sky = sceneMaster.getImage("sky_blue");
@@ -40,32 +41,48 @@ public class GameScene extends AbstractGameScene {
 		}
 	}
 
-	private void updateForeGround() {
-		Canvas canvas = new Canvas(sceneMaster.gameWidth.get(), sceneMaster.gameHeight.get());
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		background.getChildren().add(canvas);
-		canvas.relocate(0, sceneMaster.panelHeight.get());
+	private void updateForeground() {
+		for (Enemy enemy : gameMaster.getEnemies()) {
+			enemy.getCanvas().relocate(enemy.getX(), enemy.getY());
+		}
+		for (Shot shot : gameMaster.getEnemyShots()) {
+			shot.getCanvas().relocate(shot.getX(), shot.getY());
+		}
+		for (Shot shot : gameMaster.getPlayerShots()) {
+			shot.getCanvas().relocate(shot.getX(), shot.getY());
+		}
+		try {
+			Player player = gameMaster.player;
+			player.getCanvas().relocate(player.getX(), player.getY());
+		} catch (NullPointerException ex) {
+			assert gameMaster.player == null;
+		}
 
-		gc.drawImage(sceneMaster.getImage("playerShip1_blue"), 10, 10);
-
-		gc.drawImage(sceneMaster.getImage("playerShip1_blue"), 200, 10);
-		gc.drawImage(sceneMaster.getImage("playerShip1_damage1"), 200, 10);
-
-		gc.drawImage(sceneMaster.getImage("playerShip1_blue"), 400, 10);
-		gc.drawImage(sceneMaster.getImage("playerShip1_damage2"), 400, 10);
-
-		gc.drawImage(sceneMaster.getImage("playerShip1_blue"), 600, 10);
-		gc.drawImage(sceneMaster.getImage("playerShip1_damage3"), 600, 10);
+		//		GraphicsContext gcPlayers = playerPane.getGraphicsContext2D();
+		//		GraphicsContext gcEnemies = enemyPane.getGraphicsContext2D();
+		//		GraphicsContext gcShots = shotPane.getGraphicsContext2D();
+		//
+		//		// draw enemies
+		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_blue"), 10, -50);
+		//
+		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_blue"), 10, 10);
+		//
+		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_blue"), 200, 10);
+		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_damage1"), 200, 10);
+		//
+		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_blue"), 400, 10);
+		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_damage2"), 400, 10);
+		//
+		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_blue"), 600, 10);
+		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_damage3"), 600, 10);
 	}
 
-	private void topHUD() {
-		Canvas top = new Canvas(sceneMaster.gameWidth.get(), sceneMaster.panelHeight.get());
-		GraphicsContext gc = top.getGraphicsContext2D();
-		background.getChildren().add(top);
+	private void updateTopHUD() {
+		GraphicsContext gc = topHUD.getGraphicsContext2D();
 		gc.clearRect(0, 0, getWidth(), getHeight());
 
-//		gc.setFill(Color.GRAY);
-//		gc.fillRect(0, 0, getWidth(), getHeight());
+		//		gc.setFill(Color.GRAY);
+		//		gc.fillRect(0, 0, getWidth(), getHeight());
 
 		// settings
 		gc.setFont(FontMaster.DEFAULT_FONT);
@@ -107,16 +124,14 @@ public class GameScene extends AbstractGameScene {
 	}
 
 	private void bottomHUD(double bigY, double y) {
-		GraphicsContext gc;
-		Canvas bottom = new Canvas(sceneMaster.gameWidth.get(), sceneMaster.panelHeight.get());
-		gc = bottom.getGraphicsContext2D();
-		background.getChildren().add(bottom);
-		bottom.relocate(0, sceneMaster.windowHeight.get() - sceneMaster.panelHeight.get());
+		GraphicsContext gc = bottomHUD.getGraphicsContext2D();
+		//		bottom.relocate(0, sceneMaster.windowHeight.get() - sceneMaster.panelHeight.get());
+		//		bottom.relocate(0, sceneMaster.windowHeight.get());
 
 		gc.clearRect(0, 0, getWidth(), getHeight());
 
-//		gc.setFill(Color.GRAY);
-//		gc.fillRect(0, 0, getWidth(), getHeight());
+		//		gc.setFill(Color.GRAY);
+		//		gc.fillRect(0, 0, getWidth(), getHeight());
 
 		gc.setFont(FontMaster.DEFAULT_FONT);
 		gc.setTextAlign(TextAlignment.LEFT);
@@ -131,10 +146,9 @@ public class GameScene extends AbstractGameScene {
 
 		gc.drawImage(life, 10, y);
 
-		
 		gc.drawImage(numeral_x, 10 + life.getWidth() + 5, bigY - numeral_x.getHeight() * 0.5);
 		char[] cs = Integer.toString(lifeNum).toCharArray();
-		
+
 		double latterY = bigY - sceneMaster.getImage("numeral1").getHeight() * 0.5;
 		for (int i = 0; i < cs.length; i++) {
 			gc.drawImage(sceneMaster.getImage("numeral" + cs[i]),

@@ -1,7 +1,7 @@
 package game.entity;
 
 import core.masters.GameMaster;
-import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 
 public class Shot extends Entity {
 
@@ -18,7 +18,7 @@ public class Shot extends Entity {
 	}
 
 	@Override
-	public void render(Canvas canvas) {
+	public void render(GraphicsContext gc) {
 
 	}
 
