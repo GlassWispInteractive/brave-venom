@@ -48,4 +48,9 @@ public class Player extends Entity {
 		Context.instance.gameMaster.addShot(shot);
 	}
 
+	@Override
+	public void collided(Entity shot) {
+		// player got shot by enemy...
+	}
+
 }

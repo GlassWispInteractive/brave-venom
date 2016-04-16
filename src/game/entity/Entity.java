@@ -1,15 +1,17 @@
 package game.entity;
 
+import core.Context;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Circle;
 
 public abstract class Entity {
-	public double radialSpeed = 0.1;
 	protected double x; // 0 - max X
 	protected double y; // 0 - max Y
 	protected double dirLooking; // 0 - 360
 	protected double dirMotion;
 	protected double speed; // in pixel per tick
+	public double radialSpeed = 0.1;
 	protected Canvas canvas;
 	protected double xOffset;
 	protected double yOffset;
@@ -97,4 +99,16 @@ public abstract class Entity {
 		double dd = ((dir - this.dirLooking) % 720 + 180) % 360 - 180; // crazy but needed this way
 		this.dirLooking += dd * radialSpeed * ticks;
 	}
+
+	public void spawnShot() {
+		Shot shot = new Shot(getXCenter(), getYCenter(), dirLooking, 10, "laserBlue12", this);
+		Context.instance.gameMaster.addShot(shot);
+	}
+
+	public Circle collisionCircle() {
+		return new Circle(this.x, this.y, (this.imageWidth + this.imageHeight)/2);
+	}
+
+	public abstract void collided(Entity shot);
+
 }

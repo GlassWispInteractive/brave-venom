@@ -37,4 +37,9 @@ public class Shot extends Entity {
 		gc.restore();
 	}
 
+	@Override
+	public void collided(Entity victim) {
+		// shot hit something...
+	}
+
 }

@@ -42,4 +42,8 @@ public abstract class Enemy extends Entity {
 
 	}
 
+	public void collided(Entity shot) {
+		// enemy got shot by player...
+	}
+
 }
