@@ -63,6 +63,5 @@ public abstract class Entity {
 		double dx = x2 - x1;
 		double dy = y2 - y1;
 		dir = Math.atan2(dy, dx) * 180 / Math.PI;
-		System.out.println(x2 + " " + y2 + " " + dir);
 	}
 }

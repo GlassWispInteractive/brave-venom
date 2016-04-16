@@ -21,13 +21,14 @@ import java.util.HashMap;
 public abstract class AbstractGameScene extends Scene {
 	public Label tickLabel;
 	public long allticks = 0;
+	public Canvas bottomHUD;
+	public BorderPane foreground;
 	protected SceneMaster sceneMaster;
 	protected Canvas background;
 	protected Pane enemyPane;
 	protected Pane shotPane;
 	protected Pane playerPane;
 	protected Canvas topHUD;
-	protected Canvas bottomHUD;
 	protected VBox debugPane;
 	private HashMap<String, GraphicsContext> gcs;
 
@@ -66,7 +67,7 @@ public abstract class AbstractGameScene extends Scene {
 		forceSize(playerPane, gameWidth, gameHeight);
 		forceSize(shotPane, gameWidth, gameHeight);
 		entityPanes.getChildren().addAll(enemyPane, playerPane, shotPane);
-		BorderPane foreground = new BorderPane();
+		foreground = new BorderPane();
 		topHUD = new Canvas(windowWidth, panelHeight);
 		bottomHUD = new Canvas(windowWidth, panelHeight);
 		foreground.setCenter(entityPanes);

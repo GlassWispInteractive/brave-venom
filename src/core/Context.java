@@ -82,7 +82,6 @@ public abstract class Context extends Application {
 			eventMaster.removeKeyCode(event.getCode());
 		});
 
-		System.out.println(Screen.getScreens().size());
 		if (Screen.getScreens().size() > 1) {
 
 			Rectangle2D bounds = Screen.getScreens().get(1).getBounds();

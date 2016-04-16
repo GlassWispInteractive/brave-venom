@@ -68,6 +68,7 @@ public class GameMaster extends AnimationTimer {
 		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
 		gameScene.allticks += ticks;
 		gameScene.tickLabel.setText(gameScene.allticks + " ticks");
+		System.out.println("bottom:" + gameScene.bottomHUD.localToScene(gameScene.bottomHUD.getBoundsInLocal()));
 	}
 
 	private void render() {
