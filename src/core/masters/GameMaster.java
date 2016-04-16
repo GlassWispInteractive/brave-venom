@@ -12,15 +12,14 @@ import java.util.List;
 public class GameMaster extends AnimationTimer {
 
 	public final Context context;
-	public Player player;
 	public final List<Enemy> enemies = new LinkedList<>();
 	public final List<Shot> playerShots = new LinkedList<>();
 	public final List<Shot> enemyShots = new LinkedList<>();
-
 	public final int maxLife = 3;
 	public final int maxRound = 100;
 	public final int maxRoundTime = 100;
 	public final int maxDesperation = 100;
+	public Player player;
 	public double mouseX;
 	public double mouseY;
 	private int currentLife = maxLife;
@@ -67,7 +66,7 @@ public class GameMaster extends AnimationTimer {
 		// collide player with enemy shots
 		collisions(player, enemyShots);
 		// collide enemies with player shots
-		for(Enemy enemy : enemies) {
+		for (Enemy enemy : enemies) {
 			collisions(enemy, playerShots);
 		}
 
@@ -81,10 +80,9 @@ public class GameMaster extends AnimationTimer {
 		Circle selfC = self.collisionCircle();
 		for (Entity other : others) {
 			Circle otherC = other.collisionCircle();
-			if ( Math.pow((otherC.getCenterX()-selfC.getCenterX()),2)
-					+ Math.pow(otherC.getCenterY()-selfC.getCenterY(), 2)
-					<= Math.pow(otherC.getRadius()-selfC.getRadius(), 2)
-					) {
+			if (Math.pow((otherC.getCenterX() - selfC.getCenterX()), 2) + Math
+					.pow(otherC.getCenterY() - selfC.getCenterY(), 2) <= Math
+					.pow(otherC.getRadius() - selfC.getRadius(), 2)) {
 				self.collided(other);
 				other.collided(self);
 			}
@@ -142,8 +140,10 @@ public class GameMaster extends AnimationTimer {
 	}
 
 	public void damage(int damage) {
-		if (damage >= 0)
-			this.currentLife = Math.max(currentLife - damage, 0);
+		if (damage >= 0) {
+			player.damage = Math.min(player.damage + damage, 3);
+		}
+
 	}
 
 	public void heal(int health) {

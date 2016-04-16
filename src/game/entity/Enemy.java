@@ -37,15 +37,13 @@ package game.entity;
 
 public abstract class Enemy extends Entity {
 
-
 	public Enemy(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
 
 	}
 
 	public void collided(Entity shot) {
-		System.out.println("ollided");
-		// enemy got shot by player...
+		System.out.println("Enemy collided");
 	}
 
 }

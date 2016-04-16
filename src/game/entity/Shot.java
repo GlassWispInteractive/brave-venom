@@ -39,7 +39,7 @@ public class Shot extends Entity {
 
 	@Override
 	public void collided(Entity victim) {
-		// shot hit something...
+		System.out.println("Shot collided");
 	}
 
 }

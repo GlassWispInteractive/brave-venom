@@ -6,7 +6,7 @@ import javafx.scene.transform.Rotate;
 
 public class Player extends Entity {
 
-	private int damage = 2;
+	public int damage = 0;
 
 	public Player(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
@@ -24,7 +24,6 @@ public class Player extends Entity {
 	private void update() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
 		gc.save();
 		Rotate r = new Rotate(dirLooking + 90, xOffset, yOffset);
 		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
@@ -50,7 +49,9 @@ public class Player extends Entity {
 
 	@Override
 	public void collided(Entity shot) {
-		// player got shot by enemy...
+		System.out.print("Player collided " + damage + "->");
+		Context.instance.getGameMaster().damage(1);
+		System.out.print(damage);
 	}
 
 }
