@@ -1,10 +1,7 @@
 package core.masters;
 
 import core.Context;
-import game.entity.Enemy;
-import game.entity.EntityType;
-import game.entity.Player;
-import game.entity.Shot;
+import game.entity.*;
 import game.scenes.GameScene;
 import javafx.animation.AnimationTimer;
 
@@ -68,7 +65,6 @@ public class GameMaster extends AnimationTimer {
 		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
 		gameScene.allticks += ticks;
 		gameScene.tickLabel.setText(gameScene.allticks + " ticks");
-		System.out.println("bottom:" + gameScene.bottomHUD.localToScene(gameScene.bottomHUD.getBoundsInLocal()));
 	}
 
 	private void render() {
@@ -83,15 +79,18 @@ public class GameMaster extends AnimationTimer {
 	public void start() {
 		super.start();
 		player = new Player(200, 200, 0, 10);
-		Enemy enemy = new Enemy(100, 100, 0, 0);
+		Enemy enemy1 = new ActiveEnemy(100, 100, 0, 0);
+		Enemy enemy2 = new PassivEnemy(100, 100, 0, 0);
 
 		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
 		//		gamescene.addEntitiy(EntityType.PLAYER, player);
 		// ...
 
 		gamescene.addEntitiy(EntityType.PLAYER, player);
-		gamescene.addEntitiy(EntityType.ENEMY, enemy);
-		enemies.add(enemy);
+		gamescene.addEntitiy(EntityType.ENEMY, enemy1);
+		gamescene.addEntitiy(EntityType.ENEMY, enemy2);
+		enemies.add(enemy1);
+		enemies.add(enemy2);
 	}
 
 	public void pause() {
