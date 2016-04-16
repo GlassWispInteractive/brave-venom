@@ -108,7 +108,7 @@ public class GameScene extends AbstractGameScene {
 		Image start = sceneMaster.getImage("barHorizontal_white_left");
 		Image mid = sceneMaster.getImage("barHorizontal_white_mid");
 		Image end = sceneMaster.getImage("barHorizontal_white_right");
-		double y = bigY - start.getHeight() * 0.5;
+				double y = bigY - start.getHeight() * 0.5;
 		GraphicsContext gc = bottomHUD.getGraphicsContext2D();
 		//		bottom.relocate(0, sceneMaster.windowHeight.get() - sceneMaster.panelHeight.get());
 		//		bottom.relocate(0, sceneMaster.windowHeight.get());

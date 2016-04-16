@@ -9,12 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 
 import java.util.HashMap;
 
@@ -22,7 +20,7 @@ public abstract class AbstractGameScene extends Scene {
 	public Label tickLabel;
 	public long allticks = 0;
 	public Canvas bottomHUD;
-	public BorderPane foreground;
+	public Pane foreground;
 	protected SceneMaster sceneMaster;
 	protected Canvas background;
 	protected Pane enemyPane;
@@ -42,6 +40,8 @@ public abstract class AbstractGameScene extends Scene {
 
 	private void initMouseHandler() {
 		Pane root = (Pane) getRoot();
+		root.setPrefWidth(sceneMaster.windowWidth.get());
+		root.setPrefHeight(sceneMaster.windowHeight.get());
 		GameMaster gameMaster = Context.instance.getGameMaster();
 		double yOffset = sceneMaster.panelHeight.get();
 		root.setOnMouseMoved((e) -> {
@@ -53,13 +53,14 @@ public abstract class AbstractGameScene extends Scene {
 
 	private void initScene() {
 		double gameWidth = sceneMaster.gameWidth.get();
-		double gameHeight = sceneMaster.gameHeight.get();
+		double gameHeight = sceneMaster.windowHeight.get();
 		double windowWidth = sceneMaster.windowWidth.get();
 		double windowHeight = sceneMaster.windowHeight.get();
 		double panelHeight = sceneMaster.panelHeight.get();
 
 		background = new Canvas(windowWidth, windowHeight);
 		StackPane entityPanes = new StackPane();
+		entityPanes.relocate(0, panelHeight);
 		enemyPane = new Pane();
 		playerPane = new Pane();
 		shotPane = new Pane();
@@ -67,17 +68,21 @@ public abstract class AbstractGameScene extends Scene {
 		forceSize(playerPane, gameWidth, gameHeight);
 		forceSize(shotPane, gameWidth, gameHeight);
 		entityPanes.getChildren().addAll(enemyPane, playerPane, shotPane);
-		foreground = new BorderPane();
+
+		Pane topHUDPane = new Pane();
+		Pane bottomHUDPane = new Pane();
+		forceSize(topHUDPane, windowWidth, panelHeight);
+		forceSize(bottomHUDPane, windowWidth, panelHeight);
 		topHUD = new Canvas(windowWidth, panelHeight);
 		bottomHUD = new Canvas(windowWidth, panelHeight);
-		foreground.setCenter(entityPanes);
-		foreground.setTop(topHUD);
-		foreground.setBottom(bottomHUD);
-		((StackPane) getRoot()).getChildren().addAll(background, foreground);
+		topHUDPane.getChildren().addAll(topHUD);
+		bottomHUDPane.getChildren().addAll(bottomHUD);
+		bottomHUDPane.relocate(0, windowHeight - panelHeight);
 
-		//		SnapshotParameters parameters = new SnapshotParameters();
-		//		parameters.setFill(Color.TRANSPARENT);
-		foreground.setClip(new Rectangle(0, 0, gameWidth, gameHeight));
+		foreground = new Pane();
+		forceSize(foreground, windowWidth, windowHeight);
+		foreground.getChildren().addAll(entityPanes, topHUDPane, bottomHUDPane);
+		((StackPane) getRoot()).getChildren().addAll(background, foreground);
 
 		debugPane = new VBox(10);
 		tickLabel = new Label("0 ticks");
