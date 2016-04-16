@@ -28,7 +28,7 @@ public class Player extends Entity {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
 		gc.save();
-		Rotate r = new Rotate(dir + 90, xOffset, yOffset);
+		Rotate r = new Rotate(dirLooking + 90, xOffset, yOffset);
 		gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 
 		// TODO: only works for squares, must be adjusted for all rectangles

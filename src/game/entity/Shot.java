@@ -11,8 +11,8 @@ public class Shot extends Entity {
 
 	@Override
 	public void tick(int ticks) {
-		moveInDir(dir, ticks);
-		turnToDir(dir, ticks);
+		moveInDir(dirLooking, ticks);
+		turnToDir(dirLooking, ticks);
 		update();
 
 	}

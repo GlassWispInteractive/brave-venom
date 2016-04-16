@@ -7,8 +7,8 @@
 //
 //public class Enemy extends Entity {
 //
-//	public Enemy(GameMaster gm, int x, int y, int dir, String spritefile) {
-//		super(gm, x, y, dir);
+//	public Enemy(GameMaster gm, int x, int y, int dirLooking, String spritefile) {
+//		super(gm, x, y, dirLooking);
 //		Image player = gm.context.getSceneMaster().getImage(spritefile);
 //		canvas = new Canvas(player.getWidth(), player.getHeight());
 //	}

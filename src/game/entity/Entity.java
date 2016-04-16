@@ -12,7 +12,8 @@ public abstract class Entity {
 
 	protected double x; // 0 - max X
 	protected double y; // 0 - max Y
-	protected double dir; // 0 - 360
+	protected double dirLooking; // 0 - 360
+	protected double dirMotion;
 	protected double speed; // in pixel per tick
 	protected double radialSpeed = 0.1;
 	protected Canvas canvas;
@@ -26,7 +27,7 @@ public abstract class Entity {
 	public Entity(double x, double y, double dir, double speed) {
 		this.x = x;
 		this.y = y;
-		this.dir = dir;
+		this.dirLooking = dir;
 		this.speed = speed;
 	}
 
@@ -97,12 +98,12 @@ public abstract class Entity {
 	}
 
 	protected void turnToDir(double dir, int ticks) {
-		double dd = ((dir - this.dir) % 720 + 180) % 360 - 180; // crazy but needed this way
-		this.dir += dd * radialSpeed * ticks;
+		double dd = ((dir - this.dirLooking) % 720 + 180) % 360 - 180; // crazy but needed this way
+		this.dirLooking += dd * radialSpeed * ticks;
 	}
 
 	protected void spawnShot() {
-		Shot shot = new Shot(getXCenter(), getYCenter(), dir, 10, "laserBlue12", this);
+		Shot shot = new Shot(getXCenter(), getYCenter(), dirLooking, 10, "laserBlue12", this);
 		Context.instance.gameMaster.addShot(shot);
 	}
 }
