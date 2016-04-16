@@ -32,26 +32,35 @@ public class Player extends Entity {
 		double x = (canvasSize - imageWidth) / 2;
 		double y = (canvasSize - imageHeight) / 2;
 
-		gc.drawImage(image, x, y);
+		gc.drawImage(image, x, y, imageWidth, imageHeight);
 
 		if (damage >= 1 && damage <= 3) {
-			gc.drawImage(Context.instance.getSceneMaster().getImage("playerShip1_damage" + damage), x, y);
+			gc.drawImage(Context.instance.getSceneMaster().getImage("playerShip1_damage" + damage), x, y, imageWidth,
+					imageHeight);
 		}
 
 		gc.restore();
 	}
 
 	public void spawnShot() {
-		double xWeapon = 0;
-		Shot shot = new Shot(getXCenter(), getYCenter(), dirLooking, 20, "laserGreen03", this);
+		double xWeapon = getXCenter() + Math.cos(dirLooking) * imageWidth;
+		double yWeapon = getYCenter() + Math.sin(dirLooking) * imageWidth;
+		Shot shot = new Shot(xWeapon, yWeapon, dirLooking, 20, "laserGreen03", this);
 		Context.instance.gameMaster.addShot(shot);
 	}
 
 	@Override
 	public void collided(Entity shot) {
-		System.out.print("Player collided " + damage + "->");
 		Context.instance.getGameMaster().damage(1);
-		System.out.print(damage);
+	}
+
+	@Override
+	public EntityType getType() {
+		return EntityType.PLAYER;
+	}
+
+	protected void dispose() {
+		Context.instance.gameMaster.removeEntity(EntityType.PLAYER, this);
 	}
 
 }

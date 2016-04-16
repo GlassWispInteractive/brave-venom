@@ -40,7 +40,7 @@ public class ActiveEnemy extends Enemy {
 		double x = (canvasSize - imageWidth) / 2;
 		double y = (canvasSize - imageHeight) / 2;
 
-		gc.drawImage(image, x, y);
+		gc.drawImage(image, x, y, imageWidth, imageHeight);
 		gc.restore();
 	}
 

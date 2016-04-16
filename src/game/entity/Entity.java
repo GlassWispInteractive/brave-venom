@@ -6,12 +6,15 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 
 public abstract class Entity {
+	public final double SCALE = 0.8;
+
+	public double radialSpeed = 0.1;
+	public boolean valid = true;
 	protected double x; // 0 - max X
 	protected double y; // 0 - max Y
 	protected double dirLooking; // 0 - 360
 	protected double dirMotion;
 	protected double speed; // in pixel per tick
-	public double radialSpeed = 0.1;
 	protected Canvas canvas;
 	protected double xOffset;
 	protected double yOffset;
@@ -29,8 +32,8 @@ public abstract class Entity {
 
 	protected void initImage(Image image) {
 		this.image = image;
-		imageWidth = image.getWidth();
-		imageHeight = image.getHeight();
+		imageWidth = image.getWidth() * SCALE;
+		imageHeight = image.getHeight() * SCALE;
 		canvasSize = Math.max(imageWidth, imageHeight) * 2;
 		canvas = new Canvas(canvasSize, canvasSize);
 		xOffset = canvas.getWidth() / 2;
@@ -106,9 +109,10 @@ public abstract class Entity {
 	}
 
 	public Circle collisionCircle() {
-		return new Circle(this.getXCenter(), this.getYCenter(), (this.imageWidth + this.imageHeight)/2);
+		return new Circle(this.getXCenter(), this.getYCenter(), (this.imageWidth + this.imageHeight) / 2);
 	}
 
 	public abstract void collided(Entity shot);
 
+	public abstract EntityType getType();
 }

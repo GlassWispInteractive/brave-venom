@@ -1,11 +1,11 @@
 package game.entity;
 
 import core.Context;
+import core.masters.SceneMaster;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Rotate;
 
 public class Shot extends Entity {
-
 	public final Entity origin;
 
 	public Shot(double x, double y, double dir, double speed, String spritefile, Entity origin) {
@@ -16,6 +16,11 @@ public class Shot extends Entity {
 
 	@Override
 	public void tick(int ticks) {
+		SceneMaster sceneMaster = Context.instance.getSceneMaster();
+		double offset = 200;
+		if (Double.compare(x, -offset) < 0 || Double.compare(x, sceneMaster.gameWidth.get() + offset) > 0
+				|| Double.compare(y, -offset) < 0 || Double.compare(y, sceneMaster.gameHeight.get() + offset) > 0)
+			valid = false;
 		moveInDir(dirLooking, ticks);
 		update();
 
@@ -33,13 +38,18 @@ public class Shot extends Entity {
 		double x = (canvasSize - imageWidth) / 2;
 		double y = (canvasSize - imageHeight) / 2;
 
-		gc.drawImage(image, x, y);
+		gc.drawImage(image, x, y, imageWidth, imageHeight);
 		gc.restore();
 	}
 
 	@Override
 	public void collided(Entity victim) {
-		System.out.println("Shot collided");
+
+	}
+
+	@Override
+	public EntityType getType() {
+		return EntityType.SHOT;
 	}
 
 }

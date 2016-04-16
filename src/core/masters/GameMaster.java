@@ -6,6 +6,7 @@ import game.scenes.GameScene;
 import javafx.animation.AnimationTimer;
 import javafx.scene.shape.Circle;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -52,13 +53,38 @@ public class GameMaster extends AnimationTimer {
 
 	private void tick(int ticks) {
 		SceneMaster sceneMaster = context.getSceneMaster();
+
+		// debug info
+		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
+		gameScene.allticks += ticks;
+		gameScene.tickLabel.setText(gameScene.allticks + " ticks");
+		int nrEntities = enemies.size() + playerShots.size() + enemyShots.size() + 1;
+		gameScene.entityLabel.setText(nrEntities + "enteties");
+
 		sceneMaster.tick(ticks);
-		for (Enemy enemy : enemies)
-			enemy.tick(ticks);
-		for (Shot shot : playerShots)
-			shot.tick(ticks);
-		for (Shot shot : enemyShots)
-			shot.tick(ticks);
+		List<List<? extends Entity>> lists = new LinkedList<>();
+		lists.add(enemies);
+		lists.add(playerShots);
+		lists.add(enemyShots);
+		for (List<? extends Entity> list : lists) {
+			Iterator<? extends Entity> i = list.iterator();
+			while (i.hasNext()) {
+				// get a monster from the iterator
+				Entity entity = i.next();
+				entity.tick(ticks);
+
+				// finally delete if from list
+				if (!entity.valid) {
+					i.remove();
+				}
+			}
+		}
+		//		for (Enemy enemy : enemies)
+		//			enemy.tick(ticks);
+		//		for (Shot shot : playerShots)
+		//			shot.tick(ticks);
+		//		for (Shot shot : enemyShots)
+		//			shot.tick(ticks);
 		player.tick(ticks);
 
 		// collide player with enemies
@@ -70,10 +96,6 @@ public class GameMaster extends AnimationTimer {
 			collisions(enemy, playerShots);
 		}
 
-		// debug info
-		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
-		gameScene.allticks += ticks;
-		gameScene.tickLabel.setText(gameScene.allticks + " ticks");
 	}
 
 	private void collisions(Entity self, List<? extends Entity> others) {
@@ -195,5 +217,27 @@ public class GameMaster extends AnimationTimer {
 
 	public void mouseClicked(double x, double y) {
 		player.spawnShot();
+	}
+
+	public void removeEntity(EntityType entityType, Entity entity) {
+		GameScene gameScene = (GameScene) Context.instance.sceneMaster.getScene("game");
+		gameScene.removeEntitiy(entityType, entity);
+
+		switch (entityType) {
+		case ENEMY:
+			enemies.remove(entity);
+			break;
+		case SHOT:
+			if (((Shot) entity).origin instanceof Enemy)
+				enemyShots.remove(entity);
+			else {
+				playerShots.remove(entity);
+			}
+			break;
+		case PLAYER:
+			stop();
+			break;
+		}
+		// TODO: remove explosions
 	}
 }

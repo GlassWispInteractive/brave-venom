@@ -46,4 +46,7 @@ public abstract class Enemy extends Entity {
 		System.out.println("Enemy collided");
 	}
 
+	public EntityType getType() {
+		return EntityType.ENEMY;
+	}
 }
