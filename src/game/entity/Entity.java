@@ -104,7 +104,7 @@ public abstract class Entity {
 	}
 
 	public Circle collisionCircle() {
-		return new Circle(this.x, this.y, (this.imageWidth + this.imageHeight)/2);
+		return new Circle(this.getXCenter(), this.getYCenter(), (this.imageWidth + this.imageHeight)/2);
 	}
 
 	public abstract void collided(Entity shot);

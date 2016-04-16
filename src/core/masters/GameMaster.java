@@ -62,7 +62,11 @@ public class GameMaster extends AnimationTimer {
 			shot.tick(ticks);
 		player.tick(ticks);
 
+		// collide player with enemies
+		collisions(player, enemies);
+		// collide player with enemy shots
 		collisions(player, enemyShots);
+		// collide enemies with player shots
 		for(Enemy enemy : enemies) {
 			collisions(enemy, playerShots);
 		}
@@ -73,16 +77,16 @@ public class GameMaster extends AnimationTimer {
 		gameScene.tickLabel.setText(gameScene.allticks + " ticks");
 	}
 
-	private void collisions(Entity target, List<Shot> shots) {
-		Circle targetCircle = target.collisionCircle();
-		for (Shot shot : shots) {
-			Circle shotCircle = shot.collisionCircle();
-			if ( Math.pow((shotCircle.getCenterX()-targetCircle.getCenterX()),2)
-					+ Math.pow(shotCircle.getCenterY()-targetCircle.getCenterY(), 2)
-					<= Math.pow(shotCircle.getRadius()-targetCircle.getRadius(), 2)
+	private void collisions(Entity self, List<? extends Entity> others) {
+		Circle selfC = self.collisionCircle();
+		for (Entity other : others) {
+			Circle otherC = other.collisionCircle();
+			if ( Math.pow((otherC.getCenterX()-selfC.getCenterX()),2)
+					+ Math.pow(otherC.getCenterY()-selfC.getCenterY(), 2)
+					<= Math.pow(otherC.getRadius()-selfC.getRadius(), 2)
 					) {
-				target.collided(shot);
-				shot.collided(target);
+				self.collided(other);
+				other.collided(self);
 			}
 		}
 	}
