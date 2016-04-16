@@ -34,7 +34,6 @@ public class Player extends Entity {
 		double y = (canvasSize - imageHeight) / 2;
 
 		gc.drawImage(image, x, y);
-		gc.restore();
 
 		if (damage >= 1 && damage <= 3) {
 			gc.drawImage(Context.instance.getSceneMaster().getImage("playerShip1_damage" + damage), x, y);
@@ -43,7 +42,7 @@ public class Player extends Entity {
 		gc.restore();
 	}
 
-	protected void spawnShot() {
+	public void spawnShot() {
 
 	}
 
