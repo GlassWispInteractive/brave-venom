@@ -12,8 +12,7 @@ public class PassivEnemy extends Enemy {
 
 	@Override
 	public void tick(int ticks) {
-		for (int i = 0; i < ticks; i++)
-			y += 1;
+		moveInDir(dir, ticks);
 		update();
 	}
 
@@ -32,4 +31,5 @@ public class PassivEnemy extends Enemy {
 		gc.drawImage(image, x, y);
 		gc.restore();
 	}
+
 }

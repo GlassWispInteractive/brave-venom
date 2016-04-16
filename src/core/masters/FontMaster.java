@@ -24,7 +24,6 @@ public class FontMaster {
 		InputStream inputStream1 = FontMaster.class.getResourceAsStream("../../res/font/kenvector_future.ttf");
 		InputStream inputStream2 = FontMaster.class.getResourceAsStream("../../res/font/kenvector_future_thin.ttf");
 
-		System.out.println(inputStream1);
 		LARGE_FONT = Font.loadFont(inputStream1, 30);
 		NORMAL_FONT = Font.font("Kenvector Future", 20);
 		SMALL_FONT = Font.font("Kenvector Future", 16);

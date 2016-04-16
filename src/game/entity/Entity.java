@@ -1,7 +1,6 @@
 package game.entity;
 
 import core.Context;
-import core.masters.EventMaster;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 
@@ -15,6 +14,7 @@ public abstract class Entity {
 	protected double y; // 0 - max Y
 	protected double dir; // 0 - 360
 	protected double speed; // in pixel per tick
+	protected double radialSpeed = 0.1;
 	protected Canvas canvas;
 	protected double xOffset;
 	protected double yOffset;
@@ -62,29 +62,47 @@ public abstract class Entity {
 		return y + yOffset;
 	}
 
-	public void turnTowards(double x2, double y2) {
+	private boolean tooNear(double dx, double dy) {
+		return Double.compare(dx * dx + dy * dy - 5, 0) < 0;
+	}
+
+	private double getDir(double dx, double dy) {
+		return Math.atan2(dy, dx) * 180 / Math.PI;
+	}
+
+	protected void moveInDir(double dir, int ticks) {
+		if (!Double.isNaN(dir)) {
+			double dx = Math.cos(dir / 180 * Math.PI) * speed * ticks;
+			double dy = Math.sin(dir / 180 * Math.PI) * speed * ticks;
+			x += Math.cos(dir / 180 * Math.PI) * speed * ticks;
+			y += Math.sin(dir / 180 * Math.PI) * speed * ticks;
+		}
+	}
+
+	protected void moveTowards(double targetX, double targetY, int ticks) {
+
+		double dx = targetX - getXCenter();
+		double dy = targetY - getYCenter();
+		double dir = getDir(dx, dy);
+		moveInDir(dir, ticks);
+	}
+
+	protected void turnTowards(double x2, double y2, int ticks) {
 		double x1 = getXCenter();
 		double y1 = getYCenter();
-		if (x1 == x2 && y1 == y2)
-			return;
 		double dx = x2 - x1;
 		double dy = y2 - y1;
-		dir = Math.atan2(dy, dx) * 180 / Math.PI;
+		double dir = getDir(dx, dy);
+		turnToDir(dir, ticks);
 	}
 
-	public void moveInDir(int dir) {
-		EventMaster eventMaster = Context.instance.eventMaster;
-		if (dir >= 0 && dir < 8) {
-			x += dxs[dir] * speed;
-			y += dys[dir] * speed;
-		}
+	protected void turnToDir(double dir, int ticks) {
+		double dd = ((dir - this.dir) % 720 + 180) % 360 - 180; // crazy but needed this way
+		this.dir += dd * radialSpeed * ticks;
 	}
 
-	public void moveTowards(int dir) {
-		EventMaster eventMaster = Context.instance.eventMaster;
-		if (dir >= 0 && dir < 8) {
-			x += dxs[dir] * speed;
-			y += dys[dir] * speed;
-		}
+	protected void spawnShot() {
+		Shot shot = new Shot(getXCenter(), getYCenter(), dir, 10, "laserBlue12", this);
+		Context.instance.gameMaster.addShot(shot);
 	}
 }

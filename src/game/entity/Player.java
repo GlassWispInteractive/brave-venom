@@ -18,8 +18,8 @@ public class Player extends Entity {
 
 	@Override
 	public void tick(int ticks) {
-		moveInDir(Context.instance.eventMaster.getDir());
-		turnTowards(Context.instance.gameMaster.mouseX, Context.instance.gameMaster.mouseY);
+		moveInDir(Context.instance.eventMaster.getDir(), ticks);
+		turnTowards(Context.instance.gameMaster.mouseX, Context.instance.gameMaster.mouseY, ticks);
 		update();
 	}
 
@@ -44,7 +44,7 @@ public class Player extends Entity {
 		}
 	}
 
-	private void spawnShot() {
+	protected void spawnShot() {
 
 	}
 

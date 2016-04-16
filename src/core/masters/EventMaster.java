@@ -76,24 +76,24 @@ public class EventMaster {
 		return isDown() && isRight();
 	}
 
-	public int getDir() {
+	public double getDir() {
 		if (isUpLeft())
-			return 0;
+			return 5 * 45;
 		if (isUpRight())
-			return 1;
+			return 7 * 45;
 		if (isDownLeft())
-			return 2;
+			return 3 * 45;
 		if (isDownRight())
-			return 3;
+			return 1 * 45;
 		if (isUp())
-			return 4;
+			return 6 * 45;
 		if (isDown())
-			return 5;
+			return 2 * 45;
 		if (isLeft())
-			return 6;
+			return 4 * 45;
 		if (isRight())
-			return 7;
-		return -1;
+			return 0 * 45;
+		return Double.NaN;
 	}
 
 	public boolean isC() {

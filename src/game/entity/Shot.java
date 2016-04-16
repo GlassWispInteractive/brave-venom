@@ -2,7 +2,7 @@ package game.entity;
 
 public class Shot extends Entity {
 
-	protected Entity origin;
+	public final Entity origin;
 
 	public Shot(double x, double y, double dir, double speed, String spritefile, Entity origin) {
 		super(x, y, dir, speed);
@@ -11,6 +11,13 @@ public class Shot extends Entity {
 
 	@Override
 	public void tick(int ticks) {
+		moveInDir(dir, ticks);
+		turnToDir(dir, ticks);
+		update();
+
+	}
+
+	private void update() {
 
 	}
 

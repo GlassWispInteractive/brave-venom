@@ -14,10 +14,12 @@ public class ActiveEnemy extends Enemy {
 
 	@Override
 	public void tick(int ticks) {
-		for (int i = 0; i < ticks; i++)
-			x += 1;
+		Player player = Context.instance.gameMaster.player;
+		moveTowards(player.getXCenter(), player.getYCenter(), ticks);
+		turnTowards(player.getXCenter(), player.getYCenter(), ticks);
 		update();
 	}
+
 	private void update() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -32,5 +34,9 @@ public class ActiveEnemy extends Enemy {
 
 		gc.drawImage(image, x, y);
 		gc.restore();
+	}
+
+	protected void spawnShot() {
+
 	}
 }

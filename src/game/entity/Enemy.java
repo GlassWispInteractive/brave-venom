@@ -42,8 +42,4 @@ public abstract class Enemy extends Entity {
 
 	}
 
-	private void spawnShot() {
-
-	}
-
 }
