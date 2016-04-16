@@ -1,40 +1,33 @@
 package game.entity;
 
-import core.masters.GameMaster;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Entity {
 
-	protected GameMaster gm;
-	protected int x; // 0 - max X
-	protected int y; // 0 - max Y
-	protected int dir; // 0 - 360
+	protected double x; // 0 - max X
+	protected double y; // 0 - max Y
+	protected double dir; // 0 - 360
+	protected double speed; // in pixel per tick
 	protected Canvas canvas;
 
-	public Entity(GameMaster gm, int x, int y, int dir) {
-		this.gm = gm;
+	public Entity(double x, double y, double dir, double speed) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
-		//		Image img = gm.context.getSceneMaster().getImage(spritefile);
-		//		canvas = new Canvas(img.getWidth(), img.getHeight());
-		//		canvas.getGraphicsContext2D().drawImage(img, 0, 0);
+		this.speed = speed;
 	}
 
 	public Canvas getCanvas() {
 		return canvas;
 	}
 
-	public abstract void tick();
+	public abstract void tick(int ticks);
 
-	public abstract void render(GraphicsContext gc);
-
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 }

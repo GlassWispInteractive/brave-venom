@@ -54,6 +54,12 @@ public class GameMaster extends AnimationTimer {
 	private void tick(int ticks) {
 		SceneMaster sceneMaster = context.getSceneMaster();
 		sceneMaster.tick(ticks);
+		for (Enemy enemy : enemies)
+			enemy.tick(ticks);
+		for (Shot shot : playerShots)
+			shot.tick(ticks);
+		for (Shot shot : enemyShots)
+			shot.tick(ticks);
 		player.tick(ticks);
 
 		// debug info
@@ -73,8 +79,8 @@ public class GameMaster extends AnimationTimer {
 	@Override
 	public void start() {
 		super.start();
-		player = new Player(this, 0, 0, 0);
-		Enemy enemy = new Enemy(this, 100, 100, 0);
+		player = new Player(0, 0, 0, 0);
+		Enemy enemy = new Enemy(100, 100, 0, 0);
 
 		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
 		//		gamescene.addEntitiy(EntityType.PLAYER, player);
@@ -82,6 +88,7 @@ public class GameMaster extends AnimationTimer {
 
 		gamescene.addEntitiy(EntityType.PLAYER, player);
 		gamescene.addEntitiy(EntityType.ENEMY, enemy);
+		enemies.add(enemy);
 	}
 
 	public void pause() {
