@@ -46,4 +46,9 @@ public class Player extends Entity {
 
 	}
 
+	@Override
+	public void collided(Entity shot) {
+		// player got shot by enemy...
+	}
+
 }

@@ -4,6 +4,7 @@ import core.Context;
 import game.entity.*;
 import game.scenes.GameScene;
 import javafx.animation.AnimationTimer;
+import javafx.scene.shape.Circle;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 public class GameMaster extends AnimationTimer {
 
 	public final Context context;
+	public Player player;
 	public final List<Enemy> enemies = new LinkedList<>();
 	public final List<Shot> playerShots = new LinkedList<>();
 	public final List<Shot> enemyShots = new LinkedList<>();
@@ -19,7 +21,6 @@ public class GameMaster extends AnimationTimer {
 	public final int maxRound = 100;
 	public final int maxRoundTime = 100;
 	public final int maxDesperation = 100;
-	public Player player;
 	public double mouseX;
 	public double mouseY;
 	private int currentLife = maxLife;
@@ -61,10 +62,29 @@ public class GameMaster extends AnimationTimer {
 			shot.tick(ticks);
 		player.tick(ticks);
 
+		collisions(player, enemyShots);
+		for(Enemy enemy : enemies) {
+			collisions(enemy, playerShots);
+		}
+
 		// debug info
 		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
 		gameScene.allticks += ticks;
 		gameScene.tickLabel.setText(gameScene.allticks + " ticks");
+	}
+
+	private void collisions(Entity target, List<Shot> shots) {
+		Circle targetCircle = target.collisionCircle();
+		for (Shot shot : shots) {
+			Circle shotCircle = shot.collisionCircle();
+			if ( Math.pow((shotCircle.getCenterX()-targetCircle.getCenterX()),2)
+					+ Math.pow(shotCircle.getCenterY()-targetCircle.getCenterY(), 2)
+					<= Math.pow(shotCircle.getRadius()-targetCircle.getRadius(), 2)
+					) {
+				target.collided(shot);
+				shot.collided(target);
+			}
+		}
 	}
 
 	private void render() {

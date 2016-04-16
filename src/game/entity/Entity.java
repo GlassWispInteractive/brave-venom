@@ -3,6 +3,7 @@ package game.entity;
 import core.Context;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Circle;
 
 public abstract class Entity {
 	protected double x; // 0 - max X
@@ -101,4 +102,11 @@ public abstract class Entity {
 		Shot shot = new Shot(getXCenter(), getYCenter(), dirLooking, 10, "laserBlue12", this);
 		Context.instance.gameMaster.addShot(shot);
 	}
+
+	public Circle collisionCircle() {
+		return new Circle(this.x, this.y, (this.imageWidth + this.imageHeight)/2);
+	}
+
+	public abstract void collided(Entity shot);
+
 }
