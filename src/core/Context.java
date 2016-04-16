@@ -20,6 +20,7 @@ public abstract class Context extends Application {
 	public final SceneMaster sceneMaster;
 	public final EventMaster eventMaster;
 	public final GameMaster gameMaster;
+	public static Context instance = null;
 
 	// make the stage acessible
 	private Scene scene;
@@ -32,6 +33,10 @@ public abstract class Context extends Application {
 	private AnimationTimer animationTimer;
 
 	public Context(String title) {
+		if (instance != null) {
+			throw new RuntimeException("Context already existing;");
+		}
+		instance = this;
 		this.title.set(title);
 
 		this.audioMaster = new AudioMaster(this);
