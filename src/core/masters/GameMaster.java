@@ -15,6 +15,8 @@ public class GameMaster extends AnimationTimer {
 	public final List<Enemy> enemies = new LinkedList<>();
 	public final List<Shot> playerShots = new LinkedList<>();
 	public final List<Shot> enemyShots = new LinkedList<>();
+	public final List<Explosion> explosions = new LinkedList<>();
+
 	public final int maxLife = 3;
 	public final int maxRound = 100;
 	public final int maxRoundTime = 100;
@@ -59,6 +61,8 @@ public class GameMaster extends AnimationTimer {
 			shot.tick(ticks);
 		for (Shot shot : enemyShots)
 			shot.tick(ticks);
+		for (Explosion explosion : explosions)
+			explosion.tick(ticks);
 		player.tick(ticks);
 
 		// collide player with enemies
@@ -191,6 +195,11 @@ public class GameMaster extends AnimationTimer {
 			playerShots.add(shot);
 		}
 		gamescene.addEntitiy(EntityType.SHOT, shot);
+	}
+
+	public void addExplosion(Explosion explosion) {
+		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
+		gamescene.addEntitiy(EntityType.EXPLOSION, explosion);
 	}
 
 	public void mouseClicked(double x, double y) {

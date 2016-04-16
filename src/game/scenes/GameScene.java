@@ -4,6 +4,7 @@ import core.masters.FontMaster;
 import core.masters.GameMaster;
 import core.masters.SceneMaster;
 import game.entity.Enemy;
+import game.entity.Explosion;
 import game.entity.Player;
 import game.entity.Shot;
 import javafx.geometry.VPos;
@@ -18,7 +19,6 @@ public class GameScene extends AbstractGameScene {
 	public GameScene(SceneMaster sceneMaster) {
 		super(sceneMaster);
 		update();
-
 	}
 
 	public final void update() {
@@ -48,6 +48,9 @@ public class GameScene extends AbstractGameScene {
 		}
 		for (Shot shot : gameMaster.playerShots) {
 			shot.getCanvas().relocate(shot.getXImage(), shot.getYImage());
+		}
+		for (Explosion explosion : gameMaster.explosions) {
+			explosion.getCanvas().relocate(explosion.getXImage(), explosion.getYImage());
 		}
 		try {
 			Player player = gameMaster.player;
