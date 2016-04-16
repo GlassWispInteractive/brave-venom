@@ -1,15 +1,16 @@
 package core.masters;
 
-import java.util.List;
-
 import core.Context;
 import game.entity.Enemy;
+import game.entity.EntityType;
 import game.entity.Player;
 import game.entity.Shot;
 import game.scenes.GameScene;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+
+import java.util.List;
 
 public class GameMaster extends AnimationTimer {
 
@@ -23,19 +24,17 @@ public class GameMaster extends AnimationTimer {
 	public final IntegerProperty currentDesperation = new SimpleIntegerProperty(0);
 
 	public final Context context;
-	private double lastNanoTime = System.nanoTime();
-	private double time = 0;
-
 	public Player player;
 	public List<Enemy> enemies;
 	public List<Shot> playerShots;
 	public List<Shot> enemyShots;
+	private double lastNanoTime = System.nanoTime();
+	private double time = 0;
 
 	public GameMaster(Context context) {
 		this.context = context;
 		this.player = new Player(this, 100, 100, 0);
-		
-		GameScene gamescene = ((GameScene) context.getSceneMaster().getScreen("game"));
+
 	}
 
 	@Override
@@ -59,6 +58,9 @@ public class GameMaster extends AnimationTimer {
 	@Override
 	public void start() {
 		super.start();
+
+		GameScene gamescene = ((GameScene) context.getSceneMaster().getScreen("game"));
+		gamescene.addEntitiy(EntityType.PLAYER, player);
 		// ...
 	}
 

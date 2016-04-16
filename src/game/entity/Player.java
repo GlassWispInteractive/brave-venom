@@ -1,7 +1,6 @@
 package game.entity;
 
 import core.masters.GameMaster;
-import game.scenes.GameScene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -14,9 +13,6 @@ public class Player extends Entity {
 
 		Image player = gm.context.getScreenMaster().getImage("playerShip1_blue");
 		canvas = new Canvas(player.getWidth(), player.getHeight());
-		
-		// ((GameScene) gm.context.getSceneMaster().getScreen("game")).
-
 		update();
 	}
 
