@@ -44,7 +44,7 @@ public class Player extends Entity {
 
 	public void spawnShot() {
 		double xWeapon = 0;
-		Shot shot = new Shot(getXCenter(), getYCenter(), dirLooking, 20, "laserGreen12", this);
+		Shot shot = new Shot(getXCenter(), getYCenter(), dirLooking, 20, "laserGreen03", this);
 		Context.instance.gameMaster.addShot(shot);
 	}
 

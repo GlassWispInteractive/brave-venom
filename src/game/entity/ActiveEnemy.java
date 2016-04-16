@@ -6,6 +6,9 @@ import javafx.scene.transform.Rotate;
 
 public class ActiveEnemy extends Enemy {
 
+	protected int shootFrequency = 12; // tick per shoot
+	protected int shootCount = 0;
+
 	public ActiveEnemy(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
 
@@ -17,6 +20,11 @@ public class ActiveEnemy extends Enemy {
 		Player player = Context.instance.gameMaster.player;
 		moveTowards(player.getXCenter(), player.getYCenter(), ticks);
 		turnTowards(player.getXCenter(), player.getYCenter(), ticks);
+		shootCount += ticks;
+		if (shootCount > shootFrequency) {
+			spawnShot();
+			shootCount -= shootFrequency;
+		}
 		update();
 	}
 
@@ -37,7 +45,7 @@ public class ActiveEnemy extends Enemy {
 	}
 
 	public void spawnShot() {
-		Shot shot = new Shot(getXCenter(), getYCenter(), dirLooking, 20, "laserRed12", this);
+		Shot shot = new Shot(getXCenter(), getYCenter(), dirLooking, 20, "laserRed03", this);
 		Context.instance.gameMaster.addShot(shot);
 	}
 }
