@@ -42,8 +42,4 @@ public class Player extends Entity {
 		gc.restore();
 	}
 
-	public void spawnShot() {
-
-	}
-
 }

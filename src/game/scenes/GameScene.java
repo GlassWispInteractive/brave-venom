@@ -41,17 +41,17 @@ public class GameScene extends AbstractGameScene {
 
 	private void updateForeground() {
 		for (Enemy enemy : gameMaster.enemies) {
-			enemy.getCanvas().relocate(enemy.getX(), enemy.getY());
+			enemy.getCanvas().relocate(enemy.getXImage(), enemy.getYImage());
 		}
 		for (Shot shot : gameMaster.enemyShots) {
-			shot.getCanvas().relocate(shot.getX(), shot.getY());
+			shot.getCanvas().relocate(shot.getXImage(), shot.getYImage());
 		}
 		for (Shot shot : gameMaster.playerShots) {
-			shot.getCanvas().relocate(shot.getX(), shot.getY());
+			shot.getCanvas().relocate(shot.getXImage(), shot.getYImage());
 		}
 		try {
 			Player player = gameMaster.player;
-			player.getCanvas().relocate(player.getX(), player.getY());
+			player.getCanvas().relocate(player.getXImage(), player.getYImage());
 		} catch (NullPointerException ex) {
 			assert gameMaster.player == null;
 		}

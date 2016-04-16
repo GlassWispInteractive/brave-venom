@@ -131,7 +131,7 @@ public abstract class AbstractGameScene extends Scene {
 		if (pane != null) {
 			Canvas canvas = entity.getCanvas();
 			pane.getChildren().add(canvas);
-			canvas.relocate(entity.getX(), entity.getY());
+			canvas.relocate(entity.getXImage(), entity.getYImage());
 		}
 	}
 

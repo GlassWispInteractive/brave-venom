@@ -160,14 +160,16 @@ public class GameMaster extends AnimationTimer {
 	}
 
 	public void addShot(Shot shot) {
+		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
 		if (shot.origin instanceof Enemy) {
 			enemyShots.add(shot);
 		} else {
 			playerShots.add(shot);
 		}
+		gamescene.addEntitiy(EntityType.SHOT, shot);
 	}
 
 	public void mouseClicked(double x, double y) {
-		//		player.spawnShot();
+		player.spawnShot();
 	}
 }

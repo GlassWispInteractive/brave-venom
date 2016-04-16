@@ -11,13 +11,12 @@ public class Shot extends Entity {
 	public Shot(double x, double y, double dir, double speed, String spritefile, Entity origin) {
 		super(x, y, dir, speed);
 		this.origin = origin;
-		initImage(Context.instance.getSceneMaster().getImage("playerShip1_blue"));
+		initImage(Context.instance.getSceneMaster().getImage("laserRed03"));
 	}
 
 	@Override
 	public void tick(int ticks) {
 		moveInDir(dirLooking, ticks);
-		turnToDir(dirLooking, ticks);
 		update();
 
 	}

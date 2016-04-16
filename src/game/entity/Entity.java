@@ -5,12 +5,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 
 public abstract class Entity {
+	public double radialSpeed = 0.1;
 	protected double x; // 0 - max X
 	protected double y; // 0 - max Y
 	protected double dirLooking; // 0 - 360
 	protected double dirMotion;
 	protected double speed; // in pixel per tick
-	public double radialSpeed = 0.1;
 	protected Canvas canvas;
 	protected double xOffset;
 	protected double yOffset;
@@ -34,6 +34,9 @@ public abstract class Entity {
 		canvas = new Canvas(canvasSize, canvasSize);
 		xOffset = canvas.getWidth() / 2;
 		yOffset = canvas.getHeight() / 2;
+		x -= xOffset;
+		y -= yOffset;
+
 	}
 
 	public Canvas getCanvas() {
@@ -42,7 +45,7 @@ public abstract class Entity {
 
 	public abstract void tick(int ticks);
 
-	public double getX() {
+	public double getXImage() {
 		return x;
 	}
 
@@ -50,7 +53,7 @@ public abstract class Entity {
 		return x + xOffset;
 	}
 
-	public double getY() {
+	public double getYImage() {
 		return y;
 	}
 
