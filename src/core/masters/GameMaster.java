@@ -7,28 +7,26 @@ import game.entity.Player;
 import game.entity.Shot;
 import game.scenes.GameScene;
 import javafx.animation.AnimationTimer;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class GameMaster extends AnimationTimer {
 
-	public final IntegerProperty life = new SimpleIntegerProperty(3);
-	public final IntegerProperty round = new SimpleIntegerProperty(100);
-	public final IntegerProperty roundTime = new SimpleIntegerProperty(100);
-	public final IntegerProperty desperation = new SimpleIntegerProperty(100);
-	public final IntegerProperty currentLife = new SimpleIntegerProperty(life.get());
-	public final IntegerProperty currentRound = new SimpleIntegerProperty(1);
-	public final IntegerProperty currentRoundTime = new SimpleIntegerProperty(roundTime.get());
-	public final IntegerProperty currentDesperation = new SimpleIntegerProperty(0);
-
 	public final Context context;
 	public final List<Enemy> enemies = new LinkedList<>();
 	public final List<Shot> playerShots = new LinkedList<>();
 	public final List<Shot> enemyShots = new LinkedList<>();
+
+	public final int maxLife = 3;
+	public final int maxRound = 100;
+	public final int maxRoundTime = 100;
+	public final int maxDesperation = 100;
 	public Player player;
+	private int currentLife = maxLife;
+	private int currentRound = 1;
+	private int currentRoundTime = maxRoundTime;
+	private int currentDesperation = 0;
 	private double lastNanoTime = System.nanoTime();
 	private double time = 0;
 
@@ -49,10 +47,27 @@ public class GameMaster extends AnimationTimer {
 
 		// TODO: add ESC event handler for game scene
 
-		// compute a frame
+		tick(passedTicks);
+		render();
+	}
+
+	private void tick(int ticks) {
 		SceneMaster sceneMaster = context.getSceneMaster();
-		sceneMaster.tick(passedTicks);
+		sceneMaster.tick(ticks);
+		player.tick(ticks);
+
+		// debug info
+		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
+		gameScene.allticks += ticks;
+		gameScene.tickLabel.setText(gameScene.allticks + " ticks");
+	}
+
+	private void render() {
+
+		SceneMaster sceneMaster = context.getSceneMaster();
 		sceneMaster.render();
+		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
+		gameScene.update();
 	}
 
 	@Override
@@ -61,7 +76,7 @@ public class GameMaster extends AnimationTimer {
 		player = new Player(this, 0, 0, 0);
 		Enemy enemy = new Enemy(this, 100, 100, 0);
 
-		GameScene gamescene = ((GameScene) context.getSceneMaster().getScreen("game"));
+		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
 		//		gamescene.addEntitiy(EntityType.PLAYER, player);
 		// ...
 
@@ -88,15 +103,49 @@ public class GameMaster extends AnimationTimer {
 		start();
 	}
 
-	public List<Enemy> getEnemies() {
-		return enemies;
+	public int getCurrentLife() {
+		return currentLife;
 	}
 
-	public List<Shot> getEnemyShots() {
-		return enemyShots;
+	public void damage(int damage) {
+		if (damage >= 0)
+			this.currentLife = Math.max(currentLife - damage, 0);
 	}
 
-	public List<Shot> getPlayerShots() {
-		return playerShots;
+	public void heal(int health) {
+		if (health >= 0)
+			this.currentLife = Math.min(currentLife + health, maxLife);
+	}
+
+	public int getCurrentRound() {
+		return currentRound;
+	}
+
+	public void setCurrentRound(int currentRound) {
+		this.currentRound = currentRound;
+	}
+
+	public int getCurrentRoundTime() {
+		return currentRoundTime;
+	}
+
+	public void startRoundTime() {
+		this.currentRoundTime = 0;
+	}
+
+	public int getCurrentDesperation() {
+		return currentDesperation;
+	}
+
+	public void addDesperation(int addedDesperation) {
+		if (addedDesperation >= 0)
+			currentDesperation = Math.min(currentDesperation + addedDesperation, maxDesperation);
+		if (currentDesperation == maxDesperation) {
+			// TODO: start furious round
+		}
+	}
+
+	public void resetCurrentDesperation() {
+		currentDesperation = 0;
 	}
 }

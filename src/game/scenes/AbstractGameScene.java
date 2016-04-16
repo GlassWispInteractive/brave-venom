@@ -6,13 +6,19 @@ import game.entity.EntityType;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 
 import java.util.HashMap;
 
 public abstract class AbstractGameScene extends Scene {
+	public Label tickLabel;
+	public long allticks = 0;
 	protected SceneMaster sceneMaster;
 	protected Canvas background;
 	protected Pane enemyPane;
@@ -20,6 +26,7 @@ public abstract class AbstractGameScene extends Scene {
 	protected Pane playerPane;
 	protected Canvas topHUD;
 	protected Canvas bottomHUD;
+	protected VBox debugPane;
 	private HashMap<String, GraphicsContext> gcs;
 
 	protected AbstractGameScene(SceneMaster sceneMaster) {
@@ -48,10 +55,21 @@ public abstract class AbstractGameScene extends Scene {
 		BorderPane foreground = new BorderPane();
 		topHUD = new Canvas(windowWidth, panelHeight);
 		bottomHUD = new Canvas(windowWidth, panelHeight);
-		foreground.setTop(topHUD);
 		foreground.setCenter(entityPanes);
+		foreground.setTop(topHUD);
 		foreground.setBottom(bottomHUD);
 		((StackPane) getRoot()).getChildren().addAll(background, foreground);
+
+		//		SnapshotParameters parameters = new SnapshotParameters();
+		//		parameters.setFill(Color.TRANSPARENT);
+		foreground.setClip(new Rectangle(0, 0, gameWidth, gameHeight));
+
+		debugPane = new VBox(10);
+		tickLabel = new Label("0 ticks");
+		tickLabel.setTextFill(Paint.valueOf("#ff0000"));
+		debugPane.getChildren().addAll(tickLabel);
+		((StackPane) getRoot()).getChildren().addAll(debugPane);
+
 	}
 
 	private void forceSize(Pane pane, double width, double height) {

@@ -16,6 +16,11 @@ public class Player extends Entity {
 		update();
 	}
 
+	public void tick(int ticks) {
+		for (int i = 0; i < ticks; i++)
+			tick();
+	}
+
 	@Override
 	public void tick() {
 		if (gm.context.eventMaster.isLeft()) {
@@ -44,7 +49,7 @@ public class Player extends Entity {
 	}
 
 	private void update() {
-		Image player = gm.context.getScreenMaster().getImage("playerShip1_blue");
+		Image player = gm.context.getSceneMaster().getImage("playerShip1_blue");
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -52,7 +57,7 @@ public class Player extends Entity {
 
 		if (damage >= 1 && damage <= 3) {
 			canvas.getGraphicsContext2D()
-					.drawImage(gm.context.getScreenMaster().getImage("playerShip1_damage" + damage), 0, 0);
+					.drawImage(gm.context.getSceneMaster().getImage("playerShip1_damage" + damage), 0, 0);
 		}
 	}
 

@@ -60,7 +60,7 @@ public class SceneMaster {
 
 	public Image getImage(String key) {
 		if (!images.containsKey(key)) {
-			throw new AssertionError("image does not exist");
+			throw new AssertionError("image does not exist: " + key);
 		}
 
 		// put new image in cache
@@ -72,7 +72,7 @@ public class SceneMaster {
 	 *
 	 * @return the current screen
 	 */
-	public Scene getScreen() {
+	public Scene getScene() {
 		return scene;
 	}
 
@@ -147,7 +147,7 @@ public class SceneMaster {
 		return context;
 	}
 
-	public Scene getScreen(String key) {
+	public Scene getScene(String key) {
 		return scenes.get(key);
 	}
 }

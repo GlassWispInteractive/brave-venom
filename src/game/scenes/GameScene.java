@@ -7,7 +7,6 @@ import game.entity.Enemy;
 import game.entity.Player;
 import game.entity.Shot;
 import javafx.geometry.VPos;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -18,20 +17,19 @@ public class GameScene extends AbstractGameScene {
 
 	public GameScene(SceneMaster sceneMaster) {
 		super(sceneMaster);
-		initScene();
+		update();
 
 	}
 
-	private void initScene() {
+	public final void update() {
 		updateBackground();
 		updateForeground();
 		updateTopHUD();
+		updateBottomHUD();
 	}
 
 	private void updateBackground() {
-		Canvas canvas = background;
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-
+		GraphicsContext gc = background.getGraphicsContext2D();
 		gc.setFill(Color.BLACK);
 		Image sky = sceneMaster.getImage("sky_blue");
 		for (int x = 0; x < sceneMaster.windowWidth.get() / sky.getWidth(); x++) {
@@ -42,13 +40,13 @@ public class GameScene extends AbstractGameScene {
 	}
 
 	private void updateForeground() {
-		for (Enemy enemy : gameMaster.getEnemies()) {
+		for (Enemy enemy : gameMaster.enemies) {
 			enemy.getCanvas().relocate(enemy.getX(), enemy.getY());
 		}
-		for (Shot shot : gameMaster.getEnemyShots()) {
+		for (Shot shot : gameMaster.enemyShots) {
 			shot.getCanvas().relocate(shot.getX(), shot.getY());
 		}
-		for (Shot shot : gameMaster.getPlayerShots()) {
+		for (Shot shot : gameMaster.playerShots) {
 			shot.getCanvas().relocate(shot.getX(), shot.getY());
 		}
 		try {
@@ -57,32 +55,13 @@ public class GameScene extends AbstractGameScene {
 		} catch (NullPointerException ex) {
 			assert gameMaster.player == null;
 		}
-
-		//		GraphicsContext gcPlayers = playerPane.getGraphicsContext2D();
-		//		GraphicsContext gcEnemies = enemyPane.getGraphicsContext2D();
-		//		GraphicsContext gcShots = shotPane.getGraphicsContext2D();
-		//
-		//		// draw enemies
-		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_blue"), 10, -50);
-		//
-		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_blue"), 10, 10);
-		//
-		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_blue"), 200, 10);
-		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_damage1"), 200, 10);
-		//
-		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_blue"), 400, 10);
-		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_damage2"), 400, 10);
-		//
-		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_blue"), 600, 10);
-		//		gcPlayers.drawImage(sceneMaster.getImage("playerShip1_damage3"), 600, 10);
 	}
 
 	private void updateTopHUD() {
 		GraphicsContext gc = topHUD.getGraphicsContext2D();
 		gc.clearRect(0, 0, getWidth(), getHeight());
 
-		//		gc.setFill(Color.GRAY);
-		//		gc.fillRect(0, 0, getWidth(), getHeight());
+		new BorderImages("glassPanel", 200, sceneMaster.panelHeight.get()).draw(gc, 100, 0);
 
 		// settings
 		gc.setFont(FontMaster.DEFAULT_FONT);
@@ -100,11 +79,13 @@ public class GameScene extends AbstractGameScene {
 		int factor_size = 4;
 
 		// white bar
+
 		Image start = sceneMaster.getImage("barHorizontal_white_left");
 		Image mid = sceneMaster.getImage("barHorizontal_white_mid");
 		Image end = sceneMaster.getImage("barHorizontal_white_right");
 
-		double x = (sceneMaster.gameWidth.get() - factor_size * 100) * 0.5, y = bigY - start.getHeight() * 0.5;
+		double x = (sceneMaster.gameWidth.get() - factor_size * 100) * 0.5;
+		double y = bigY - start.getHeight() * 0.5;
 
 		gc.drawImage(start, x, y);
 		gc.drawImage(mid, x + start.getWidth(), y, factor_size * 100 - start.getWidth() - end.getWidth(),
@@ -120,10 +101,14 @@ public class GameScene extends AbstractGameScene {
 				mid.getHeight());
 		gc.drawImage(end, x + factor_size * progress - end.getWidth(), y);
 
-		bottomHUD(bigY, y);
 	}
 
-	private void bottomHUD(double bigY, double y) {
+	private void updateBottomHUD() {
+		double bigY = sceneMaster.panelHeight.get() * 0.5;
+		Image start = sceneMaster.getImage("barHorizontal_white_left");
+		Image mid = sceneMaster.getImage("barHorizontal_white_mid");
+		Image end = sceneMaster.getImage("barHorizontal_white_right");
+		double y = bigY - start.getHeight() * 0.5;
 		GraphicsContext gc = bottomHUD.getGraphicsContext2D();
 		//		bottom.relocate(0, sceneMaster.windowHeight.get() - sceneMaster.panelHeight.get());
 		//		bottom.relocate(0, sceneMaster.windowHeight.get());
@@ -160,9 +145,6 @@ public class GameScene extends AbstractGameScene {
 		int factor_size = 2;
 
 		// white bar
-		Image start = sceneMaster.getImage("barHorizontal_white_left");
-		Image mid = sceneMaster.getImage("barHorizontal_white_mid");
-		Image end = sceneMaster.getImage("barHorizontal_white_right");
 
 		double hei = start.getHeight() / 2;
 
@@ -190,5 +172,51 @@ public class GameScene extends AbstractGameScene {
 	@Override
 	public void render() {
 
+	}
+
+	class BorderImages {
+
+		private final Image imageTopLeft;
+		private final Image imageTopRight;
+		private final Image imageBottomLeft;
+		private final Image imageBottomRight;
+		private final Image imageTop;
+		private final Image imageBottom;
+		private final Image imageLeft;
+		private final Image imageRight;
+		private final Image imageCenter;
+
+		double left, top, right, bottom, centerV, centerH;
+
+		public BorderImages(String name, int width, int height) {
+			imageTopLeft = sceneMaster.getImage(name + "_corner_top_left");
+			imageTopRight = sceneMaster.getImage(name + "_corner_top_right");
+			imageBottomLeft = sceneMaster.getImage(name + "_corner_bottom_left");
+			imageBottomRight = sceneMaster.getImage(name + "_corner_bottom_right");
+			imageTop = sceneMaster.getImage(name + "_edge_top");
+			imageBottom = sceneMaster.getImage(name + "_edge_bottom");
+			imageLeft = sceneMaster.getImage(name + "_edge_left");
+			imageRight = sceneMaster.getImage(name + "_edge_right");
+			imageCenter = sceneMaster.getImage(name + "_center");
+
+			left = imageLeft.getWidth();
+			right = imageRight.getWidth();
+			top = imageTop.getHeight();
+			bottom = imageBottom.getHeight();
+			centerV = height - top - bottom;
+			centerH = width - left - right;
+		}
+
+		public void draw(GraphicsContext gc, double xBase, double yBase) {
+			gc.drawImage(imageTopLeft, xBase, yBase);
+			gc.drawImage(imageTopRight, left + centerH + xBase, yBase);
+			gc.drawImage(imageBottomLeft, xBase, top + centerV + yBase);
+			gc.drawImage(imageBottomRight, left + centerH + xBase, top + centerV + yBase);
+			gc.drawImage(imageTop, left + xBase, yBase, centerH, top);
+			gc.drawImage(imageBottom, left + xBase, top + centerV + yBase, centerH, bottom);
+			gc.drawImage(imageLeft, xBase, top + yBase, left, centerV);
+			gc.drawImage(imageRight, left + centerH + xBase, top + yBase, right, centerV);
+			gc.drawImage(imageCenter, left + xBase, top + yBase, centerH, centerV);
+		}
 	}
 }

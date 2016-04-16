@@ -14,7 +14,7 @@
 //	}
 //
 //	private void update() {
-//		Image player = gm.context.getScreenMaster().getImage("playerShip1_red");
+//		Image player = gm.context.getSceneMaster().getImage("playerShip1_red");
 //		GraphicsContext gc = canvas.getGraphicsContext2D();
 //		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 //
@@ -79,7 +79,7 @@ public class Enemy extends Entity {
 	}
 
 	private void update() {
-		Image player = gm.context.getScreenMaster().getImage("playerShip1_red");
+		Image player = gm.context.getSceneMaster().getImage("playerShip1_red");
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -87,7 +87,7 @@ public class Enemy extends Entity {
 
 		if (damage >= 1 && damage <= 3) {
 			canvas.getGraphicsContext2D()
-					.drawImage(gm.context.getScreenMaster().getImage("playerShip1_damage" + damage), 0, 0);
+					.drawImage(gm.context.getSceneMaster().getImage("playerShip1_damage" + damage), 0, 0);
 		}
 	}
 

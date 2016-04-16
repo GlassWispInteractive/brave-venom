@@ -58,7 +58,7 @@ public class SettingsMenuScene extends AbstractMenuScene {
 		buttonBack.setPrefHeight(Double.MAX_VALUE);
 
 		buttonBack.setOnAction((e) -> {
-			sceneMaster.getContext().getScreenMaster().showScene("main_menu", foreground);
+			sceneMaster.getContext().getSceneMaster().showScene("main_menu", foreground);
 		});
 
 		BorderPane borderPaneEmpty = new BorderPane();

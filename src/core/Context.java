@@ -106,10 +106,6 @@ public abstract class Context extends Application {
 		return eventMaster;
 	}
 
-	public SceneMaster getScreenMaster() {
-		return sceneMaster;
-	}
-
 	public AudioMaster getAudioMaster() {
 		return audioMaster;
 	}
