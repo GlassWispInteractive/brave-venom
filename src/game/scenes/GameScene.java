@@ -104,7 +104,7 @@ public class GameScene extends AbstractGameScene {
 
 		new BarImages("barHorizontal_white", widthLongBar).draw(gc, x, yBar);
 		if (gameMaster.player != null) {
-			String sprite = gameMaster.player.desperate ? "barHorizontal_blue" : "barHorizontal_yellow";
+			String sprite = gameMaster.player.isDesperate() ? "barHorizontal_blue" : "barHorizontal_yellow";
 			new BarImages(sprite, 100).draw(gc, x, yBar);
 		}
 
@@ -162,12 +162,14 @@ public class GameScene extends AbstractGameScene {
 		gc.drawImage(imageNumeralX, x, yLetter);
 		x += imageNumeralX.getWidth() + gapLarge;
 
-		int life = gameMaster.getCurrentLife();
-		char[] cs = Integer.toString(life).toCharArray();
-		for (char c : cs) {
-			Image imageDigit = sceneMaster.getImage("numeral" + c);
-			gc.drawImage(imageDigit, x, yLetter);
-			x += imageDigit.getWidth() + gapSmall;
+		if (gameMaster.player != null) {
+			int life = gameMaster.player.getCurrentLife();
+			char[] cs = Integer.toString(life).toCharArray();
+			for (char c : cs) {
+				Image imageDigit = sceneMaster.getImage("numeral" + c);
+				gc.drawImage(imageDigit, x, yLetter);
+				x += imageDigit.getWidth() + gapSmall;
+			}
 		}
 
 		// shields
@@ -178,7 +180,7 @@ public class GameScene extends AbstractGameScene {
 
 		new StepImages("barHorizontal_white", nrStepsMax, gapNormal).draw(gc, x, yBar);
 		if (gameMaster.player != null) {
-			String sprite = gameMaster.player.desperate ? "barHorizontal_blue" : "barHorizontal_yellow";
+			String sprite = gameMaster.player.isDesperate() ? "barHorizontal_blue" : "barHorizontal_yellow";
 			new StepImages(sprite, nrSteps, gapNormal).draw(gc, x, yBar);
 		}
 
@@ -188,7 +190,7 @@ public class GameScene extends AbstractGameScene {
 
 		new BarImages("barHorizontal_white", widthBar).draw(gc, x, yBar);
 		if (gameMaster.player != null) {
-			String sprite = gameMaster.player.desperate ? "barHorizontal_blue" : "barHorizontal_green";
+			String sprite = gameMaster.player.isDesperate() ? "barHorizontal_blue" : "barHorizontal_green";
 			new BarImages(sprite, 100).draw(gc, x, yBar);
 		}
 
@@ -198,7 +200,7 @@ public class GameScene extends AbstractGameScene {
 
 		new BarImages("barHorizontal_white", widthBar).draw(gc, x, yBar);
 		if (gameMaster.player != null) {
-			String sprite = gameMaster.player.desperate ? "barHorizontal_blue" : "barHorizontal_red";
+			String sprite = gameMaster.player.isDesperate() ? "barHorizontal_blue" : "barHorizontal_red";
 			new BarImages(sprite, 100).draw(gc, x, yBar);
 		}
 	}
