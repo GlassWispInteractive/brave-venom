@@ -6,10 +6,9 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 
 public abstract class Entity {
-	public final double SCALE = 0.8;
-
 	public double radialSpeed = 0.1;
 	public boolean valid = true;
+	protected double scale;
 	protected double x; // 0 - max X
 	protected double y; // 0 - max Y
 	protected double dirLooking; // 0 - 360
@@ -30,10 +29,12 @@ public abstract class Entity {
 		this.speed = speed;
 	}
 
-	protected void initImage(Image image) {
+	protected void initImage(Image image, double scale) {
 		this.image = image;
-		imageWidth = image.getWidth() * SCALE;
-		imageHeight = image.getHeight() * SCALE;
+		this.scale = scale;
+
+		imageWidth = image.getWidth() * scale;
+		imageHeight = image.getHeight() * scale;
 		canvasSize = Math.max(imageWidth, imageHeight) * 2;
 		canvas = new Canvas(canvasSize, canvasSize);
 		xOffset = canvas.getWidth() / 2;
@@ -69,10 +70,6 @@ public abstract class Entity {
 		return y + yOffset;
 	}
 
-	private boolean tooNear(double dx, double dy) {
-		return Double.compare(dx * dx + dy * dy - 5, 0) < 0;
-	}
-
 	private double getDir(double dx, double dy) {
 		return Math.atan2(dy, dx) * 180 / Math.PI;
 	}
@@ -103,6 +100,7 @@ public abstract class Entity {
 		turnToDir(dir, ticks);
 	}
 
+
 	protected void turnToDir(double dir, int ticks) {
 		double dd = ((dir - this.dirLooking) % 720 + 180) % 360 - 180; // crazy but needed this way
 		this.dirLooking += dd * radialSpeed * ticks;
@@ -118,6 +116,13 @@ public abstract class Entity {
 	}
 
 	public abstract void collided(Entity shot);
+
+	protected final void invalidate() {
+		valid = false;
+		redraw();
+	}
+
+	protected abstract void redraw();
 
 	public abstract EntityType getType();
 }

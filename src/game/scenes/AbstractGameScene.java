@@ -121,7 +121,7 @@ public abstract class AbstractGameScene extends Scene {
 		((StackPane) getRoot()).getChildren().add(layer);
 		layer.relocate(x, y);
 
-		// update hash maps
+		// redraw hash maps
 		gcs.put(name, layer.getGraphicsContext2D());
 	}
 

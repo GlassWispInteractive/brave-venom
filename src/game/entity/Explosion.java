@@ -1,7 +1,7 @@
 package game.entity;
 
-import javafx.scene.canvas.GraphicsContext;
 import core.Context;
+import javafx.scene.canvas.GraphicsContext;
 
 public class Explosion extends Entity {
 
@@ -11,38 +11,45 @@ public class Explosion extends Entity {
 	public Explosion(double x, double y) {
 		super(x, y, 0, 0);
 		a = b = 0;
-		initImage(Context.instance.getSceneMaster().getImage("explosion-"+a+b));
+		initImage(Context.instance.getSceneMaster().getImage("explosion-" + a + b), 2.0);
 	}
 
 	@Override
 	public void tick(int ticks) {
 		b++;
-		if (b>7) {
+		if (b > 7) {
 			a++;
-			b=0;
+			b = 0;
 		}
-		if (a>7) {
-//			Context.instance.getGameMaster().explosions.remove(this);
-			return;
+		if (a > 7) {
+			invalidate();
+		} else {
+			changeImage(Context.instance.getSceneMaster().getImage("explosion-" + a + b));
 		}
-//		System.err.println("Changging Image to "+"explosion-"+a+b);
-		changeImage(Context.instance.getSceneMaster().getImage("explosion-"+a+b));
-		update();
+		redraw();
 	}
 
-	private void update() {
+	@Override
+	protected void redraw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-		// TODO: only works for squares, must be adjusted for all rectangles
-		double x = 0;//(canvasSize - imageWidth) / 2;
-		double y = 0;//(canvasSize - imageHeight) / 2;
-		gc.drawImage(image, x, y);
+		if (valid) {
+			// TODO: only works for squares, must be adjusted for all rectangles
+			double x = (canvasSize - imageWidth) / 2;
+			double y = (canvasSize - imageHeight) / 2;
+			gc.drawImage(image, x, y, imageWidth, imageHeight);
+		}
 	}
 
 	@Override
 	public void collided(Entity shot) {
 		// nothing
+	}
+
+	@Override
+	public EntityType getType() {
+		return EntityType.EXPLOSION;
 	}
 
 }

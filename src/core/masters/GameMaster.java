@@ -41,7 +41,7 @@ public class GameMaster extends AnimationTimer {
 	public void handle(long currentNanoTime) {
 		double fps = 60.0;
 
-		// calculate time since last update.
+		// calculate time since last redraw.
 		time += (currentNanoTime - lastNanoTime) / 1000000000.0;
 		lastNanoTime = currentNanoTime;
 		int passedTicks = (int) Math.floor(time * fps);
@@ -76,10 +76,12 @@ public class GameMaster extends AnimationTimer {
 				Entity entity = i.next();
 				entity.tick(ticks);
 
-				// finally delete if from list
-				if (!entity.valid) {
-					i.remove();
+				if (entity.valid) {
+					entity.tick(ticks);
+				} else {
+					i.remove(); // finally delete if from list
 				}
+
 			}
 		}
 		//		for (Enemy enemy : enemies)
