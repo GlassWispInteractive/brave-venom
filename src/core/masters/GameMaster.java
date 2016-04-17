@@ -170,4 +170,8 @@ public class GameMaster extends AnimationTimer {
 	public void mouseClicked(double x, double y) {
 		//		player.spawnShot();
 	}
+
+	public void addEnemy(Enemy enemy) {
+		enemies.add(enemy);
+	}
 }

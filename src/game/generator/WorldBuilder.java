@@ -5,7 +5,10 @@ import java.util.Collections;
 import java.util.Random;
 
 import core.Context;
+import core.masters.GameMaster;
 import core.masters.GraphicsMaster;
+import game.entity.Enemy;
+import game.entity.PassiveEnemy;
 
 public class WorldBuilder {
 	protected final int ROOM_LIMIT = 300;
@@ -13,11 +16,13 @@ public class WorldBuilder {
 			new Point(0, -1) };
 
 	protected Random rnd = new Random();
+	
 	protected Point[][] world;
 	protected int n, m;
 
 	protected ArrayList<Point> fields;
 	protected GraphicsMaster graphics = Context.instance.getGraphicsMaster();
+	protected GameMaster master = Context.instance.getGameMaster();
 
 	private final int field_width = 150;
 	private final int field_height = 150;
@@ -179,6 +184,31 @@ public class WorldBuilder {
 				}
 			}
 		}
+	}
+	
+	public WorldBuilder asteroidsField() {
+		genFloors();
+		clearDeadends();
+		
+		int COUNTER = 10;
+		for (int i = 0; i < COUNTER; i++) {
+			int x = rnd.nextInt(n), y = rnd.nextInt(m);
+			
+			if (getField(x, y) != 2) {
+				continue;
+			}
+			
+			Enemy enemy = new PassiveEnemy(x, y, 0, 0);
+			master.addEnemy(enemy);
+//			master.
+		}
+		
+		
+		return this;
+	}
+	
+	private int getField(int x, int y) {
+		return world[x / field_width][y / field_height].getValue();
 	}
 
 	private WorldBuilder genEntity(double amout, Creatable creator) {
