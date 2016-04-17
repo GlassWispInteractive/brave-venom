@@ -72,40 +72,30 @@ public class GameMaster extends AnimationTimer {
 		for (List<? extends Entity> list : lists) {
 			Iterator<? extends Entity> i = list.iterator();
 			while (i.hasNext()) {
-				// get a monster from the iterator
 				Entity entity = i.next();
 				entity.tick(ticks);
-
-				if (entity.valid) {
+				if (entity.valid)
 					entity.tick(ticks);
-				} else {
-					i.remove(); // finally delete if from list
-				}
-
+				else
+					i.remove();
 			}
 		}
-		//		for (Enemy enemy : enemies)
-		//			enemy.tick(ticks);
-		//		for (Shot shot : playerShots)
-		//			shot.tick(ticks);
-		//		for (Shot shot : enemyShots)
-		//			shot.tick(ticks);
 		player.tick(ticks);
 
-		// collide player with enemies
-		collisions(player, enemies);
-		// collide player with enemy shots
-		collisions(player, enemyShots);
-		// collide enemies with player shots
+		checkCollide(player, enemies);
+		checkCollide(player, enemyShots);
 		for (Enemy enemy : enemies) {
-			collisions(enemy, playerShots);
+			checkCollide(enemy, playerShots);
 		}
-
 	}
 
-	private void collisions(Entity self, List<? extends Entity> others) {
+	private void checkCollide(Entity self, List<? extends Entity> others) {
+		if (!self.valid)
+			return;
 		Circle selfC = self.collisionCircle();
 		for (Entity other : others) {
+			if (!other.valid)
+				continue;
 			Circle otherC = other.collisionCircle();
 			if (Math.pow((otherC.getCenterX() - selfC.getCenterX()), 2) + Math
 					.pow(otherC.getCenterY() - selfC.getCenterY(), 2) <= Math
