@@ -17,7 +17,7 @@ import javafx.scene.paint.Paint;
 import java.util.HashMap;
 
 public abstract class AbstractGameScene extends Scene {
-	public Label tickLabel;
+	public Label tickLabel, entityLabel;
 	public long allticks = 0;
 	public Canvas bottomHUD;
 	public Pane foreground;
@@ -91,6 +91,9 @@ public abstract class AbstractGameScene extends Scene {
 		tickLabel = new Label("0 ticks");
 		tickLabel.setTextFill(Paint.valueOf("#ff0000"));
 		debugPane.getChildren().addAll(tickLabel);
+		entityLabel = new Label("0 ticks");
+		entityLabel.setTextFill(Paint.valueOf("#ff0000"));
+		debugPane.getChildren().addAll(entityLabel);
 		((StackPane) getRoot()).getChildren().addAll(debugPane);
 
 	}
@@ -118,7 +121,7 @@ public abstract class AbstractGameScene extends Scene {
 		((StackPane) getRoot()).getChildren().add(layer);
 		layer.relocate(x, y);
 
-		// update hash maps
+		// redraw hash maps
 		gcs.put(name, layer.getGraphicsContext2D());
 	}
 
@@ -148,6 +151,8 @@ public abstract class AbstractGameScene extends Scene {
 		case ENEMY:
 			return enemyPane;
 		case SHOT:
+			return shotPane;
+		case EXPLOSION:
 			return shotPane;
 		}
 		return null;

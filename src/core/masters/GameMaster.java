@@ -6,6 +6,7 @@ import game.scenes.GameScene;
 import javafx.animation.AnimationTimer;
 import javafx.scene.shape.Circle;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +16,8 @@ public class GameMaster extends AnimationTimer {
 	public final List<Enemy> enemies = new LinkedList<>();
 	public final List<Shot> playerShots = new LinkedList<>();
 	public final List<Shot> enemyShots = new LinkedList<>();
+	public final List<Explosion> explosions = new LinkedList<>();
+
 	public final int maxLife = 3;
 	public final int maxRound = 100;
 	public final int maxRoundTime = 100;
@@ -38,7 +41,7 @@ public class GameMaster extends AnimationTimer {
 	public void handle(long currentNanoTime) {
 		double fps = 60.0;
 
-		// calculate time since last update.
+		// calculate time since last redraw.
 		time += (currentNanoTime - lastNanoTime) / 1000000000.0;
 		lastNanoTime = currentNanoTime;
 		int passedTicks = (int) Math.floor(time * fps);
@@ -52,13 +55,41 @@ public class GameMaster extends AnimationTimer {
 
 	private void tick(int ticks) {
 		SceneMaster sceneMaster = context.getSceneMaster();
+
+		// debug info
+		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
+		gameScene.allticks += ticks;
+		gameScene.tickLabel.setText(gameScene.allticks + " ticks");
+		int nrEntities = enemies.size() + playerShots.size() + enemyShots.size() + 1;
+		gameScene.entityLabel.setText(nrEntities + "enteties");
+
 		sceneMaster.tick(ticks);
-		for (Enemy enemy : enemies)
-			enemy.tick(ticks);
-		for (Shot shot : playerShots)
-			shot.tick(ticks);
-		for (Shot shot : enemyShots)
-			shot.tick(ticks);
+		List<List<? extends Entity>> lists = new LinkedList<>();
+		lists.add(enemies);
+		lists.add(playerShots);
+		lists.add(enemyShots);
+		lists.add(explosions);
+		for (List<? extends Entity> list : lists) {
+			Iterator<? extends Entity> i = list.iterator();
+			while (i.hasNext()) {
+				// get a monster from the iterator
+				Entity entity = i.next();
+				entity.tick(ticks);
+
+				if (entity.valid) {
+					entity.tick(ticks);
+				} else {
+					i.remove(); // finally delete if from list
+				}
+
+			}
+		}
+		//		for (Enemy enemy : enemies)
+		//			enemy.tick(ticks);
+		//		for (Shot shot : playerShots)
+		//			shot.tick(ticks);
+		//		for (Shot shot : enemyShots)
+		//			shot.tick(ticks);
 		player.tick(ticks);
 
 		// collide player with enemies
@@ -70,10 +101,6 @@ public class GameMaster extends AnimationTimer {
 			collisions(enemy, playerShots);
 		}
 
-		// debug info
-		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
-		gameScene.allticks += ticks;
-		gameScene.tickLabel.setText(gameScene.allticks + " ticks");
 	}
 
 	private void collisions(Entity self, List<? extends Entity> others) {
@@ -193,7 +220,34 @@ public class GameMaster extends AnimationTimer {
 		gamescene.addEntitiy(EntityType.SHOT, shot);
 	}
 
+	public void addExplosion(Explosion explosion) {
+		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
+		gamescene.addEntitiy(EntityType.EXPLOSION, explosion);
+	}
+
 	public void mouseClicked(double x, double y) {
 		player.spawnShot();
+	}
+
+	public void removeEntity(EntityType entityType, Entity entity) {
+		GameScene gameScene = (GameScene) Context.instance.sceneMaster.getScene("game");
+		gameScene.removeEntitiy(entityType, entity);
+
+		switch (entityType) {
+		case ENEMY:
+			enemies.remove(entity);
+			break;
+		case SHOT:
+			if (((Shot) entity).origin instanceof Enemy)
+				enemyShots.remove(entity);
+			else {
+				playerShots.remove(entity);
+			}
+			break;
+		case PLAYER:
+			stop();
+			break;
+		}
+		// TODO: remove explosions
 	}
 }

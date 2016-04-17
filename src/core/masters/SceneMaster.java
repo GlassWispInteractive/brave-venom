@@ -96,7 +96,7 @@ public class SceneMaster {
 	public void showScene(String name, Node nodeFade) {
 		assert scenes.containsKey(name) : "scene name is invalid";
 
-		// update the showing scene
+		// redraw the showing scene
 		boolean firstStart = (scene == null);
 		scene = scenes.get(name);
 		context.setScene(scene);
