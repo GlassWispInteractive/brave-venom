@@ -103,7 +103,7 @@ public class GameMaster extends AnimationTimer {
 				return true;
 			}
 		}
-
+		
 		return false;
 	}
 
@@ -135,8 +135,22 @@ public class GameMaster extends AnimationTimer {
 	@Override
 	public void start() {
 		super.start();
-		new WorldBuilder().asteroidsField().genPlayer().genShips(0.3);
+		new WorldBuilder().asteroidsField();
 
+		player = new Player(200, 200, 0, 10);
+		Enemy enemy1 = new ActiveEnemy(800, 800, 0, 1);
+		Enemy enemy2 = new PassiveEnemy(400, 400, 0, 0);
+		enemy2.radialSpeed = 0;
+		Enemy enemy3 = new PassiveEnemy(800, 400, 50, 0);
+
+		GameScene gamescene = ((GameScene) context.getGraphicsMaster().getScene("game"));
+		gamescene.addEntitiy(EntityType.PLAYER, player);
+		gamescene.addEntitiy(EntityType.ENEMY, enemy1);
+		gamescene.addEntitiy(EntityType.ENEMY, enemy2);
+		gamescene.addEntitiy(EntityType.ENEMY, enemy3);
+		enemies.add(enemy1);
+		enemies.add(enemy2);
+		enemies.add(enemy3);
 	}
 
 	public void pause() {
