@@ -86,7 +86,7 @@ public class GameMaster extends AnimationTimer {
 		}
 	}
 
-	private void checkCollide(Entity self, List<? extends Entity> others) {
+	public void checkCollide(Entity self, List<? extends Entity> others) {
 		if (!self.valid)
 			return;
 		Circle selfC = self.collisionCircle();
@@ -166,5 +166,12 @@ public class GameMaster extends AnimationTimer {
 
 	public void mouseClicked(double x, double y) {
 		player.spawnShot();
+	}
+
+	public void gameOver() {
+		stop();
+	}
+
+	public void startDesperateMode() {
 	}
 }

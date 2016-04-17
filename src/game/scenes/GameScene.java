@@ -162,14 +162,12 @@ public class GameScene extends AbstractGameScene {
 		gc.drawImage(imageNumeralX, x, yLetter);
 		x += imageNumeralX.getWidth() + gapLarge;
 
-		if (gameMaster.player != null) {
-			int life = gameMaster.player.getCurrentLife();
-			char[] cs = Integer.toString(life).toCharArray();
-			for (char c : cs) {
-				Image imageDigit = sceneMaster.getImage("numeral" + c);
-				gc.drawImage(imageDigit, x, yLetter);
-				x += imageDigit.getWidth() + gapSmall;
-			}
+		int life = gameMaster.player == null ? 0 : gameMaster.player.getCurrentLives();
+		char[] cs = Integer.toString(life).toCharArray();
+		for (char c : cs) {
+			Image imageDigit = sceneMaster.getImage("numeral" + c);
+			gc.drawImage(imageDigit, x, yLetter);
+			x += imageDigit.getWidth() + gapSmall;
 		}
 
 		// shields

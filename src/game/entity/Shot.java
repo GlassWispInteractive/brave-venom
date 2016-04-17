@@ -11,7 +11,7 @@ public class Shot extends Entity {
 	public Shot(double x, double y, double dir, double speed, String spritefile, Entity origin) {
 		super(x, y, dir, speed);
 		this.origin = origin;
-		initImage(Context.instance.getSceneMaster().getImage("laserRed03"), 0.8);
+		initImage(Context.instance.getSceneMaster().getImage(spritefile), 0.8);
 	}
 
 	@Override

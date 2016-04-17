@@ -6,15 +6,15 @@ import javafx.scene.transform.Rotate;
 
 public class Player extends Entity {
 	private int maxDesperation = 100;
-	private int currentLife = 3;
-	private int currentDesperation = 0;
 	private int maxDamage = 3;
-	private int damage = 0;
+	private int currentDesperation = 0;
+	private int currentDamage = 0;
+	private int currentLives = 3;
 	private boolean desperate = false;
 
 	public Player(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
-		initImage(Context.instance.getSceneMaster().getImage("playerShip1_blue"), 0.8);
+		initImage(Context.instance.getSceneMaster().getImage("playerShip1_green"), 0.8);
 		redraw();
 	}
 
@@ -40,8 +40,8 @@ public class Player extends Entity {
 
 			gc.drawImage(image, x, y, imageWidth, imageHeight);
 
-			if (damage >= 1 && damage <= 3) {
-				gc.drawImage(Context.instance.getSceneMaster().getImage("playerShip1_damage" + damage), x, y,
+			if (currentDamage >= 1 && currentDamage <= 3) {
+				gc.drawImage(Context.instance.getSceneMaster().getImage("playerShip1_damage" + currentDamage), x, y,
 						imageWidth, imageHeight);
 			}
 
@@ -66,22 +66,27 @@ public class Player extends Entity {
 		return EntityType.PLAYER;
 	}
 
-	public int getCurrentLife() {
-		return currentLife;
+	public int getCurrentLives() {
+		return currentLives;
 	}
 
-	public void damage() {
-		damage += 1;
-
-		if (damage >= 0) {
-			damage = Math.min(damage + damage, 3);
+	private void damage() {
+		currentDamage += 1;
+		if (currentDamage >= maxDamage) {
+			currentDamage = 0;
+			kill();
 		}
-
 	}
 
-	public void heal(int health) {
-		if (health >= 0)
-			this.currentLife = Math.min(currentLife + health, maxDamage);
+	private void kill()
+	{
+		currentLives-=1;
+		if (currentLives<=0)
+			Context.instance.gameMaster.gameOver();
+	}
+
+	private void addLive(){
+		currentLives+=1;
 	}
 
 	public int getCurrentDesperation() {
@@ -92,7 +97,7 @@ public class Player extends Entity {
 		if (addedDesperation >= 0)
 			currentDesperation = Math.min(currentDesperation + addedDesperation, maxDesperation);
 		if (currentDesperation == maxDesperation) {
-			// TODO: start furious round
+			Context.instance.gameMaster.startDesperateMode();
 		}
 	}
 
