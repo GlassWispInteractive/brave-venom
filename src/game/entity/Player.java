@@ -10,7 +10,7 @@ public class Player extends Entity {
 
 	public Player(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
-		initImage(Context.instance.getSceneMaster().getImage("playerShip1_blue"));
+		initImage(Context.instance.getGraphicsMaster().getImage("playerShip1_blue"));
 		update();
 	}
 
@@ -36,7 +36,7 @@ public class Player extends Entity {
 		gc.drawImage(image, x, y);
 
 		if (damage >= 1 && damage <= 3) {
-			gc.drawImage(Context.instance.getSceneMaster().getImage("playerShip1_damage" + damage), x, y);
+			gc.drawImage(Context.instance.getGraphicsMaster().getImage("playerShip1_damage" + damage), x, y);
 		}
 
 		gc.restore();

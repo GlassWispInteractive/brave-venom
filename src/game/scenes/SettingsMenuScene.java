@@ -1,6 +1,6 @@
 package game.scenes;
 
-import core.masters.SceneMaster;
+import core.masters.GraphicsMaster;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 
 public class SettingsMenuScene extends AbstractMenuScene {
 
-	public SettingsMenuScene(SceneMaster sceneMaster) {
+	public SettingsMenuScene(GraphicsMaster sceneMaster) {
 		super(sceneMaster);
 
 		init_scene();
@@ -58,7 +58,7 @@ public class SettingsMenuScene extends AbstractMenuScene {
 		buttonBack.setPrefHeight(Double.MAX_VALUE);
 
 		buttonBack.setOnAction((e) -> {
-			sceneMaster.getContext().getSceneMaster().showScene("main_menu", foreground);
+			sceneMaster.getContext().getGraphicsMaster().showScene("main_menu", foreground);
 		});
 
 		BorderPane borderPaneEmpty = new BorderPane();

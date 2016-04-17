@@ -2,7 +2,7 @@ package game.scenes;
 
 import core.Context;
 import core.masters.GameMaster;
-import core.masters.SceneMaster;
+import core.masters.GraphicsMaster;
 import game.entity.Entity;
 import game.entity.EntityType;
 import javafx.scene.Scene;
@@ -21,7 +21,7 @@ public abstract class AbstractGameScene extends Scene {
 	public long allticks = 0;
 	public Canvas bottomHUD;
 	public Pane foreground;
-	protected SceneMaster sceneMaster;
+	protected GraphicsMaster sceneMaster;
 	protected Canvas background;
 	protected Pane enemyPane;
 	protected Pane shotPane;
@@ -30,7 +30,7 @@ public abstract class AbstractGameScene extends Scene {
 	protected VBox debugPane;
 	private HashMap<String, GraphicsContext> gcs;
 
-	protected AbstractGameScene(SceneMaster sceneMaster) {
+	protected AbstractGameScene(GraphicsMaster sceneMaster) {
 		super(new StackPane(), sceneMaster.windowWidth.get(), sceneMaster.windowHeight.get(), sceneMaster.BACK);
 
 		this.sceneMaster = sceneMaster;

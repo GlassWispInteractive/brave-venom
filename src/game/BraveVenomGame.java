@@ -1,6 +1,7 @@
 package game;
 
 import core.Context;
+import game.generator.WorldBuilder;
 import game.scenes.GameScene;
 import game.scenes.HelpMenuScene;
 import game.scenes.MainMenuScene;
@@ -14,13 +15,15 @@ public class BraveVenomGame extends Context {
 		super(TITLE);
 
 		// general settings
-		sceneMaster.windowWidth.set(1200);
-		sceneMaster.windowHeight.set(800);
-		sceneMaster.tileSize.set(16);
-		sceneMaster.panelHeight.bind(sceneMaster.tileSize.multiply(5));
-		//		sceneMaster.gameHeight.bind(sceneMaster.windowHeight.subtract(sceneMaster.panelHeight.multiply(2)));
-		sceneMaster.gameHeight.bind(sceneMaster.windowHeight);
-		sceneMaster.gameWidth.bind(sceneMaster.windowWidth);
+		graphicsMaster.windowWidth.set(1200);
+		graphicsMaster.windowHeight.set(800);
+		graphicsMaster.tileSize.set(16);
+		graphicsMaster.panelHeight.bind(graphicsMaster.tileSize.multiply(5));
+		// sceneMaster.gameHeight.bind(sceneMaster.windowHeight.subtract(sceneMaster.panelHeight.multiply(2)));
+		graphicsMaster.gameHeight.bind(graphicsMaster.windowHeight);
+		graphicsMaster.gameWidth.bind(graphicsMaster.windowWidth);
+
+		WorldBuilder world = new WorldBuilder();
 	}
 
 	public static void main(String[] args) {
@@ -36,14 +39,14 @@ public class BraveVenomGame extends Context {
 	@Override
 	public void start(Stage stage) {
 		super.start(stage);
-		sceneMaster.showScene("main_menu");
+		graphicsMaster.showScene("main_menu");
 	}
 
 	private void init_scenes() {
-		sceneMaster.addScreen("main_menu", new MainMenuScene(sceneMaster));
-		sceneMaster.addScreen("help_menu", new HelpMenuScene(sceneMaster));
-		sceneMaster.addScreen("settings_menu", new SettingsMenuScene(sceneMaster));
-		sceneMaster.addScreen("game", new GameScene(sceneMaster));
+		graphicsMaster.addScreen("main_menu", new MainMenuScene(graphicsMaster));
+		graphicsMaster.addScreen("help_menu", new HelpMenuScene(graphicsMaster));
+		graphicsMaster.addScreen("settings_menu", new SettingsMenuScene(graphicsMaster));
+		graphicsMaster.addScreen("game", new GameScene(graphicsMaster));
 	}
 
 	@Override

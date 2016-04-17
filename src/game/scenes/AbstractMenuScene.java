@@ -3,7 +3,7 @@ package game.scenes;
 import java.util.ArrayList;
 
 import core.masters.EventMaster;
-import core.masters.SceneMaster;
+import core.masters.GraphicsMaster;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -12,7 +12,7 @@ import javafx.scene.layout.StackPane;
 //import static game.State.*;
 
 public class AbstractMenuScene extends Scene {
-	protected SceneMaster sceneMaster;
+	protected GraphicsMaster sceneMaster;
 
 	// instance
 
@@ -21,7 +21,7 @@ public class AbstractMenuScene extends Scene {
 	protected BorderPane foreground;
 	private int cur;
 
-	public AbstractMenuScene(SceneMaster sceneMaster) {
+	public AbstractMenuScene(GraphicsMaster sceneMaster) {
 		super(new StackPane(), sceneMaster.windowWidth.get(), sceneMaster.windowHeight.get());
 		this.sceneMaster = sceneMaster;
 		init_scene();

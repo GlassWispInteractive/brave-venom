@@ -9,7 +9,7 @@ public class ActiveEnemy extends Enemy {
 	public ActiveEnemy(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
 
-		initImage(Context.instance.getSceneMaster().getImage("playerShip1_red"));
+		initImage(Context.instance.getGraphicsMaster().getImage("playerShip1_red"));
 	}
 
 	@Override

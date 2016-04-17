@@ -51,7 +51,7 @@ public class GameMaster extends AnimationTimer {
 	}
 
 	private void tick(int ticks) {
-		SceneMaster sceneMaster = context.getSceneMaster();
+		GraphicsMaster sceneMaster = context.getGraphicsMaster();
 		sceneMaster.tick(ticks);
 		for (Enemy enemy : enemies)
 			enemy.tick(ticks);
@@ -62,16 +62,16 @@ public class GameMaster extends AnimationTimer {
 		player.tick(ticks);
 
 		// debug info
-		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
+		GameScene gameScene = ((GameScene) sceneMaster.getContext().getGraphicsMaster().getScene("game"));
 		gameScene.allticks += ticks;
 		gameScene.tickLabel.setText(gameScene.allticks + " ticks");
 	}
 
 	private void render() {
 
-		SceneMaster sceneMaster = context.getSceneMaster();
+		GraphicsMaster sceneMaster = context.getGraphicsMaster();
 		sceneMaster.render();
-		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
+		GameScene gameScene = ((GameScene) sceneMaster.getContext().getGraphicsMaster().getScene("game"));
 		gameScene.update();
 	}
 
@@ -84,7 +84,7 @@ public class GameMaster extends AnimationTimer {
 		enemy2.radialSpeed = 0;
 		Enemy enemy3 = new PassiveEnemy(800, 400, 50, 0);
 
-		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
+		GameScene gamescene = ((GameScene) context.getGraphicsMaster().getScene("game"));
 		gamescene.addEntitiy(EntityType.PLAYER, player);
 		gamescene.addEntitiy(EntityType.ENEMY, enemy1);
 		gamescene.addEntitiy(EntityType.ENEMY, enemy2);
