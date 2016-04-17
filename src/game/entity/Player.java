@@ -11,6 +11,12 @@ public class Player extends Entity {
 	private int currentDamage = 0;
 	private int currentLives = 3;
 	private boolean desperate = false;
+	private int maxLaser = 100;
+	private int maxMissiles = 5;
+	private int maxShields = 12;
+	private int laser = maxLaser;
+	private int missiles;
+	private int shields;
 
 	public Player(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
@@ -50,10 +56,13 @@ public class Player extends Entity {
 	}
 
 	public void spawnShot() {
-		double xWeapon = getXCenter() + Math.cos(dirLooking / 180 * Math.PI) * imageWidth / 2.2d;
-		double yWeapon = getYCenter() + Math.sin(dirLooking / 180 * Math.PI) * imageHeight / 2.2;
-		Shot shot = new Shot(xWeapon, yWeapon, dirLooking, 20, "laserGreen03", this);
-		Context.instance.gameMaster.addShot(shot);
+		if (laser > 0) {
+			double xWeapon = getXCenter() + Math.cos(dirLooking / 180 * Math.PI) * imageWidth / 2.2d;
+			double yWeapon = getYCenter() + Math.sin(dirLooking / 180 * Math.PI) * imageHeight / 2.2;
+			Shot shot = new Shot(xWeapon, yWeapon, dirLooking, 20, "laserGreen03", this);
+			Context.instance.gameMaster.addShot(shot);
+			laser--;
+		}
 	}
 
 	@Override
@@ -72,21 +81,20 @@ public class Player extends Entity {
 
 	private void damage() {
 		currentDamage += 1;
-		if (currentDamage >= maxDamage) {
+		if (currentDamage > maxDamage) {
 			currentDamage = 0;
 			kill();
 		}
 	}
 
-	private void kill()
-	{
-		currentLives-=1;
-		if (currentLives<=0)
+	private void kill() {
+		currentLives -= 1;
+		if (currentLives <= 0)
 			Context.instance.gameMaster.gameOver();
 	}
 
-	private void addLive(){
-		currentLives+=1;
+	private void addLive() {
+		currentLives += 1;
 	}
 
 	public int getCurrentDesperation() {
@@ -97,8 +105,13 @@ public class Player extends Entity {
 		if (addedDesperation >= 0)
 			currentDesperation = Math.min(currentDesperation + addedDesperation, maxDesperation);
 		if (currentDesperation == maxDesperation) {
-			Context.instance.gameMaster.startDesperateMode();
+			desperate = true;
 		}
+	}
+
+	public void reduceDesperation(int removedDesperation) {
+		if (removedDesperation >= 0)
+			currentDesperation = Math.max(currentDesperation - removedDesperation, 0);
 	}
 
 	public void resetCurrentDesperation() {
@@ -107,5 +120,29 @@ public class Player extends Entity {
 
 	public boolean isDesperate() {
 		return desperate;
+	}
+
+	public int getMaxLaser() {
+		return maxLaser;
+	}
+
+	public int getMaxMissiles() {
+		return maxMissiles;
+	}
+
+	public int getLaser() {
+		return laser;
+	}
+
+	public int getMissiles() {
+		return missiles;
+	}
+
+	public int getMaxShields() {
+		return maxShields;
+	}
+
+	public int getShields() {
+		return shields;
 	}
 }

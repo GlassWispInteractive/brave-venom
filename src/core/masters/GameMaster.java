@@ -29,9 +29,11 @@ public class GameMaster extends AnimationTimer {
 	private double time = 0;
 	private double lastNanoTime = System.nanoTime();
 
+	private long startTime;
+
 	public GameMaster(Context context) {
 		this.context = context;
-
+		startTime = System.currentTimeMillis();
 	}
 
 	@Override
@@ -48,6 +50,11 @@ public class GameMaster extends AnimationTimer {
 
 		tick(passedTicks);
 		render();
+		updateRoundTime();
+	}
+
+	private void updateRoundTime() {
+
 	}
 
 	private void tick(int ticks) {
@@ -91,14 +98,16 @@ public class GameMaster extends AnimationTimer {
 			return;
 		Circle selfC = self.collisionCircle();
 		for (Entity other : others) {
-			if (!other.valid)
+			if (!other.valid) {
 				continue;
+			}
 			Circle otherC = other.collisionCircle();
 			if (Math.pow((otherC.getCenterX() - selfC.getCenterX()), 2) + Math
 					.pow(otherC.getCenterY() - selfC.getCenterY(), 2) <= Math
 					.pow(otherC.getRadius() - selfC.getRadius(), 2)) {
-				self.collided(other);
+				System.out.println("collide");
 				other.collided(self);
+				self.collided(other);
 			}
 		}
 	}
@@ -115,17 +124,17 @@ public class GameMaster extends AnimationTimer {
 	public void start() {
 		super.start();
 		player = new Player(200, 200, 0, 10);
-		Enemy enemy1 = new ActiveEnemy(800, 800, 0, 1);
+		//		Enemy enemy1 = new ActiveEnemy(800, 800, 0, 1);
 		Enemy enemy2 = new PassiveEnemy(400, 400, 0, 0);
 		enemy2.radialSpeed = 0;
 		Enemy enemy3 = new PassiveEnemy(800, 400, 50, 0);
 
 		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
 		gamescene.addEntitiy(EntityType.PLAYER, player);
-		gamescene.addEntitiy(EntityType.ENEMY, enemy1);
+		//		gamescene.addEntitiy(EntityType.ENEMY, enemy1);
 		gamescene.addEntitiy(EntityType.ENEMY, enemy2);
 		gamescene.addEntitiy(EntityType.ENEMY, enemy3);
-		enemies.add(enemy1);
+		//		enemies.add(enemy1);
 		enemies.add(enemy2);
 		enemies.add(enemy3);
 	}

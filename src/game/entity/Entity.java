@@ -1,6 +1,5 @@
 package game.entity;
 
-import core.Context;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
@@ -105,13 +104,8 @@ public abstract class Entity {
 		this.dirLooking += dd * radialSpeed * ticks;
 	}
 
-	public void spawnShot() {
-		Shot shot = new Shot(getXCenter(), getYCenter(), dirLooking, 10, "laserBlue12", this);
-		Context.instance.gameMaster.addShot(shot);
-	}
-
 	public Circle collisionCircle() {
-		return new Circle(this.getXCenter(), this.getYCenter(), (this.imageWidth + this.imageHeight) / 2);
+		return new Circle(this.getXCenter(), this.getYCenter(), (this.imageWidth + this.imageHeight));
 	}
 
 	public abstract void collided(Entity shot);

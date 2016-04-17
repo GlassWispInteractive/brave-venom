@@ -91,13 +91,16 @@ public class GameScene extends AbstractGameScene {
 		new BorderImages("glassPanel", widthGlass, heightGlass).draw(gc, x, yGlass);
 
 		// level
+		int level = gameMaster.currentLevel;
 		x = sceneMaster.windowWidth.get() * 1 / 8 - widthBar / 2;
 		gc.setFont(FontMaster.DEFAULT_FONT);
 		gc.fillText("Level", x, yText);
 		gc.setFont(FontMaster.LARGE_FONT);
-		gc.fillText("1", x, yTextBottom);
+		gc.fillText("" + level, x, yTextBottom);
 
 		// time bar
+		int max = gameMaster.maxRoundTime;
+		int curr = gameMaster.currentRoundTime;
 		x = sceneMaster.windowWidth.get() * 4 / 8 - widthLongBar / 2;
 		gc.setFont(FontMaster.DEFAULT_FONT);
 		gc.fillText("Round Time", x, yText);
@@ -105,7 +108,7 @@ public class GameScene extends AbstractGameScene {
 		new BarImages("barHorizontal_white", widthLongBar).draw(gc, x, yBar);
 		if (gameMaster.player != null) {
 			String sprite = gameMaster.player.isDesperate() ? "barHorizontal_blue" : "barHorizontal_yellow";
-			new BarImages(sprite, 100).draw(gc, x, yBar);
+			new BarImages(sprite, widthLongBar * curr / max).draw(gc, x, yBar);
 		}
 
 		// score
@@ -134,6 +137,8 @@ public class GameScene extends AbstractGameScene {
 		double gapSmall = 2;
 		double gapNormal = 5;
 		double gapLarge = 8;
+		int max;
+		int curr;
 
 		// glass panes
 		for (int i = 0; i < 4; i++) {
@@ -171,30 +176,34 @@ public class GameScene extends AbstractGameScene {
 		}
 
 		// shields
-		int nrStepsMax = 10;
-		int nrSteps = 5;
+		max = gameMaster.player == null ? 1 : gameMaster.player.getMaxShields();
+		curr = gameMaster.player == null ? 0 : gameMaster.player.getShields();
 		x = sceneMaster.windowWidth.get() * 3 / 8 - widthBar / 2;
 		gc.fillText("Shield", x, yText);
 
-		new StepImages("barHorizontal_white", nrStepsMax, gapNormal).draw(gc, x, yBar);
+		new StepImages("barHorizontal_white", max, gapNormal).draw(gc, x, yBar);
 		if (gameMaster.player != null) {
 			String sprite = gameMaster.player.isDesperate() ? "barHorizontal_blue" : "barHorizontal_yellow";
-			new StepImages(sprite, nrSteps, gapNormal).draw(gc, x, yBar);
+			new StepImages(sprite, curr, gapNormal).draw(gc, x, yBar);
 		}
 
 		// laser bar
+		max = gameMaster.player == null ? 1 : gameMaster.player.getMaxLaser();
+		curr = gameMaster.player == null ? 0 : gameMaster.player.getLaser();
 		x = sceneMaster.windowWidth.get() * 5 / 8 - widthBar / 2;
 		gc.fillText("Laser", x, yText);
 
 		new BarImages("barHorizontal_white", widthBar).draw(gc, x, yBar);
 		if (gameMaster.player != null) {
 			String sprite = gameMaster.player.isDesperate() ? "barHorizontal_blue" : "barHorizontal_green";
-			new BarImages(sprite, 100).draw(gc, x, yBar);
+			new BarImages(sprite, widthBar * curr / max).draw(gc, x, yBar);
 		}
 
-		// rocket bar
+		// missiles bar
+		max = gameMaster.player == null ? 0 : gameMaster.player.getMaxMissiles();
+		curr = gameMaster.player == null ? 0 : gameMaster.player.getMissiles();
 		x = sceneMaster.windowWidth.get() * 7 / 8 - widthBar / 2;
-		gc.fillText("Rockets", x, yText);
+		gc.fillText("Missiles", x, yText);
 
 		new BarImages("barHorizontal_white", widthBar).draw(gc, x, yBar);
 		if (gameMaster.player != null) {
