@@ -152,6 +152,8 @@ public abstract class AbstractGameScene extends Scene {
 			return enemyPane;
 		case SHOT:
 			return shotPane;
+		case EXPLOSION:
+			return shotPane;
 		}
 		return null;
 	}

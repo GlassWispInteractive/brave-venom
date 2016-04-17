@@ -35,15 +35,20 @@
 //}
 package game.entity;
 
+import core.Context;
+
 public abstract class Enemy extends Entity {
 
 	public Enemy(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
-
 	}
 
 	public void collided(Entity shot) {
-		System.out.println("Enemy collided");
+		System.out.println("Enemy collided, Spawning Explosion");
+		// enemy got shot by player...
+		Explosion explosion = new Explosion(this.getXCenter(), this.getYCenter());
+		Context.instance.gameMaster.explosions.add(explosion);
+		Context.instance.gameMaster.addExplosion(explosion);
 	}
 
 	public EntityType getType() {

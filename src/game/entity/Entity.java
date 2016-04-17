@@ -42,6 +42,11 @@ public abstract class Entity {
 		y -= yOffset;
 	}
 
+	protected void changeImage(Image image) {
+		// This function must not be called with an image of a different resolution!!!
+		this.image = image;
+	}
+
 	public Canvas getCanvas() {
 		return canvas;
 	}
