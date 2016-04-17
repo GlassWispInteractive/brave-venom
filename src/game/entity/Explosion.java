@@ -16,7 +16,7 @@ public class Explosion extends Entity {
 
 	@Override
 	public void tick(int ticks) {
-		b++;
+		b += ticks;
 		if (b > 7) {
 			a++;
 			b = 0;

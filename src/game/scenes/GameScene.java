@@ -107,64 +107,78 @@ public class GameScene extends AbstractGameScene {
 	}
 
 	private void updateBottomHUD() {
+		GraphicsContext gc = bottomHUD.getGraphicsContext2D();
+		gc.clearRect(0, 0, getWidth(), getHeight());
+
 		double bigY = sceneMaster.panelHeight.get() * 0.5;
 		Image start = sceneMaster.getImage("barHorizontal_white_left");
 		Image mid = sceneMaster.getImage("barHorizontal_white_mid");
 		Image end = sceneMaster.getImage("barHorizontal_white_right");
-				double y = bigY - start.getHeight() * 0.5;
-		GraphicsContext gc = bottomHUD.getGraphicsContext2D();
-		//		bottom.relocate(0, sceneMaster.windowHeight.get() - sceneMaster.panelHeight.get());
-		//		bottom.relocate(0, sceneMaster.windowHeight.get());
+		double widthBar = 200;
+		double heightBar = 26;
+		double x;
+		double yBar = (sceneMaster.panelHeight.get() - heightBar) / 2;
+		double yLetter = (sceneMaster.panelHeight.get() - sceneMaster.getImage("numeral1").getHeight()) / 2;
+		double gapSmall = 2;
+		double gapNormal = 5;
+		double gapLarge = 8;
 
-		gc.clearRect(0, 0, getWidth(), getHeight());
-
-		//		gc.setFill(Color.GRAY);
-		//		gc.fillRect(0, 0, getWidth(), getHeight());
-
+		// lives
 		gc.setFont(FontMaster.DEFAULT_FONT);
 		gc.setTextAlign(TextAlignment.LEFT);
 		gc.setTextBaseline(VPos.CENTER);
 		gc.setFill(sceneMaster.FRONT);
 
-		// show lives
-		int lifeNum = 123456789;
-
-		Image life = sceneMaster.getImage("playerLife1_green");
-		Image numeral_x = sceneMaster.getImage("numeralX");
-
-		gc.drawImage(life, 10, y);
-
-		gc.drawImage(numeral_x, 10 + life.getWidth() + 5, bigY - numeral_x.getHeight() * 0.5);
-		char[] cs = Integer.toString(lifeNum).toCharArray();
-
-		double latterY = bigY - sceneMaster.getImage("numeral1").getHeight() * 0.5;
-		for (int i = 0; i < cs.length; i++) {
-			gc.drawImage(sceneMaster.getImage("numeral" + cs[i]),
-					15 + life.getWidth() + (i + 1) * (numeral_x.getWidth() + 4), latterY);
+		Image imageLife = sceneMaster.getImage("playerLife1_green");
+		Image imageNumeralX = sceneMaster.getImage("numeralX");
+		Image[] imagesDigits = new Image[10];
+		for (int i = 0; i < 10; i++) {
+			imagesDigits[i] = sceneMaster.getImage("numeral" + i);
 		}
 
-		// desperate bar
-		int progress = 50;
-		int factor_size = 2;
+		double width = imageLife.getWidth() + imageNumeralX.getWidth() + 8 * imagesDigits[0].getWidth() + 2 * gapLarge
+				+ 7 * gapSmall;
+		x = sceneMaster.windowWidth.get() * 1 / 8 - width / 2;
 
-		// white bar
+		gc.drawImage(imageLife, x, yBar);
+		x += imageLife.getWidth() + gapLarge;
 
-		double hei = start.getHeight() / 2;
+		gc.drawImage(imageNumeralX, x, yLetter);
+		x += imageNumeralX.getWidth() + gapLarge;
 
-		double x = (sceneMaster.gameWidth.get() - factor_size * 100) * 0.8;
+		int life = gameMaster.getCurrentLife();
+		char[] cs = Integer.toString(life).toCharArray();
+		for (char c : cs) {
+			Image imageDigit = sceneMaster.getImage("numeral" + c);
+			gc.drawImage(imageDigit, x, yLetter);
+			x += imageDigit.getWidth() + gapSmall;
+		}
 
-		double barY = 50;
-		gc.drawImage(start, x, barY, start.getWidth(), hei);
-		gc.drawImage(mid, x + start.getWidth(), barY, factor_size * 100 - start.getWidth() - end.getWidth(), hei);
-		gc.drawImage(end, x + factor_size * 100 - end.getWidth(), barY, end.getWidth(), hei);
+		// shields
+		int nrStepsMax = 10;
+		int nrSteps = 5;
+		x = sceneMaster.windowWidth.get() * 3 / 8 - widthBar / 2;
+		new StepImages("barHorizontal_white", nrStepsMax, gapNormal).draw(gc, x, yBar);
+		if (gameMaster.player != null) {
+			String sprite = gameMaster.player.desperate ? "barHorizontal_blue" : "barHorizontal_yellow";
+			new StepImages(sprite, nrSteps, gapNormal).draw(gc, x, yBar);
+		}
 
-		start = sceneMaster.getImage("barHorizontal_red_left");
-		mid = sceneMaster.getImage("barHorizontal_red_mid");
-		end = sceneMaster.getImage("barHorizontal_red_right");
+		// laser bar
+		x = sceneMaster.windowWidth.get() * 5 / 8 - widthBar / 2;
+		new BarImages("barHorizontal_white", widthBar).draw(gc, x, yBar);
+		if (gameMaster.player != null) {
+			String sprite = gameMaster.player.desperate ? "barHorizontal_blue" : "barHorizontal_green";
+			new BarImages(sprite, 100).draw(gc, x, yBar);
+		}
 
-		gc.drawImage(start, x, barY, start.getWidth(), hei);
-		gc.drawImage(mid, x + start.getWidth(), barY, factor_size * progress - start.getWidth() - end.getWidth(), hei);
-		gc.drawImage(end, x + factor_size * progress - end.getWidth(), barY, end.getWidth(), hei);
+		// rocket bar
+		x = sceneMaster.windowWidth.get() * 7 / 8 - widthBar / 2;
+		new BarImages("barHorizontal_white", widthBar).draw(gc, x, yBar);
+		if (gameMaster.player != null) {
+			String sprite = gameMaster.player.desperate ? "barHorizontal_blue" : "barHorizontal_red";
+			new BarImages(sprite, 100).draw(gc, x, yBar);
+		}
 	}
 
 	@Override
@@ -191,7 +205,7 @@ public class GameScene extends AbstractGameScene {
 
 		double left, top, right, bottom, centerV, centerH;
 
-		public BorderImages(String name, int width, int height) {
+		public BorderImages(String name, double width, double height) {
 			imageTopLeft = sceneMaster.getImage(name + "_corner_top_left");
 			imageTopRight = sceneMaster.getImage(name + "_corner_top_right");
 			imageBottomLeft = sceneMaster.getImage(name + "_corner_bottom_left");
@@ -220,6 +234,57 @@ public class GameScene extends AbstractGameScene {
 			gc.drawImage(imageLeft, xBase, top + yBase, left, centerV);
 			gc.drawImage(imageRight, left + centerH + xBase, top + yBase, right, centerV);
 			gc.drawImage(imageCenter, left + xBase, top + yBase, centerH, centerV);
+		}
+	}
+
+	class BarImages {
+		private final Image imageLeft;
+		private final Image imageRight;
+		private final Image imageCenter;
+
+		double left, right, centerH, height;
+
+		public BarImages(String name, double width) {
+			imageLeft = sceneMaster.getImage(name + "_left");
+			imageCenter = sceneMaster.getImage(name + "_mid");
+			imageRight = sceneMaster.getImage(name + "_right");
+
+			left = imageLeft.getWidth();
+			right = imageRight.getWidth();
+			centerH = width - left - right;
+			height = imageLeft.getHeight();
+		}
+
+		public void draw(GraphicsContext gc, double xBase, double yBase) {
+			gc.drawImage(imageLeft, xBase, yBase, left, height);
+			gc.drawImage(imageRight, left + centerH + xBase, yBase, right, height);
+			gc.drawImage(imageCenter, left + xBase, yBase, centerH, height);
+		}
+	}
+
+	class StepImages {
+		private final Image imageLeft;
+		private final Image imageRight;
+		private final int nrSteps;
+
+		double left, right, height, gap;
+
+		public StepImages(String name, int nrSteps, double gap) {
+			imageLeft = sceneMaster.getImage(name + "_left");
+			imageRight = sceneMaster.getImage(name + "_right");
+
+			this.nrSteps = nrSteps;
+			this.gap = gap;
+			left = imageLeft.getWidth();
+			right = imageRight.getWidth();
+			height = imageLeft.getHeight();
+		}
+
+		public void draw(GraphicsContext gc, double xBase, double yBase) {
+			for (int i = 0; i < nrSteps; i++) {
+				gc.drawImage(imageLeft, xBase + (left + right + gap) * i, yBase, left, height);
+				gc.drawImage(imageRight, xBase + (left + right + gap) * i + right, yBase, right, height);
+			}
 		}
 	}
 }

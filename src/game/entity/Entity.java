@@ -100,7 +100,6 @@ public abstract class Entity {
 		turnToDir(dir, ticks);
 	}
 
-
 	protected void turnToDir(double dir, int ticks) {
 		double dd = ((dir - this.dirLooking) % 720 + 180) % 360 - 180; // crazy but needed this way
 		this.dirLooking += dd * radialSpeed * ticks;

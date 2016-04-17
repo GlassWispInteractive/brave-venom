@@ -7,6 +7,7 @@ import javafx.scene.transform.Rotate;
 public class Player extends Entity {
 
 	public int damage = 0;
+	public boolean desperate;
 
 	public Player(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);

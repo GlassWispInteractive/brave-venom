@@ -45,7 +45,6 @@ public abstract class Enemy extends Entity {
 
 	@Override
 	public void collided(Entity shot) {
-		System.out.println("Enemy collided, Spawning Explosion");
 		// enemy got shot by player...
 		Explosion explosion = new Explosion(this.getXCenter(), this.getYCenter());
 		Context.instance.gameMaster.explosions.add(explosion);
@@ -58,3 +57,4 @@ public abstract class Enemy extends Entity {
 		return EntityType.ENEMY;
 	}
 }
+
