@@ -17,20 +17,17 @@ public class GameMaster extends AnimationTimer {
 	public final List<Shot> playerShots = new LinkedList<>();
 	public final List<Shot> enemyShots = new LinkedList<>();
 	public final List<Explosion> explosions = new LinkedList<>();
-
-	public final int maxLife = 3;
-	public final int maxRound = 100;
-	public final int maxRoundTime = 100;
-	public final int maxDesperation = 100;
 	public Player player;
+
+	public int maxRoundTime = 100;
+	public int currentRoundTime = maxRoundTime;
+	public int currentLevel = 1;
+
 	public double mouseX;
 	public double mouseY;
-	private int currentLife = maxLife;
-	private int currentRound = 1;
-	private int currentRoundTime = maxRoundTime;
-	private int currentDesperation = 0;
-	private double lastNanoTime = System.nanoTime();
+
 	private double time = 0;
+	private double lastNanoTime = System.nanoTime();
 
 	public GameMaster(Context context) {
 		this.context = context;
@@ -152,54 +149,6 @@ public class GameMaster extends AnimationTimer {
 		start();
 	}
 
-	public int getCurrentLife() {
-		return currentLife;
-	}
-
-	public void damage(int damage) {
-		if (damage >= 0) {
-			player.damage = Math.min(player.damage + damage, 3);
-		}
-
-	}
-
-	public void heal(int health) {
-		if (health >= 0)
-			this.currentLife = Math.min(currentLife + health, maxLife);
-	}
-
-	public int getCurrentRound() {
-		return currentRound;
-	}
-
-	public void setCurrentRound(int currentRound) {
-		this.currentRound = currentRound;
-	}
-
-	public int getCurrentRoundTime() {
-		return currentRoundTime;
-	}
-
-	public void startRoundTime() {
-		this.currentRoundTime = 0;
-	}
-
-	public int getCurrentDesperation() {
-		return currentDesperation;
-	}
-
-	public void addDesperation(int addedDesperation) {
-		if (addedDesperation >= 0)
-			currentDesperation = Math.min(currentDesperation + addedDesperation, maxDesperation);
-		if (currentDesperation == maxDesperation) {
-			// TODO: start furious round
-		}
-	}
-
-	public void resetCurrentDesperation() {
-		currentDesperation = 0;
-	}
-
 	public void addShot(Shot shot) {
 		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
 		if (shot.origin instanceof Enemy) {
@@ -217,27 +166,5 @@ public class GameMaster extends AnimationTimer {
 
 	public void mouseClicked(double x, double y) {
 		player.spawnShot();
-	}
-
-	public void removeEntity(EntityType entityType, Entity entity) {
-		GameScene gameScene = (GameScene) Context.instance.sceneMaster.getScene("game");
-		gameScene.removeEntitiy(entityType, entity);
-
-		switch (entityType) {
-		case ENEMY:
-			enemies.remove(entity);
-			break;
-		case SHOT:
-			if (((Shot) entity).origin instanceof Enemy)
-				enemyShots.remove(entity);
-			else {
-				playerShots.remove(entity);
-			}
-			break;
-		case PLAYER:
-			stop();
-			break;
-		}
-		// TODO: remove explosions
 	}
 }

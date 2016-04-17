@@ -5,9 +5,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Rotate;
 
 public class Player extends Entity {
-
-	public int damage = 0;
-	public boolean desperate;
+	private int maxDesperation = 100;
+	private int currentLife = 3;
+	private int currentDesperation = 0;
+	private int maxDamage = 3;
+	private int damage = 0;
+	private boolean desperate = false;
 
 	public Player(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
@@ -55,7 +58,7 @@ public class Player extends Entity {
 
 	@Override
 	public void collided(Entity shot) {
-		Context.instance.getGameMaster().damage(1);
+		damage();
 	}
 
 	@Override
@@ -63,4 +66,41 @@ public class Player extends Entity {
 		return EntityType.PLAYER;
 	}
 
+	public int getCurrentLife() {
+		return currentLife;
+	}
+
+	public void damage() {
+		damage += 1;
+
+		if (damage >= 0) {
+			damage = Math.min(damage + damage, 3);
+		}
+
+	}
+
+	public void heal(int health) {
+		if (health >= 0)
+			this.currentLife = Math.min(currentLife + health, maxDamage);
+	}
+
+	public int getCurrentDesperation() {
+		return currentDesperation;
+	}
+
+	public void addDesperation(int addedDesperation) {
+		if (addedDesperation >= 0)
+			currentDesperation = Math.min(currentDesperation + addedDesperation, maxDesperation);
+		if (currentDesperation == maxDesperation) {
+			// TODO: start furious round
+		}
+	}
+
+	public void resetCurrentDesperation() {
+		currentDesperation = 0;
+	}
+
+	public boolean isDesperate() {
+		return desperate;
+	}
 }
