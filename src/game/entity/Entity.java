@@ -6,9 +6,11 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 
 public abstract class Entity {
+	public static final double SCALE = 0.8;
+	
 	public double radialSpeed = 0.1;
 	public boolean valid = true;
-	protected double scale;
+	public double scale;
 	protected double x; // 0 - max X
 	protected double y; // 0 - max Y
 	protected double dirLooking; // 0 - 360

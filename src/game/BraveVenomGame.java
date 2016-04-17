@@ -1,7 +1,6 @@
 package game;
 
 import core.Context;
-import game.generator.WorldBuilder;
 import game.scenes.GameScene;
 import game.scenes.HelpMenuScene;
 import game.scenes.MainMenuScene;

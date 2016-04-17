@@ -7,8 +7,13 @@ import java.util.Random;
 import core.Context;
 import core.masters.GameMaster;
 import core.masters.GraphicsMaster;
+import game.entity.ActiveEnemy;
 import game.entity.Enemy;
+import game.entity.EntityType;
 import game.entity.PassiveEnemy;
+import game.entity.Player;
+import game.scenes.GameScene;
+import javafx.scene.image.Image;
 
 public class WorldBuilder {
 	protected final int ROOM_LIMIT = 300;
@@ -28,8 +33,8 @@ public class WorldBuilder {
 	private final int field_height = 150;
 
 	public WorldBuilder() {
-		n = 3 * graphics.gameWidth.get() / field_width;
-		m = 50 * graphics.gameHeight.get() / field_height;
+		n = graphics.gameWidth.get() / field_width;
+		m = 10 * graphics.gameHeight.get() / field_height;
 
 		// make odd sizes
 		n = n - (n + 1) % 2;
@@ -49,13 +54,6 @@ public class WorldBuilder {
 		initFields();
 
 		// genMeteorits(0.1);
-
-//		for (int y = 0; y < m; y++) {
-//			for (int x = 0; x < n; x++) {
-//				System.out.print(world[x][y] + " ");
-//			}
-//			System.out.println();
-//		}
 	}
 
 	private void initFields() {
@@ -182,14 +180,12 @@ public class WorldBuilder {
 		genFloors();
 		clearDeadends();
 		
-		Enemy enemy = new PassiveEnemy(4537, 43930, 0, 0);
-		master.addEnemy(enemy);
+		Enemy enemy;
 
 		
-		int COUNTER = 10000;
+		int COUNTER = 1000;
 		for (int i = 0; i < COUNTER; i++) {
 			int x = rnd.nextInt(n * field_width), y = rnd.nextInt(m * field_height);
-			System.out.println(x + " " + y);
 			
 			if (getField(x, y) != 2) {
 				continue;
@@ -200,7 +196,6 @@ public class WorldBuilder {
 			if (master.checkCollide(enemy, master.enemies)) {
 				enemy.valid = false;
 			} else {
-				System.out.println("added");
 				master.addEnemy(enemy);
 			}
 		}
@@ -211,6 +206,13 @@ public class WorldBuilder {
 	
 	private int getField(int x, int y) {
 		return world[x / field_width][y / field_height].getValue();
+	}
+	
+	public WorldBuilder genPlayer() {
+		Player player = new Player(1 * field_width, 1 * field_height, 0, 10);
+		master.addPlayer(player);
+		
+		return this;
 	}
 
 	private WorldBuilder genEntity(double amout, Creatable creator) {
@@ -236,6 +238,7 @@ public class WorldBuilder {
 				boolean checked = true;
 				while (checked) {
 					pos = fields.get(0);
+					fields.remove(0);
 
 					for (int j = 0; j < NEIGHS_ALL.length; j++) {
 						int x = pos.x + NEIGHS_ALL[j].x, y = pos.y + NEIGHS_ALL[j].y;
@@ -252,7 +255,6 @@ public class WorldBuilder {
 					}
 
 					creator.generate(pos.x, pos.y);
-					fields.remove(0);
 					checked = false;
 				}
 			}
@@ -260,11 +262,20 @@ public class WorldBuilder {
 
 		return this;
 	}
-
-	public WorldBuilder genMeteorits(double amout) {
+	
+	public WorldBuilder genShips(double amout) {
 
 		genEntity(amout, (x, y) -> {
 			world[x][y].setValue(1);
+			Image obj = graphics.getImage("playerShip1_red");
+			
+			int pixelX = x * field_width, pixelY = y * field_height;
+			pixelX += rnd.nextInt(field_width - (int)(obj.getWidth() * 0.8));
+			pixelY += rnd.nextInt(field_height - (int)(obj.getHeight() * 0.8));
+			
+			
+			Enemy enemy = new ActiveEnemy(pixelX, pixelY, 0, 1);
+			master.addEnemy(enemy);
 		});
 
 		return this;

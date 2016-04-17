@@ -77,15 +77,18 @@ public class GameMaster extends AnimationTimer {
 					i.remove();
 			}
 		}
-		player.tick(ticks);
 
-		collide(player, enemies);
-		collide(player, enemyShots);
-		for (Enemy enemy : enemies) {
-			collide(enemy, playerShots);
+		if (player != null) {
+			player.tick(ticks);
+
+			collide(player, enemies);
+			collide(player, enemyShots);
+			for (Enemy enemy : enemies) {
+				collide(enemy, playerShots);
+			}
 		}
 	}
-	
+
 	public boolean checkCollide(Entity self, List<? extends Entity> others) {
 		if (!self.valid)
 			return false;
@@ -94,13 +97,13 @@ public class GameMaster extends AnimationTimer {
 			if (!other.valid)
 				continue;
 			Circle otherC = other.collisionCircle();
-			if (Math.pow((otherC.getCenterX() - selfC.getCenterX()), 2) + Math
-					.pow(otherC.getCenterY() - selfC.getCenterY(), 2) <= Math
-					.pow(otherC.getRadius() - selfC.getRadius(), 2)) {
+			if (Math.pow((otherC.getCenterX() - selfC.getCenterX()), 2)
+					+ Math.pow(otherC.getCenterY() - selfC.getCenterY(), 2) <= Math
+							.pow(otherC.getRadius() - selfC.getRadius(), 2)) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -112,9 +115,9 @@ public class GameMaster extends AnimationTimer {
 			if (!other.valid)
 				continue;
 			Circle otherC = other.collisionCircle();
-			if (Math.pow((otherC.getCenterX() - selfC.getCenterX()), 2) + Math
-					.pow(otherC.getCenterY() - selfC.getCenterY(), 2) <= Math
-					.pow(otherC.getRadius() - selfC.getRadius(), 2)) {
+			if (Math.pow((otherC.getCenterX() - selfC.getCenterX()), 2)
+					+ Math.pow(otherC.getCenterY() - selfC.getCenterY(), 2) <= Math
+							.pow(otherC.getRadius() - selfC.getRadius(), 2)) {
 				self.collided(other);
 				other.collided(self);
 			}
@@ -132,22 +135,8 @@ public class GameMaster extends AnimationTimer {
 	@Override
 	public void start() {
 		super.start();
-		new WorldBuilder().asteroidsField();
-		
-		player = new Player(200, 200, 0, 10);
-		Enemy enemy1 = new ActiveEnemy(800, 800, 0, 1);
-		Enemy enemy2 = new PassiveEnemy(400, 400, 0, 0);
-		enemy2.radialSpeed = 0;
-		Enemy enemy3 = new PassiveEnemy(800, 400, 50, 0);
+		new WorldBuilder().asteroidsField().genPlayer().genShips(0.3);
 
-		GameScene gamescene = ((GameScene) context.getGraphicsMaster().getScene("game"));
-		gamescene.addEntitiy(EntityType.PLAYER, player);
-		gamescene.addEntitiy(EntityType.ENEMY, enemy1);
-		gamescene.addEntitiy(EntityType.ENEMY, enemy2);
-		gamescene.addEntitiy(EntityType.ENEMY, enemy3);
-		enemies.add(enemy1);
-		enemies.add(enemy2);
-		enemies.add(enemy3);
 	}
 
 	public void pause() {
@@ -192,5 +181,10 @@ public class GameMaster extends AnimationTimer {
 		GameScene gamescene = ((GameScene) context.getGraphicsMaster().getScene("game"));
 		enemies.add(enemy);
 		gamescene.addEntitiy(EntityType.ENEMY, enemy);
+	}
+
+	public void addPlayer(Player player) {
+		GameScene gamescene = ((GameScene) context.getGraphicsMaster().getScene("game"));
+		gamescene.addEntitiy(EntityType.PLAYER, player);
 	}
 }
