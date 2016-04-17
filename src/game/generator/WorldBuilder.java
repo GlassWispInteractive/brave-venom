@@ -34,7 +34,7 @@ public class WorldBuilder {
 		// make odd sizes
 		n = n - (n + 1) % 2;
 		m = m - (m + 1) % 2;
-
+		
 		world = new Point[n][m];
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < m; j++) {
@@ -48,22 +48,14 @@ public class WorldBuilder {
 		// init
 		initFields();
 
-		genFloors();
-		
-//		System.out.println(world[1][1]);
-//		System.out.println(world[n-2][m-2]);
-		clearDeadends();
 		// genMeteorits(0.1);
 
-		for (int y = 0; y < m; y++) {
-			for (int x = 0; x < n; x++) {
-				System.out.print(world[x][y] + " ");
-			}
-			System.out.println();
-		}
-
-		System.out.println("works");
-		System.exit(0);
+//		for (int y = 0; y < m; y++) {
+//			for (int x = 0; x < n; x++) {
+//				System.out.print(world[x][y] + " ");
+//			}
+//			System.out.println();
+//		}
 	}
 
 	private void initFields() {
@@ -190,17 +182,27 @@ public class WorldBuilder {
 		genFloors();
 		clearDeadends();
 		
-		int COUNTER = 10;
+		Enemy enemy = new PassiveEnemy(4537, 43930, 0, 0);
+		master.addEnemy(enemy);
+
+		
+		int COUNTER = 10000;
 		for (int i = 0; i < COUNTER; i++) {
-			int x = rnd.nextInt(n), y = rnd.nextInt(m);
+			int x = rnd.nextInt(n * field_width), y = rnd.nextInt(m * field_height);
+			System.out.println(x + " " + y);
 			
 			if (getField(x, y) != 2) {
 				continue;
 			}
 			
-			Enemy enemy = new PassiveEnemy(x, y, 0, 0);
-			master.addEnemy(enemy);
-//			master.
+			enemy = new PassiveEnemy(x, y, 0, 0);
+			
+			if (master.checkCollide(enemy, master.enemies)) {
+				enemy.valid = false;
+			} else {
+				System.out.println("added");
+				master.addEnemy(enemy);
+			}
 		}
 		
 		

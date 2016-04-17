@@ -2,6 +2,7 @@ package core.masters;
 
 import core.Context;
 import game.entity.*;
+import game.generator.WorldBuilder;
 import game.scenes.GameScene;
 import javafx.animation.AnimationTimer;
 import javafx.scene.shape.Circle;
@@ -31,7 +32,6 @@ public class GameMaster extends AnimationTimer {
 
 	public GameMaster(Context context) {
 		this.context = context;
-
 	}
 
 	@Override
@@ -79,14 +79,32 @@ public class GameMaster extends AnimationTimer {
 		}
 		player.tick(ticks);
 
-		checkCollide(player, enemies);
-		checkCollide(player, enemyShots);
+		collide(player, enemies);
+		collide(player, enemyShots);
 		for (Enemy enemy : enemies) {
-			checkCollide(enemy, playerShots);
+			collide(enemy, playerShots);
 		}
 	}
+	
+	public boolean checkCollide(Entity self, List<? extends Entity> others) {
+		if (!self.valid)
+			return false;
+		Circle selfC = self.collisionCircle();
+		for (Entity other : others) {
+			if (!other.valid)
+				continue;
+			Circle otherC = other.collisionCircle();
+			if (Math.pow((otherC.getCenterX() - selfC.getCenterX()), 2) + Math
+					.pow(otherC.getCenterY() - selfC.getCenterY(), 2) <= Math
+					.pow(otherC.getRadius() - selfC.getRadius(), 2)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
-	private void checkCollide(Entity self, List<? extends Entity> others) {
+	public void collide(Entity self, List<? extends Entity> others) {
 		if (!self.valid)
 			return;
 		Circle selfC = self.collisionCircle();
@@ -114,6 +132,8 @@ public class GameMaster extends AnimationTimer {
 	@Override
 	public void start() {
 		super.start();
+		new WorldBuilder().asteroidsField();
+		
 		player = new Player(200, 200, 0, 10);
 		Enemy enemy1 = new ActiveEnemy(800, 800, 0, 1);
 		Enemy enemy2 = new PassiveEnemy(400, 400, 0, 0);
@@ -169,6 +189,8 @@ public class GameMaster extends AnimationTimer {
 	}
 
 	public void addEnemy(Enemy enemy) {
+		GameScene gamescene = ((GameScene) context.getGraphicsMaster().getScene("game"));
 		enemies.add(enemy);
+		gamescene.addEntitiy(EntityType.ENEMY, enemy);
 	}
 }
