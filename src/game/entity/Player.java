@@ -20,7 +20,7 @@ public class Player extends Entity {
 
 	public Player(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
-		initImage(Context.instance.getSceneMaster().getImage("playerShip1_green"), 0.8);
+		initImage(Context.instance.getGraphicsMaster().getImage("playerShip1_green"), 0.8);
 		redraw();
 	}
 
@@ -46,11 +46,11 @@ public class Player extends Entity {
 
 			gc.drawImage(image, x, y, imageWidth, imageHeight);
 
+
 			if (currentDamage >= 1 && currentDamage <= 3) {
-				gc.drawImage(Context.instance.getSceneMaster().getImage("playerShip1_damage" + currentDamage), x, y,
+				gc.drawImage(Context.instance.getGraphicsMaster().getImage("playerShip1_damage" + currentDamage), x, y,
 						imageWidth, imageHeight);
 			}
-
 			gc.restore();
 		}
 	}

@@ -14,21 +14,35 @@ public class ActiveEnemy extends Enemy {
 	public ActiveEnemy(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
 
-		initImage(Context.instance.getSceneMaster().getImage("playerShip1_red"), 0.8);
+		initImage(Context.instance.getGraphicsMaster().getImage("playerShip1_red"), 0.8);
 	}
 
 	@Override
 	public void tick(int ticks) {
 		time += ticks;
 		Player player = Context.instance.gameMaster.player;
-		moveTowards(player.getXCenter(), player.getYCenter(), ticks);
-		turnTowards(player.getXCenter(), player.getYCenter(), ticks);
+
+//		if (this.getXCenter() - player.getXCenter() < Context.instance.getGraphicsMaster().gameHeight.get() / 2) {
+//			moveTowards(player.getXCenter(), player.getYCenter(), ticks);
+//			turnTowards(player.getXCenter(), player.getYCenter(), ticks);
+//		}
 		shootCount += ticks;
+
 		if (shootCount > shootFrequency) {
 			spawnShot();
 			shootCount -= shootFrequency;
 		}
 		redraw();
+	}
+	
+	public void attackPlayer() {
+//		protected void moveTowards(double targetX, double targetY, int ticks) {
+//
+//			double dx = targetX - getXCenter();
+//			double dy = targetY - getYCenter();
+//			double dir = getDir(dx, dy);
+//			moveInDir(dir, ticks);
+//		}
 	}
 
 	@Override

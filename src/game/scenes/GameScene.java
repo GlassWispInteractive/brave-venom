@@ -2,7 +2,7 @@ package game.scenes;
 
 import core.masters.FontMaster;
 import core.masters.GameMaster;
-import core.masters.SceneMaster;
+import core.masters.GraphicsMaster;
 import game.entity.Enemy;
 import game.entity.Explosion;
 import game.entity.Player;
@@ -15,7 +15,7 @@ import javafx.scene.text.TextAlignment;
 public class GameScene extends AbstractGameScene {
 	private GameMaster gameMaster = sceneMaster.getContext().getGameMaster();
 
-	public GameScene(SceneMaster sceneMaster) {
+	public GameScene(GraphicsMaster sceneMaster) {
 		super(sceneMaster);
 		update();
 	}

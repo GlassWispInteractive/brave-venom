@@ -7,7 +7,7 @@ import javafx.scene.transform.Rotate;
 public class PassiveEnemy extends Enemy {
 	public PassiveEnemy(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
-		initImage(Context.instance.getSceneMaster().getImage("meteorBrown_big1"), 0.8);
+		initImage(Context.instance.getGraphicsMaster().getImage("meteorBrown_big1"), 0.8);
 	}
 
 	@Override

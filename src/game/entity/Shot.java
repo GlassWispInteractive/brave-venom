@@ -1,7 +1,7 @@
 package game.entity;
 
 import core.Context;
-import core.masters.SceneMaster;
+import core.masters.GraphicsMaster;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Rotate;
 
@@ -11,15 +11,15 @@ public class Shot extends Entity {
 	public Shot(double x, double y, double dir, double speed, String spritefile, Entity origin) {
 		super(x, y, dir, speed);
 		this.origin = origin;
-		initImage(Context.instance.getSceneMaster().getImage(spritefile), 0.8);
+		initImage(Context.instance.getGraphicsMaster().getImage(spritefile), 0.8);
 	}
 
 	@Override
 	public void tick(int ticks) {
-		SceneMaster sceneMaster = Context.instance.getSceneMaster();
+		SceneMaster sceneMaster = Context.instance.getGraphicsMaster();
 		double offset = 200;
-		if (Double.compare(x, -offset) < 0 || Double.compare(x, sceneMaster.gameWidth.get() + offset) > 0
-				|| Double.compare(y, -offset) < 0 || Double.compare(y, sceneMaster.gameHeight.get() + offset) > 0)
+		if (Double.compare(x, -offset) < 0 || Double.compare(x, graphicsMaster.gameWidth.get() + offset) > 0
+				|| Double.compare(y, -offset) < 0 || Double.compare(y, graphicsMaster.gameHeight.get() + offset) > 0)
 			invalidate();
 		moveInDir(dirLooking, ticks);
 		redraw();

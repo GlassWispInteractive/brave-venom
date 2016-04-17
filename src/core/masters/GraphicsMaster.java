@@ -16,7 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
-public class SceneMaster {
+public class GraphicsMaster {
 	public final Color FRONT = (Color) Paint.valueOf("#CFCFCF");
 	public final Color BACK = (Color) Paint.valueOf("#000000");
 	public final Color GREEN = (Color) Paint.valueOf("#1B8056");
@@ -39,7 +39,7 @@ public class SceneMaster {
 	private Scene scene;
 	private boolean ticking = true;
 
-	public SceneMaster(Context context) {
+	public GraphicsMaster(Context context) {
 		this.context = context;
 		try {
 			Files.walk(Paths.get("res/graphics")).forEach(filePath -> {

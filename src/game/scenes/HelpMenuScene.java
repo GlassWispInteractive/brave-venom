@@ -1,7 +1,7 @@
 package game.scenes;
 
 import core.masters.FontMaster;
-import core.masters.SceneMaster;
+import core.masters.GraphicsMaster;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,7 +22,7 @@ public class HelpMenuScene extends AbstractMenuScene {
 			+ "justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor "
 			+ "sit amet.";
 
-	public HelpMenuScene(SceneMaster sceneMaster) {
+	public HelpMenuScene(GraphicsMaster sceneMaster) {
 		super(sceneMaster);
 
 		initScene();
@@ -74,7 +74,7 @@ public class HelpMenuScene extends AbstractMenuScene {
 		buttonBack.setPrefHeight(Double.MAX_VALUE);
 
 		buttonBack.setOnAction((e) -> {
-			sceneMaster.getContext().getSceneMaster().showScene("main_menu", foreground);
+			sceneMaster.getContext().getGraphicsMaster().showScene("main_menu", foreground);
 		});
 
 		Label labelDescription = new Label(HELP_TEXT);

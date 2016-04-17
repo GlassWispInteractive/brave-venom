@@ -3,7 +3,7 @@ package core;
 import core.masters.AudioMaster;
 import core.masters.EventMaster;
 import core.masters.GameMaster;
-import core.masters.SceneMaster;
+import core.masters.GraphicsMaster;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyStringProperty;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public abstract class Context extends Application {
 	// instances from the master classes
 	public final AudioMaster audioMaster;
-	public final SceneMaster sceneMaster;
+	public final GraphicsMaster graphicsMaster;
 	public final EventMaster eventMaster;
 	public final GameMaster gameMaster;
 	public static Context instance = null;
@@ -40,7 +40,7 @@ public abstract class Context extends Application {
 		this.title.set(title);
 
 		this.audioMaster = new AudioMaster(this);
-		this.sceneMaster = new SceneMaster(this);
+		this.graphicsMaster = new GraphicsMaster(this);
 		this.eventMaster = new EventMaster(this);
 		this.gameMaster = new GameMaster(this);
 	}
@@ -114,8 +114,8 @@ public abstract class Context extends Application {
 		return audioMaster;
 	}
 
-	public SceneMaster getSceneMaster() {
-		return sceneMaster;
+	public GraphicsMaster getGraphicsMaster() {
+		return graphicsMaster;
 	}
 
 	public GameMaster getGameMaster() {

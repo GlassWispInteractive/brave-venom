@@ -58,10 +58,10 @@ public class GameMaster extends AnimationTimer {
 	}
 
 	private void tick(int ticks) {
-		SceneMaster sceneMaster = context.getSceneMaster();
+		GraphicsMaster sceneMaster = context.getGraphicsMaster();
 
 		// debug info
-		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
+		GameScene gameScene = ((GameScene) sceneMaster.getContext().getGraphicsMaster().getScene("game"));
 		gameScene.allticks += ticks;
 		gameScene.tickLabel.setText(gameScene.allticks + " ticks");
 		int nrEntities = enemies.size() + playerShots.size() + enemyShots.size() + 1;
@@ -84,16 +84,36 @@ public class GameMaster extends AnimationTimer {
 					i.remove();
 			}
 		}
-		player.tick(ticks);
 
-		checkCollide(player, enemies);
-		checkCollide(player, enemyShots);
-		for (Enemy enemy : enemies) {
-			checkCollide(enemy, playerShots);
+		if (player != null) {
+			player.tick(ticks);
+
+			collide(player, enemies);
+			collide(player, enemyShots);
+			for (Enemy enemy : enemies) {
+				collide(enemy, playerShots);
+			}
 		}
 	}
+	public boolean checkCollide(Entity self, List<? extends Entity> others) {
+		if (!self.valid)
+			return false;
+		Circle selfC = self.collisionCircle();
+		for (Entity other : others) {
+			if (!other.valid)
+				continue;
+			Circle otherC = other.collisionCircle();
+			if (Math.pow((otherC.getCenterX() - selfC.getCenterX()), 2)
+					+ Math.pow(otherC.getCenterY() - selfC.getCenterY(), 2) <= Math
+					.pow(otherC.getRadius() - selfC.getRadius(), 2)) {
+				return true;
+			}
+		}
 
-	public void checkCollide(Entity self, List<? extends Entity> others) {
+		return false;
+	}
+
+	public void collide(Entity self, List<? extends Entity> others) {
 		if (!self.valid)
 			return;
 		Circle selfC = self.collisionCircle();
@@ -105,7 +125,6 @@ public class GameMaster extends AnimationTimer {
 			if (Math.pow((otherC.getCenterX() - selfC.getCenterX()), 2) + Math
 					.pow(otherC.getCenterY() - selfC.getCenterY(), 2) <= Math
 					.pow(otherC.getRadius() - selfC.getRadius(), 2)) {
-				System.out.println("collide");
 				other.collided(self);
 				self.collided(other);
 			}
@@ -114,22 +133,24 @@ public class GameMaster extends AnimationTimer {
 
 	private void render() {
 
-		SceneMaster sceneMaster = context.getSceneMaster();
+		GraphicsMaster sceneMaster = context.getGraphicsMaster();
 		sceneMaster.render();
-		GameScene gameScene = ((GameScene) sceneMaster.getContext().getSceneMaster().getScene("game"));
+		GameScene gameScene = ((GameScene) sceneMaster.getContext().getGraphicsMaster().getScene("game"));
 		gameScene.update();
 	}
 
 	@Override
 	public void start() {
 		super.start();
+		new WorldBuilder().asteroidsField();
+
 		player = new Player(200, 200, 0, 10);
 		//		Enemy enemy1 = new ActiveEnemy(800, 800, 0, 1);
 		Enemy enemy2 = new PassiveEnemy(400, 400, 0, 0);
 		enemy2.radialSpeed = 0;
 		Enemy enemy3 = new PassiveEnemy(800, 400, 50, 0);
 
-		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
+		GameScene gamescene = ((GameScene) context.getGraphicsMaster().getScene("game"));
 		gamescene.addEntitiy(EntityType.PLAYER, player);
 		//		gamescene.addEntitiy(EntityType.ENEMY, enemy1);
 		gamescene.addEntitiy(EntityType.ENEMY, enemy2);
@@ -159,7 +180,7 @@ public class GameMaster extends AnimationTimer {
 	}
 
 	public void addShot(Shot shot) {
-		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
+		GameScene gamescene = ((GameScene) context.getGraphicsMaster().getScene("game"));
 		if (shot.origin instanceof Enemy) {
 			enemyShots.add(shot);
 		} else {
@@ -169,7 +190,7 @@ public class GameMaster extends AnimationTimer {
 	}
 
 	public void addExplosion(Explosion explosion) {
-		GameScene gamescene = ((GameScene) context.getSceneMaster().getScene("game"));
+		GameScene gamescene = ((GameScene) context.getGraphicsMaster().getScene("game"));
 		gamescene.addEntitiy(EntityType.EXPLOSION, explosion);
 	}
 
@@ -182,5 +203,16 @@ public class GameMaster extends AnimationTimer {
 	}
 
 	public void startDesperateMode() {
+	}
+
+	public void addEnemy(Enemy enemy) {
+		GameScene gamescene = ((GameScene) context.getGraphicsMaster().getScene("game"));
+		enemies.add(enemy);
+		gamescene.addEntitiy(EntityType.ENEMY, enemy);
+	}
+
+	public void addPlayer(Player player) {
+		GameScene gamescene = ((GameScene) context.getGraphicsMaster().getScene("game"));
+		gamescene.addEntitiy(EntityType.PLAYER, player);
 	}
 }

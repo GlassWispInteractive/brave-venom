@@ -11,7 +11,7 @@ public class Explosion extends Entity {
 	public Explosion(double x, double y) {
 		super(x, y, 0, 0);
 		a = b = 0;
-		initImage(Context.instance.getSceneMaster().getImage("explosion-" + a + b), 2.0);
+		initImage(Context.instance.getGraphicsMaster().getImage("explosion-" + a + b), 2.0);
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class Explosion extends Entity {
 		if (a > 7) {
 			invalidate();
 		} else {
-			changeImage(Context.instance.getSceneMaster().getImage("explosion-" + a + b));
+			changeImage(Context.instance.getGraphicsMaster().getImage("explosion-" + a + b));
 		}
 		redraw();
 	}

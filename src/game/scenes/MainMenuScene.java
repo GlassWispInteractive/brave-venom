@@ -1,6 +1,6 @@
 package game.scenes;
 
-import core.masters.SceneMaster;
+import core.masters.GraphicsMaster;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,7 +10,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 public class MainMenuScene extends AbstractMenuScene {
-	public MainMenuScene(SceneMaster sceneMaster) {
+	public MainMenuScene(GraphicsMaster sceneMaster) {
 		super(sceneMaster);
 
 		init_scene();
@@ -70,17 +70,17 @@ public class MainMenuScene extends AbstractMenuScene {
 		buttonExit.setPrefHeight(Double.MAX_VALUE);
 
 		buttonStart.setOnAction((e) -> {
-			sceneMaster.getContext().getSceneMaster().showScene("game", foreground);
+			sceneMaster.getContext().getGraphicsMaster().showScene("game", foreground);
 			sceneMaster.getContext().getGameMaster().start();
 		});
 		buttonWildcard.setOnAction((e) -> {
 			Platform.exit();
 		});
 		buttonHelp.setOnAction((e) -> {
-			sceneMaster.getContext().getSceneMaster().showScene("help_menu", foreground);
+			sceneMaster.getContext().getGraphicsMaster().showScene("help_menu", foreground);
 		});
 		buttonSettings.setOnAction((e) -> {
-			sceneMaster.getContext().getSceneMaster().showScene("settings_menu", foreground);
+			sceneMaster.getContext().getGraphicsMaster().showScene("settings_menu", foreground);
 		});
 		buttonExit.setOnAction((e) -> {
 			Platform.exit();
