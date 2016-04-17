@@ -13,7 +13,7 @@
 //		canvas = new Canvas(player.getWidth(), player.getHeight());
 //	}
 //
-//	private void update() {
+//	private void redraw() {
 //		Image player = gm.context.getSceneMaster().getImage("playerShip1_red");
 //		GraphicsContext gc = canvas.getGraphicsContext2D();
 //		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -35,11 +35,26 @@
 //}
 package game.entity;
 
+import core.Context;
+
 public abstract class Enemy extends Entity {
 
 	public Enemy(double x, double y, double dir, double speed) {
 		super(x, y, dir, speed);
-
 	}
 
+	@Override
+	public void collided(Entity shot) {
+		// enemy got shot by player...
+		Explosion explosion = new Explosion(this.getXCenter(), this.getYCenter());
+		Context.instance.gameMaster.explosions.add(explosion);
+		Context.instance.gameMaster.addExplosion(explosion);
+		invalidate();
+	}
+
+	@Override
+	public EntityType getType() {
+		return EntityType.ENEMY;
+	}
 }
+

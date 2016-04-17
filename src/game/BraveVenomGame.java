@@ -15,15 +15,13 @@ public class BraveVenomGame extends Context {
 		super(TITLE);
 
 		// general settings
-		graphicsMaster.windowWidth.set(1200);
-		graphicsMaster.windowHeight.set(800);
+		graphicsMaster.windowWidth.set(1920);
+		graphicsMaster.windowHeight.set(1010);
 		graphicsMaster.tileSize.set(16);
 		graphicsMaster.panelHeight.bind(graphicsMaster.tileSize.multiply(5));
-		// sceneMaster.gameHeight.bind(sceneMaster.windowHeight.subtract(sceneMaster.panelHeight.multiply(2)));
+		//		sceneMaster.gameHeight.bind(sceneMaster.windowHeight.subtract(sceneMaster.panelHeight.multiply(2)));
 		graphicsMaster.gameHeight.bind(graphicsMaster.windowHeight);
 		graphicsMaster.gameWidth.bind(graphicsMaster.windowWidth);
-
-		WorldBuilder world = new WorldBuilder();
 	}
 
 	public static void main(String[] args) {

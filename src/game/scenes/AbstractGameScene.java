@@ -17,7 +17,7 @@ import javafx.scene.paint.Paint;
 import java.util.HashMap;
 
 public abstract class AbstractGameScene extends Scene {
-	public Label tickLabel;
+	public Label tickLabel, entityLabel;
 	public long allticks = 0;
 	public Canvas bottomHUD;
 	public Pane foreground;
@@ -64,13 +64,13 @@ public abstract class AbstractGameScene extends Scene {
 		background = new Canvas(windowWidth, windowHeight);
 		StackPane entityPanes = new StackPane();
 		entityPanes.relocate(0, panelHeight);
+		shotPane = new Pane();
 		enemyPane = new Pane();
 		playerPane = new Pane();
-		shotPane = new Pane();
 		forceSize(enemyPane, gameWidth, gameHeight);
 		forceSize(playerPane, gameWidth, gameHeight);
 		forceSize(shotPane, gameWidth, gameHeight);
-		entityPanes.getChildren().addAll(enemyPane, playerPane, shotPane);
+		entityPanes.getChildren().addAll(shotPane, enemyPane, playerPane);
 
 		Pane topHUDPane = new Pane();
 		Pane bottomHUDPane = new Pane();
@@ -91,6 +91,9 @@ public abstract class AbstractGameScene extends Scene {
 		tickLabel = new Label("0 ticks");
 		tickLabel.setTextFill(Paint.valueOf("#ff0000"));
 		debugPane.getChildren().addAll(tickLabel);
+		entityLabel = new Label("0 ticks");
+		entityLabel.setTextFill(Paint.valueOf("#ff0000"));
+		debugPane.getChildren().addAll(entityLabel);
 		((StackPane) getRoot()).getChildren().addAll(debugPane);
 
 	}
@@ -118,7 +121,7 @@ public abstract class AbstractGameScene extends Scene {
 		((StackPane) getRoot()).getChildren().add(layer);
 		layer.relocate(x, y);
 
-		// update hash maps
+		// redraw hash maps
 		gcs.put(name, layer.getGraphicsContext2D());
 	}
 
@@ -131,7 +134,7 @@ public abstract class AbstractGameScene extends Scene {
 		if (pane != null) {
 			Canvas canvas = entity.getCanvas();
 			pane.getChildren().add(canvas);
-			canvas.relocate(entity.getX(), entity.getY());
+			canvas.relocate(entity.getXImage(), entity.getYImage());
 		}
 	}
 
@@ -148,6 +151,8 @@ public abstract class AbstractGameScene extends Scene {
 		case ENEMY:
 			return enemyPane;
 		case SHOT:
+			return shotPane;
+		case EXPLOSION:
 			return shotPane;
 		}
 		return null;

@@ -4,7 +4,9 @@ import core.Context;
 import game.entity.*;
 import game.scenes.GameScene;
 import javafx.animation.AnimationTimer;
+import javafx.scene.shape.Circle;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,20 +16,18 @@ public class GameMaster extends AnimationTimer {
 	public final List<Enemy> enemies = new LinkedList<>();
 	public final List<Shot> playerShots = new LinkedList<>();
 	public final List<Shot> enemyShots = new LinkedList<>();
-
-	public final int maxLife = 3;
-	public final int maxRound = 100;
-	public final int maxRoundTime = 100;
-	public final int maxDesperation = 100;
+	public final List<Explosion> explosions = new LinkedList<>();
 	public Player player;
+
+	public int maxRoundTime = 100;
+	public int currentRoundTime = maxRoundTime;
+	public int currentLevel = 1;
+
 	public double mouseX;
 	public double mouseY;
-	private int currentLife = maxLife;
-	private int currentRound = 1;
-	private int currentRoundTime = maxRoundTime;
-	private int currentDesperation = 0;
-	private double lastNanoTime = System.nanoTime();
+
 	private double time = 0;
+	private double lastNanoTime = System.nanoTime();
 
 	public GameMaster(Context context) {
 		this.context = context;
@@ -38,7 +38,7 @@ public class GameMaster extends AnimationTimer {
 	public void handle(long currentNanoTime) {
 		double fps = 60.0;
 
-		// calculate time since last update.
+		// calculate time since last redraw.
 		time += (currentNanoTime - lastNanoTime) / 1000000000.0;
 		lastNanoTime = currentNanoTime;
 		int passedTicks = (int) Math.floor(time * fps);
@@ -52,19 +52,55 @@ public class GameMaster extends AnimationTimer {
 
 	private void tick(int ticks) {
 		GraphicsMaster sceneMaster = context.getGraphicsMaster();
-		sceneMaster.tick(ticks);
-		for (Enemy enemy : enemies)
-			enemy.tick(ticks);
-		for (Shot shot : playerShots)
-			shot.tick(ticks);
-		for (Shot shot : enemyShots)
-			shot.tick(ticks);
-		player.tick(ticks);
 
 		// debug info
 		GameScene gameScene = ((GameScene) sceneMaster.getContext().getGraphicsMaster().getScene("game"));
 		gameScene.allticks += ticks;
 		gameScene.tickLabel.setText(gameScene.allticks + " ticks");
+		int nrEntities = enemies.size() + playerShots.size() + enemyShots.size() + 1;
+		gameScene.entityLabel.setText(nrEntities + "enteties");
+
+		sceneMaster.tick(ticks);
+		List<List<? extends Entity>> lists = new LinkedList<>();
+		lists.add(enemies);
+		lists.add(playerShots);
+		lists.add(enemyShots);
+		lists.add(explosions);
+		for (List<? extends Entity> list : lists) {
+			Iterator<? extends Entity> i = list.iterator();
+			while (i.hasNext()) {
+				Entity entity = i.next();
+				entity.tick(ticks);
+				if (entity.valid)
+					entity.tick(ticks);
+				else
+					i.remove();
+			}
+		}
+		player.tick(ticks);
+
+		checkCollide(player, enemies);
+		checkCollide(player, enemyShots);
+		for (Enemy enemy : enemies) {
+			checkCollide(enemy, playerShots);
+		}
+	}
+
+	private void checkCollide(Entity self, List<? extends Entity> others) {
+		if (!self.valid)
+			return;
+		Circle selfC = self.collisionCircle();
+		for (Entity other : others) {
+			if (!other.valid)
+				continue;
+			Circle otherC = other.collisionCircle();
+			if (Math.pow((otherC.getCenterX() - selfC.getCenterX()), 2) + Math
+					.pow(otherC.getCenterY() - selfC.getCenterY(), 2) <= Math
+					.pow(otherC.getRadius() - selfC.getRadius(), 2)) {
+				self.collided(other);
+				other.collided(self);
+			}
+		}
 	}
 
 	private void render() {
@@ -113,62 +149,23 @@ public class GameMaster extends AnimationTimer {
 		start();
 	}
 
-	public int getCurrentLife() {
-		return currentLife;
-	}
-
-	public void damage(int damage) {
-		if (damage >= 0)
-			this.currentLife = Math.max(currentLife - damage, 0);
-	}
-
-	public void heal(int health) {
-		if (health >= 0)
-			this.currentLife = Math.min(currentLife + health, maxLife);
-	}
-
-	public int getCurrentRound() {
-		return currentRound;
-	}
-
-	public void setCurrentRound(int currentRound) {
-		this.currentRound = currentRound;
-	}
-
-	public int getCurrentRoundTime() {
-		return currentRoundTime;
-	}
-
-	public void startRoundTime() {
-		this.currentRoundTime = 0;
-	}
-
-	public int getCurrentDesperation() {
-		return currentDesperation;
-	}
-
-	public void addDesperation(int addedDesperation) {
-		if (addedDesperation >= 0)
-			currentDesperation = Math.min(currentDesperation + addedDesperation, maxDesperation);
-		if (currentDesperation == maxDesperation) {
-			// TODO: start furious round
-		}
-	}
-
-	public void resetCurrentDesperation() {
-		currentDesperation = 0;
-	}
-
 	public void addShot(Shot shot) {
+		GameScene gamescene = ((GameScene) context.getGraphicsMaster().getScene("game"));
 		if (shot.origin instanceof Enemy) {
 			enemyShots.add(shot);
 		} else {
 			playerShots.add(shot);
 		}
+		gamescene.addEntitiy(EntityType.SHOT, shot);
+	}
+
+	public void addExplosion(Explosion explosion) {
+		GameScene gamescene = ((GameScene) context.getGraphicsMaster().getScene("game"));
+		gamescene.addEntitiy(EntityType.EXPLOSION, explosion);
 	}
 
 	public void mouseClicked(double x, double y) {
-		//		player.spawnShot();
+		player.spawnShot();
 	}
 
 	public void addEnemy(Enemy enemy) {
